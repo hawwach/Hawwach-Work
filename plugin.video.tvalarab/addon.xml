@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+  id="plugin.video.tvalarab"
+  version="1.0.0"
+  name="TV1.Alarab"
+  provider-name="Pipcan">
+  <requires>
+    <import addon="xbmc.python"
+            version="2.1.0"/>
+	<import addon="script.module.requests" />
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+             library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>V1.Alarab</summary>
+    <description>V1.Alarab</description>
+   
+    <platform>all</platform>
+  </extension>
+</addon>

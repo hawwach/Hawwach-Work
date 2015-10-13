@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addons>
+<addon
+  id="plugin.video.tvalarab"
+  version="1.0.0"
+  name="TV1.Alarab"
+  provider-name="Pipcan">
+  <requires>
+    <import addon="xbmc.python"
+            version="2.1.0"/>
+	<import addon="script.module.requests" />
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+             library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>V1.Alarab</summary>
+    <description>V1.Alarab</description>
+
+    <platform>all</platform>
+  </extension>
+</addon>
+
+    <addon id="repository.hawwach" name="hawwach" version="0.1.0" provider-name="hawwach">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="hawwach">
+            <info compressed="false">http://raw.github.com/hawwach/Hawwach-Work/master/_repo/addons.xml</info>
+            <checksum>http://raw.github.com/hawwach/Hawwach-Work/master/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">http://raw.github.com/hawwach/Hawwach-Work/master/_repo/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>MY ADDONS</summary>
+            <description>MY ADDONS</description>
+            <platform>all</platform>
+    </extension>
+</addon>
+</addons>
