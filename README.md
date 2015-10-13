@@ -1,2 +1,2 @@
 # Hawwach-Work
-Place for my plugin
+Place for my plugins
