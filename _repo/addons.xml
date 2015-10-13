@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
 <addon
-  id="plugin.video.tvalarab"
+  id="plugin.video.Arabic-VOD"
   version="1.0.0"
-  name="TV1.Alarab"
-  provider-name="Pipcan">
+  name="Arabic VOD"
+  provider-name="Hawwach">
   <requires>
     <import addon="xbmc.python"
             version="2.1.0"/>
@@ -15,8 +15,8 @@
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary>V1.Alarab</summary>
-    <description>V1.Alarab</description>
+    <summary>Arabic VOD</summary>
+    <description>Arabic VOD from Alarab.net</description>
 
     <platform>all</platform>
   </extension>

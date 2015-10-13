@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 import urllib,urllib2,xbmcplugin,xbmcgui,xbmcaddon,requests,re
 
-__settings__ = xbmcaddon.Addon(id='plugin.video.tvalarab')
+__settings__ = xbmcaddon.Addon(id='plugin.video.Arabic-VOD')
 _thisPlugin = int(sys.argv[1])
 _pluginName = (sys.argv[0])
     
