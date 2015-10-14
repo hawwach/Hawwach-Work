@@ -22,6 +22,48 @@
   </extension>
 </addon>
 
+<addon
+  id="plugin.video.bokra"
+  version="5.0.0"
+  name="BOKRA"
+  provider-name="Bisha">
+  <requires>
+    <import addon="xbmc.python"
+            version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+             library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Bokra vod Arabic plugin</summary>
+    <description>Bokra Arabic plugin. Arabic series and films VOD</description>
+
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon
+  id="plugin.video.sonara"
+  version="2.0.0"
+  name="Sonara"
+  provider-name="Bisha">
+  <requires>
+    <import addon="xbmc.python"
+            version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+             library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Sonara vod Arabic plugin</summary>
+    <description>Sonara Arabic plugin. This plugin is completely FREE</description>
+
+    <platform>all</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.video.youtube" name="YouTube" version="5.1.9" provider-name="bromix">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0"/>
