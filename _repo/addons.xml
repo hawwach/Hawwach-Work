@@ -2,7 +2,7 @@
 <addons>
 <addon
   id="plugin.video.Arabic-VOD"
-  version="1.0.0"
+  version="1.0.1"
   name="Arabic VOD"
   provider-name="Hawwach">
   <requires>
@@ -16,7 +16,7 @@
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary>Arabic VOD</summary>
-    <description>Arabic VOD from Alarab.net</description>
+    <description>Arabic VOD from Alarab</description>
 
     <platform>all</platform>
   </extension>

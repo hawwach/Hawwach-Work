@@ -1,49 +1,38 @@
 # -*- coding: utf8 -*-
 import urllib,urllib2,xbmcplugin,xbmcgui,xbmcaddon,requests,re
 
-__settings__ = xbmcaddon.Addon(id='plugin.video.Arabic-VOD')
-_thisPlugin = int(sys.argv[1])
-_pluginName = (sys.argv[0])
-    
+
+BASE='http://tv1.alarab.com'
 
 
 
 def CATEGORIES():
-	addDir("AFLAM ARAB","http://tv1.alarab.net/view-1_%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_1",1,"")
-	addDir("SERIE ARAB","http://tv1.alarab.net/view-1_%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_8",2,"")
-	addDir("SERIE AJNABI","http://tv1.alarab.net/view-1_%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A%D8%A9_1951",2,"")
-	addDir("SERIE TURKI","http://tv1.alarab.net/view-1_%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D8%AA%D8%B1%D9%83%D9%8A%D8%A9_299",2,"")
-	addDir("AFLAM AJNABI","http://tv1.alarab.net/view-5553/%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A%D8%A9",1,"")
-	addDir("THEATER","http://tv1.alarab.net/view-313/%D9%85%D8%B3%D8%B1%D8%AD%D9%8A%D8%A7%D8%AA",1,"")
-	addDir("TV PROGRAM","http://tv1.alarab.net/view-311/%D8%A8%D8%B1%D8%A7%D9%85%D8%AC-%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86",2,"")
-	addDir("TV CHANNEL","http://tv1.alarab.net/view-5807/%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86-%D8%A7%D9%84%D8%B9%D8%B1%D8%A8",2,"")
-	addDir("VIDEO CLIP","http://tv1.alarab.net/view-10/%D9%81%D9%8A%D8%AF%D9%8A%D9%88-%D9%83%D9%84%D9%8A%D8%A8",1,"")
-	addDir("CARTOON","http://tv1.alarab.net/view-4/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D9%83%D8%B1%D8%AA%D9%88%D9%86",2,"")
+	addDir("AFLAM ARAB","http://tv1.alarab.net/view-1_%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_1",1,"http://oi62.tinypic.com/1g27ts.jpg")
+	addDir("SERIE ARAB","http://tv1.alarab.net/view-1_%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_8",2,"http://oi59.tinypic.com/2j2xruf.jpg")
+	addDir("SERIE AJNABI","http://tv1.alarab.net/view-1_%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A%D8%A9_1951",2,"http://oi62.tinypic.com/xfoyad.jpg")
+	addDir("SERIE TURKI","http://tv1.alarab.net/view-1_%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D8%AA%D8%B1%D9%83%D9%8A%D8%A9_299",2,"http://oi59.tinypic.com/wc08k8.jpg")
+	addDir("AFLAM AJNABI","http://tv1.alarab.net/view-5553/%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A%D8%A9",1,"http://oi60.tinypic.com/2v0og84.jpg")
+	addDir("THEATER","http://tv1.alarab.net/view-313/%D9%85%D8%B3%D8%B1%D8%AD%D9%8A%D8%A7%D8%AA",1,"http://oi62.tinypic.com/2qb7syv.jpg")
+	addDir("TV PROGRAM","http://tv1.alarab.net/view-311/%D8%A8%D8%B1%D8%A7%D9%85%D8%AC-%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86",2,"http://oi57.tinypic.com/343qjbc.jpg")
+	addDir("VIDEO CLIP","http://tv1.alarab.net/view-10/%D9%81%D9%8A%D8%AF%D9%8A%D9%88-%D9%83%D9%84%D9%8A%D8%A8",1,"http://oi60.tinypic.com/dh4sxz.jpg")
+	addDir("CARTOON","http://tv1.alarab.net/view-4/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D9%83%D8%B1%D8%AA%D9%88%D9%86",2,"http://oi62.tinypic.com/izwa37.jpg")
 
 def getMovie(url):
-	openerx = urllib2.build_opener()
-	sockx = openerx.open(url)
-	contentx = sockx.read() 
-	sockx.close()
-	wieviele = contentx.count('<div class="video-box">')
-	teilen = contentx.split('<div class="video-box">')
-	for i in range(1,wieviele+1):
-		linkjetzt = teilen[i].split('"')
-		imgjetzt = linkjetzt[3]
-		urljetzt = "http://tv1.alarab.net/"+linkjetzt[1]
-		namejetzt = linkjetzt[5]
-		addLink(namejetzt,urljetzt,4,imgjetzt)
-	seitenzahl1 = contentx.split('<div class="pages"><center>')
-	seitenzahl2 = seitenzahl1[1].split("</div></center></div>")
-	seitenzahl3 = seitenzahl2[0].split('tsc_3d_button blue"')
-	seitenzahl4 = seitenzahl3[1].split(">")
-	seitenzahl5 = seitenzahl4[1].split("<")
-	seitenzahlselected = seitenzahl5[0]
-	seitenwieviel = seitenzahl2[0].count("href")
-	if int(seitenzahlselected) < seitenwieviel:
-		nextpagelink1 = seitenzahl3[1].split('"')
-		nextpagelink = "http://tv1.alarab.net" + nextpagelink1[7]
-		addDir("("+seitenzahlselected+"/"+str(seitenwieviel)+") Next Page",nextpagelink,1,"")
+        link = OPEN_URL(url)
+        match=re.compile('src="(.+?)".+?<h5><a href="(.+?)">(.+?)</a></h', re.DOTALL).findall(link)
+        for img,url2,name in match:
+            addDir2(name,'%s%s'%(BASE,url2),4,'%s'%(img))
+ 
+        addDir('GO TO PAGE',url,5,'')
+def getSerie(url):
+        link = OPEN_URL(url)
+        match=re.compile('<img src="(.+?)" alt="(.+?)".+?<h2><a href="(.+?)</a></h2>', re.DOTALL).findall(link)
+        for img,name,url2 in match:
+            addDir(name,'%s%s'%(BASE,url2),1,'%s'%(img))
+         
+        addDir('GO TO PAGE',url,3,'')
+            
+
 def GetPlayerCore(): 
     try: 
         PlayerMethod=getSet("core-player") 
@@ -54,56 +43,33 @@ def GetPlayerCore():
     except: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
     return PlayerMeth 
     return True
-
-def getSerie(url):
-	openerx = urllib2.build_opener()
-	sockx = openerx.open(url)
-	contentx = sockx.read() 
-	sockx.close()
-	wieviele = contentx.count('<div class="video-box">')
-	teilen = contentx.split('<div class="video-box">')
-	for i in range(1,wieviele+1):
-		linkjetzt = teilen[i].split('"')
-		imgjetzt = linkjetzt[3]
-		urljetzt = "http://tv1.alarab.net/"+linkjetzt[1]
-		namejetzt = linkjetzt[5]
-		addDir(namejetzt,urljetzt,3,imgjetzt)
-	seitenzahl1 = contentx.split('<div class="pages"><center>')
-	seitenzahl2 = seitenzahl1[1].split("</div></center></div>")
-	seitenzahl3 = seitenzahl2[0].split('tsc_3d_button blue"')
-	seitenzahl4 = seitenzahl3[1].split(">")
-	seitenzahl5 = seitenzahl4[1].split("<")
-	seitenzahlselected = seitenzahl5[0]
-	seitenwieviel = seitenzahl2[0].count("href")
-	if int(seitenzahlselected) < seitenwieviel:
-		nextpagelink1 = seitenzahl3[1].split('"')
-		nextpagelink = "http://tv1.alarab.net" + nextpagelink1[7]
-		addDir("("+seitenzahlselected+"/"+str(seitenwieviel)+") Next Page",nextpagelink,2,"")
-		
-def getSerieFolge(url):
-	openerx = urllib2.build_opener()
-	sockx = openerx.open(url)
-	contentx = sockx.read() 
-	sockx.close()
-	wieviele = contentx.count('<div class="video-box">')
-	teilen = contentx.split('<div class="video-box">')
-	for i in range(1,wieviele+1):
-		linkjetzt = teilen[i].split('"')
-		imgjetzt = linkjetzt[3]
-		urljetzt = "http://tv1.alarab.net/"+linkjetzt[1]
-		namejetzt = linkjetzt[5]
-		addDir2(namejetzt,urljetzt,4,imgjetzt)	
-	seitenzahl1 = contentx.split('<div class="pages"><center>')
-	seitenzahl2 = seitenzahl1[1].split("</div></center></div>")
-	seitenzahl3 = seitenzahl2[0].split('tsc_3d_button blue"')
-	seitenzahl4 = seitenzahl3[1].split(">")
-	seitenzahl5 = seitenzahl4[1].split("<")
-	seitenzahlselected = seitenzahl5[0]
-	seitenwieviel = seitenzahl2[0].count("href")
-	if int(seitenzahlselected) < seitenwieviel:
-		nextpagelink1 = seitenzahl3[1].split('"')
-		nextpagelink = "http://tv1.alarab.net" + nextpagelink1[7]
-		addDir("("+seitenzahlselected+"/"+str(seitenwieviel)+") Next Page",nextpagelink,3,"")	
+def page(url):
+        PAGE=[]  
+        PAGE2=[]  
+        link = OPEN_URL(url)
+        match2=re.compile('a class="tsc_3d_button red" href="(.+?)" title="(.+?)"').findall(link)
+        for url3,page in match2:
+            PAGE.append(page)
+            PAGE2.append(url3)
+        dialog = xbmcgui.Dialog()	
+        ret = dialog.select('Choose a Department', PAGE)
+        if ret == ret:
+            url = (BASE+PAGE2[ret])
+            getSerie(url)
+def page2(url):
+        PAGE=[]  
+        PAGE2=[]  
+        link = OPEN_URL(url)
+        match2=re.compile('a class="tsc_3d_button red" href="(.+?)" title="(.+?)"').findall(link)
+        for url3,page in match2:
+            PAGE.append(page)
+            PAGE2.append(url3)
+        dialog = xbmcgui.Dialog()	
+        ret = dialog.select('Choose a Department', PAGE)
+        if ret == ret:
+            url = (BASE+PAGE2[ret])
+            getMovie(url)
+	
 def OPEN_URL(url):
         req = urllib2.Request(url)
         req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20120101 Firefox/33.0')
@@ -145,19 +111,7 @@ def get_params():
                                 
         return param
 
-
-
-def addLink(name,url,mode,iconimage):
-    u=_pluginName+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)
-    ok=True
-    liz=xbmcgui.ListItem(name, iconImage="DefaultVideo.png", thumbnailImage=iconimage)
-    liz.setInfo( type="Video", infoLabels={ "Title": name } )
-    liz.setProperty("IsPlayable","true");
-    ok=xbmcplugin.addDirectoryItem(handle=_thisPlugin,url=u,listitem=liz,isFolder=False)
-    return ok
-	
-
-
+  
 def addDir(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
         ok=True
@@ -169,18 +123,24 @@ def addDir2(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name } )
+        liz.setInfo( type="Video", infoLabels={ "Title": name, "Epgdata": epgdata } )
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
         return ok
-   
+def addLink3(name,url,mode,iconimage,fanart,description=''):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&description="+str(description)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setInfo( type="Video", infoLabels={ "Title": name, "Epgdata": epgdata, 'plot': description } )
+        liz.setProperty('fanart_image', fanart)
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz,isFolder=False)
+        return ok
               
 params=get_params()
 url=None
 name=None
 mode=None
+epgdata=None
 
-
-	
 try:
         url=urllib.unquote_plus(params["url"])
 except:
@@ -193,10 +153,15 @@ try:
         mode=int(params["mode"])
 except:
         pass
+try:
+        epgdata=urllib.unquote_plus(params["epgdata"])
+except:
+        pass
 
 print "Mode: "+str(mode)
 print "URL: "+str(url)
 print "Name: "+str(name)
+print "Epgdata: "+str(epgdata)
 
 if mode==None or url==None or len(url)<1:
         print ""
@@ -209,9 +174,13 @@ elif mode==2:
 	getSerie(url)
 elif mode==3:
 	print ""+url
-	getSerieFolge(url)
+	page(url)
+
 elif mode==4:
 	PlayMovie(url)
+elif mode==5:
+	print ""+url
+	page2(url)
 
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
