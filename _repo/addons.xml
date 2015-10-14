@@ -101,7 +101,7 @@
 	</extension>
 </addon>
 
-    <addon id="repository.hawwach" name="hawwach" version="0.1.0" provider-name="hawwach">
+    <addon id="repository.hawwach" name="hawwach" version="0.1.1" provider-name="hawwach">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
