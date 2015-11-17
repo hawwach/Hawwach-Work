@@ -1,98 +1,179 @@
 # -*- coding: utf8 -*-
-import urllib,urllib2,xbmcplugin,xbmcgui,xbmcaddon,requests,re
+import urllib,urllib2,re,xbmcplugin,xbmcgui
+import xbmc, xbmcgui, xbmcplugin, xbmcaddon
+from httplib import HTTP
+from urlparse import urlparse
+import StringIO
+import httplib
+import time
 
 
-BASE='http://tv1.alarab.com'
+__settings__ = xbmcaddon.Addon(id='plugin.video.Arabic-VOD')
+__icon__ = __settings__.getAddonInfo('icon')
+__fanart__ = __settings__.getAddonInfo('fanart')
+__language__ = __settings__.getLocalizedString
+_thisPlugin = int(sys.argv[1])
+_pluginName = (sys.argv[0])
 
+
+
+def patch_http_response_read(func):
+    def inner(*args):
+        try:
+            return func(*args)
+        except httplib.IncompleteRead, e:
+            return e.partial
+
+    return inner
+httplib.HTTPResponse.read = patch_http_response_read(httplib.HTTPResponse.read)
 
 
 def CATEGORIES():
-	addDir("AFLAM ARAB","http://tv1.alarab.net/view-1_%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_1",1,"http://oi62.tinypic.com/1g27ts.jpg")
-	addDir("SERIE ARAB","http://tv1.alarab.net/view-1_%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9_8",2,"http://oi59.tinypic.com/2j2xruf.jpg")
-	addDir("SERIE AJNABI","http://tv1.alarab.net/view-1_%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A%D8%A9_1951",2,"http://oi62.tinypic.com/xfoyad.jpg")
-	addDir("SERIE TURKI","http://tv1.alarab.net/view-1_%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D8%AA%D8%B1%D9%83%D9%8A%D8%A9_299",2,"http://oi59.tinypic.com/wc08k8.jpg")
-	addDir("AFLAM AJNABI","http://tv1.alarab.net/view-5553/%D8%A7%D9%81%D9%84%D8%A7%D9%85-%D8%A7%D8%AC%D9%86%D8%A8%D9%8A%D8%A9",1,"http://oi60.tinypic.com/2v0og84.jpg")
-	addDir("THEATER","http://tv1.alarab.net/view-313/%D9%85%D8%B3%D8%B1%D8%AD%D9%8A%D8%A7%D8%AA",1,"http://oi62.tinypic.com/2qb7syv.jpg")
-	addDir("TV PROGRAM","http://tv1.alarab.net/view-311/%D8%A8%D8%B1%D8%A7%D9%85%D8%AC-%D8%AA%D9%84%D9%81%D8%B2%D9%8A%D9%88%D9%86",2,"http://oi57.tinypic.com/343qjbc.jpg")
-	addDir("VIDEO CLIP","http://tv1.alarab.net/view-10/%D9%81%D9%8A%D8%AF%D9%8A%D9%88-%D9%83%D9%84%D9%8A%D8%A8",1,"http://oi60.tinypic.com/dh4sxz.jpg")
-	addDir("CARTOON","http://tv1.alarab.net/view-4/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D9%83%D8%B1%D8%AA%D9%88%D9%86",2,"http://oi62.tinypic.com/izwa37.jpg")
-
-def getMovie(url):
-        link = OPEN_URL(url)
-        match=re.compile('src="(.+?)".+?<h5><a href="(.+?)">(.+?)</a></h', re.DOTALL).findall(link)
-        for img,url2,name in match:
-            addDir2(name,'%s%s'%(BASE,url2),4,'%s'%(img))
- 
-        addDir('GO TO PAGE',url,5,'')
-def getSerie(url):
-        link = OPEN_URL(url)
-        match=re.compile('<img src="(.+?)" alt="(.+?)".+?<h2><a href="(.+?)</a></h2>', re.DOTALL).findall(link)
-        for img,name,url2 in match:
-            addDir(name,'%s%s'%(BASE,url2),1,'%s'%(img))
-         
-        addDir('GO TO PAGE',url,3,'')
-            
-
-def GetPlayerCore(): 
-    try: 
-        PlayerMethod=getSet("core-player") 
-        if   (PlayerMethod=='DVDPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_DVDPLAYER 
-        elif (PlayerMethod=='MPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_MPLAYER 
-        elif (PlayerMethod=='PAPLAYER'): PlayerMeth=xbmc.PLAYER_CORE_PAPLAYER 
-        else: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    except: PlayerMeth=xbmc.PLAYER_CORE_AUTO 
-    return PlayerMeth 
-    return True
-def page(url):
-        PAGE=[]  
-        PAGE2=[]  
-        link = OPEN_URL(url)
-        match2=re.compile('a class="tsc_3d_button red" href="(.+?)" title="(.+?)"').findall(link)
-        for url3,page in match2:
-            PAGE.append(page)
-            PAGE2.append(url3)
-        dialog = xbmcgui.Dialog()	
-        ret = dialog.select('Choose a Department', PAGE)
-        if ret == ret:
-            url = (BASE+PAGE2[ret])
-            getSerie(url)
-def page2(url):
-        PAGE=[]  
-        PAGE2=[]  
-        link = OPEN_URL(url)
-        match2=re.compile('a class="tsc_3d_button red" href="(.+?)" title="(.+?)"').findall(link)
-        for url3,page in match2:
-            PAGE.append(page)
-            PAGE2.append(url3)
-        dialog = xbmcgui.Dialog()	
-        ret = dialog.select('Choose a Department', PAGE)
-        if ret == ret:
-            url = (BASE+PAGE2[ret])
-            getMovie(url)
+	#xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%('WARNING','This addon is completely FREE DO NOT buy any products from http://tvtoyz.com/', 16000, 'http://upload.wikimedia.org/wikipedia/he/e/ed/Sonara_logo_.gif'))
+	addDir('افلام عربية','http://www.sonara.net/vcat/603/%D8%A7%D9%81%D9%84%D8%A7%D9%85_%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9',4,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	addDir('مسلسلات تركية','http://www.sonara.net/vncat/50/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA_%D8%AA%D8%B1%D9%83%D9%8A%D8%A9',1,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	addDir('افلام تركية','http://www.sonara.net/vcat/860/%D8%A7%D9%81%D9%84%D8%A7%D9%85_%D8%AA%D8%B1%D9%83%D9%8A%D8%A9',4,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	#addDir('افلام هندية','http://www.sonara.net/video_cat-604.html',4,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	addDir('افلام اسود و ابيض','http://www.sonara.net/vcat/722/%D8%A7%D9%81%D9%84%D8%A7%D9%85_%D8%A7%D8%A8%D9%8A%D8%B6_%D9%88%D8%A7%D8%B3%D9%88%D8%AF',4,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	#addDir('افلام وثائقية','http://www.sonara.net/video_cat-970.html',4,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	addDir('برامج','http://www.sonara.net/vncat/52/%D8%A8%D8%B1%D8%A7%D9%85%D8%AC',1,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	#addDir('خاص بالصنارة','http://www.sonara.net/videon-54.html',1,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	addDir('مسلسلات رمضان ','http://www.sonara.net/vncat/90/',1,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	addDir('مسلسلات رمضان 2014','http://www.sonara.net/vncat/86/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA_%D8%B1%D9%85%D8%B6%D8%A7%D9%86_2014',1,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	addDir('مسلسلات رمضان 2013','http://www.sonara.net/videon-85.html',1,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	addDir('مسلسلات عربية','http://www.sonara.net/vncat/49/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA_%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9',1,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
+	addDir('كرتون ','http://www.sonara.net/vncat/53/%D9%83%D8%B1%D8%AA%D9%88%D9%86',1,'http://profile.ak.fbcdn.net/hprofile-ak-ash4/s160x160/416801_327989490581599_1718150811_a.jpg')
 	
-def OPEN_URL(url):
-        req = urllib2.Request(url)
-        req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:33.0) Gecko/20120101 Firefox/33.0')
-        req.add_header('Referer', 'http://tv1.alarab.net')
-        req.add_header('Connection', 'keep-alive')
-        response = urllib2.urlopen(req)
-        link=response.read()
-        response.close()
-        return link
-
-def PlayMovie(url):
-        r = requests.get(url)
-        match=re.compile('file=(.+?)&', re.DOTALL).findall(r.text)
-        files = []
-        for url2 in match:
-            files.append(url2)
-        play=xbmc.Player(GetPlayerCore())
-        dp = xbmcgui.DialogProgress()
-        dp.create('Featching Your Video',url)
-        dp.close()
-        play.play(files[1])	  
-
+	
+		
+def listContent(url):
+	  
+    req = urllib2.Request(url)
+    req.add_header('Host', 'www.sonara.net')
+    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:21.0) Gecko/20100101 Firefox/21.0')
+    req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
+    req.add_header('Accept-Language', 'en-US,en;q=0.5')
+    req.add_header('Cookie', 'InterstitialAd=1; __utma=261095506.1294916015.1370631116.1370631116.1370631116.1; __utmb=261095506.1.10.1370631116; __utmc=261095506; __utmz=261095506.1370631116.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)')
+   
+    
+    req.add_header('Connection', 'keep-alive')
+    response = urllib2.urlopen(req)
+    link=response.read()
+    name = ""
+    img = ""
+    path = ""
+    base = "http://sonara.net"
+    target= re.findall(r"<div class='mediasection'>(.*?)\s(.*?)<div class='footer'>", link, re.DOTALL)
+    for itr in target:
+        myPath=str( itr[1]).split("'>")
+        for items in myPath:
+        
+            if "<a href=" in str( items):
+                path=str( items).split("<a href='")[1]
+                path=base+str( path).strip()
                 
+            if "<img src='" in str( items):
+                img=str( items).split("<img src='")[1]
+                img=str(img).strip()
+                
+            if "<h4>" in str( items):
+                name=str( items).split("</h4></a>")[0]
+                name=str(name).replace("<h4>","").strip()
+                addDir(name,path,2,img)
+
+def listFilmContent(url):
+    req = urllib2.Request(url)
+    req.add_header('Host', 'www.sonara.net')
+    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:21.0) Gecko/20100101 Firefox/21.0')
+    req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
+    req.add_header('Accept-Language', 'en-US,en;q=0.5')
+    req.add_header('Cookie', 'InterstitialAd=1; __utma=261095506.1294916015.1370631116.1370631116.1370631116.1; __utmb=261095506.1.10.1370631116; __utmc=261095506; __utmz=261095506.1370631116.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)')
+   
+    
+    req.add_header('Connection', 'keep-alive')
+    response = urllib2.urlopen(req)
+    link=response.read()
+    name = ""
+    img = ""
+    path = ""
+    base = "http://sonara.net"
+    target= re.findall(r"<div class='video_listrel'>(.*?)\s(.*?)<div class='footer'>", link, re.DOTALL)
+    for itr in target:
+        myPath=str( itr[1]).split("'>")
+        for items in myPath:
+        
+            if "<a href=" in str( items):
+				path=str( items).split("<a href='")[1]
+				path=str( path).strip()
+				path=str( path).split("/")
+				path =str( path[2]).strip()
+                
+            if "<img src='" in str( items):
+                img=str( items).split("<img src='")[1]
+                img=str(img).strip()
+                
+            if "<h4>" in str( items):
+                name=str( items).split("</h4></a>")[0]
+                name=str(name).replace("<h4>","").strip()
+                addLink(name,path,3,img)
+                                 
+
+def listEpos(url):
+	req = urllib2.Request(url)
+	req.add_header('Host', 'www.sonara.net')
+	req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:21.0) Gecko/20100101 Firefox/21.0')
+	req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
+	req.add_header('Accept-Language', 'en-US,en;q=0.5')
+	req.add_header('Cookie', 'InterstitialAd=1; __utma=261095506.1294916015.1370631116.1370631116.1370631116.1; __utmb=261095506.1.10.1370631116; __utmc=261095506; __utmz=261095506.1370631116.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)')
+	req.add_header('Connection', 'keep-alive')
+	response = urllib2.urlopen(req)
+	link=response.read()
+	name = ""
+	img = ""
+	path = ""
+	base = "http://sonara.net"
+	target= re.findall(r"<div class='long_after_video'></div>(.*?)\s(.*?)<div class='footer'>", link, re.DOTALL)
+	for itr in target:
+		myPath=str( itr[1]).split("'>")
+		for items in myPath:
+			
+			if "<a href=" in str( items):
+				path=str( items).split("<a href='")[1]
+				path=str( path).split("/")
+				path =str( path[2]).strip()
+            
+			if "<img src='" in str( items):
+				img=str( items).split("<img src='")[1]
+				img=str(img).strip()
+            
+			if "<h4>" in str( items):
+				name=str( items).split("</h4></a>")[0]
+				name=str(name).replace("<h4>","").strip()
+				addLink(name,path,3,img)
+    
+
+def getVideoFile(url):
+	try:
+		url='http://www.sonara.net/video_player_new.php?ID='+str(url)
+		req = urllib2.Request(url)
+		response = urllib2.urlopen(req,timeout=1)
+		link=response.read()
+		for rows in link.split(";"):
+			if "dlk.addVariable" and 'file'in rows:
+				myvideo = rows.split(",")[1].split("&image")[0].replace("'","").strip()
+				   
+			if "dlk.addVariable" and 'streamer'in rows:
+				streamer = rows.split(",")[1].replace("'","").replace(")","").strip()
+				print streamer
+
+		swfFile="http://www.sonara.net/mediaplayera/player.swf"
+		playingpath=streamer+" swfUrl="+swfFile+" playpath="+myvideo+" timeout=15"
+		listItem = xbmcgui.ListItem(path=str(playingpath))
+		xbmcplugin.setResolvedUrl(_thisPlugin, True, listItem)
+	except:
+		pass
+				
+    
 def get_params():
         param=[]
         paramstring=sys.argv[2]
@@ -111,7 +192,21 @@ def get_params():
                                 
         return param
 
-  
+
+
+
+
+def addLink(name,url,mode,iconimage):
+    u=_pluginName+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)
+    ok=True
+    liz=xbmcgui.ListItem(name, iconImage="DefaultVideo.png", thumbnailImage=iconimage)
+    liz.setInfo( type="Video", infoLabels={ "Title": name } )
+    liz.setProperty("IsPlayable","true");
+    ok=xbmcplugin.addDirectoryItem(handle=_thisPlugin,url=u,listitem=liz,isFolder=False)
+    return ok
+	
+
+
 def addDir(name,url,mode,iconimage):
         u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
         ok=True
@@ -119,28 +214,15 @@ def addDir(name,url,mode,iconimage):
         liz.setInfo( type="Video", infoLabels={ "Title": name } )
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
-def addDir2(name,url,mode,iconimage):
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, "Epgdata": epgdata } )
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
-        return ok
-def addLink3(name,url,mode,iconimage,fanart,description=''):
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&description="+str(description)
-        ok=True
-        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name, "Epgdata": epgdata, 'plot': description } )
-        liz.setProperty('fanart_image', fanart)
-        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=url,listitem=liz,isFolder=False)
-        return ok
+
               
 params=get_params()
 url=None
 name=None
 mode=None
-epgdata=None
 
+
+	
 try:
         url=urllib.unquote_plus(params["url"])
 except:
@@ -153,34 +235,29 @@ try:
         mode=int(params["mode"])
 except:
         pass
-try:
-        epgdata=urllib.unquote_plus(params["epgdata"])
-except:
-        pass
 
 print "Mode: "+str(mode)
 print "URL: "+str(url)
 print "Name: "+str(name)
-print "Epgdata: "+str(epgdata)
 
 if mode==None or url==None or len(url)<1:
         print ""
         CATEGORIES()
+       
 elif mode==1:
-	print ""+url
-	getMovie(url)
+        print ""+url
+        listContent(url)
+	
 elif mode==2:
-	print ""+url
-	getSerie(url)
+        print ""+url
+        listEpos(url)
 elif mode==3:
 	print ""+url
-	page(url)
-
+	getVideoFile(url)
+	
 elif mode==4:
-	PlayMovie(url)
-elif mode==5:
-	print ""+url
-	page2(url)
+        print ""+url
+        listFilmContent(url)
 
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
