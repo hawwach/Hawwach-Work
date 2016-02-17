@@ -1,21 +1,15 @@
-# Addon Name: Exodus
-# Addon id: plugin.video.exodus
-# Addon Provider: Exodus
+# Addon Name: Genesis
+# Addon id: plugin.video.genesis
+# Addon Provider: Genesis
 # Translators:
 # Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
-# Christian Klippel <ck@atelier-klippel.de>, 2015
-# lambda81, 2015-2016
+# Christian Klippel, 2015
+# lambda81, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: Exodus\n"
+"Project-Id-Version: Genesis\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-01-20 07:27+0000\n"
+"PO-Revision-Date: 2015-09-24 00:26+0000\n"
 "Last-Translator: lambda81\n"
 "Language-Team: German (http://www.transifex.com/tv-addons/genesis/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -37,8 +31,8 @@ msgid "Channels"
 msgstr "Kanäle"
 
 msgctxt "#30004"
-msgid "My Lists"
-msgstr "Meine Listen"
+msgid "My Genesis"
+msgstr "Mein Genesis"
 
 msgctxt "#30005"
 msgid "Latest Movies"
@@ -59,10 +53,6 @@ msgstr "Werkzeuge"
 msgctxt "#30009"
 msgid "Search"
 msgstr "Suche"
-
-msgctxt "#30010"
-msgid "Downloads"
-msgstr "Downloads"
 
 msgctxt "#30021"
 msgid "Genres"
@@ -113,8 +103,8 @@ msgid "Latest Movies"
 msgstr "Neueste Filme"
 
 msgctxt "#30033"
-msgid "My Lists"
-msgstr "Meine Listen"
+msgid "Favourites"
+msgstr "Favoriten"
 
 msgctxt "#30034"
 msgid "People Search"
@@ -173,8 +163,12 @@ msgid "Latest Episodes"
 msgstr "Neueste Folgen"
 
 msgctxt "#30063"
-msgid "My Lists"
-msgstr "Meine Listen"
+msgid "Favourite Episodes"
+msgstr "Populärste Folgen"
+
+msgctxt "#30064"
+msgid "Favourites"
+msgstr "Favoriten"
 
 msgctxt "#30065"
 msgid "People Search"
@@ -185,76 +179,84 @@ msgid "Search"
 msgstr "Suche"
 
 msgctxt "#30081"
-msgid "No Trakt or IMDb account found."
-msgstr ""
-
-msgctxt "#30082"
-msgid "Trakt indicators are disabled by default."
-msgstr ""
-
-msgctxt "#30083"
-msgid "In order to use them enable them in settings."
-msgstr ""
-
-msgctxt "#30084"
 msgid "[B]TRAKT[/B] : Collection"
 msgstr "[B]TRAKT[/B] : Sammlung"
+
+msgctxt "#30082"
+msgid "[B]TRAKT[/B] : Watchlist"
+msgstr "[B]TRAKT[/B] : Merkliste"
+
+msgctxt "#30083"
+msgid "[B]TRAKT[/B] : Featured"
+msgstr "[B]TRAKT[/B] : Vorgestellt"
+
+msgctxt "#30084"
+msgid "[B]TRAKT[/B] : Ratings"
+msgstr "[B]TRAKT[/B] : Bewertungen"
 
 msgctxt "#30085"
 msgid "[B]TRAKT[/B] : TV Collection"
 msgstr "[B]TRAKT[/B] : TV Sammlung"
 
 msgctxt "#30086"
-msgid "[B]TRAKT[/B] : Watchlist"
-msgstr "[B]TRAKT[/B] : Merkliste"
-
-msgctxt "#30087"
 msgid "[B]TRAKT[/B] : TV Watchlist"
 msgstr "[B]TRAKT[/B] : TV Merkliste"
 
-msgctxt "#30088"
-msgid "[B]IMDB[/B] : Watchlist"
-msgstr "[B]IMDB[/B] : Merkliste"
-
-msgctxt "#30089"
-msgid "[B]IMDB[/B] : TV Watchlist"
-msgstr "[B]IMDB[/B] : TV Merkliste"
-
-msgctxt "#30090"
-msgid "[B]TRAKT[/B] : Featured"
-msgstr "[B]TRAKT[/B] : Vorgestellt"
-
-msgctxt "#30091"
+msgctxt "#30087"
 msgid "[B]TRAKT[/B] : TV Featured"
 msgstr "[B]TRAKT[/B] : TV Vorgestellt"
 
-msgctxt "#30092"
-msgid "[B]TRAKT[/B] : History"
-msgstr ""
+msgctxt "#30088"
+msgid "[B]TRAKT[/B] : TV Ratings"
+msgstr "[B]TRAKT[/B] : TV Bewertungen"
 
-msgctxt "#30093"
-msgid "[B]TRAKT[/B] : TV History"
-msgstr ""
-
-msgctxt "#30094"
+msgctxt "#30089"
 msgid "[B]TRAKT[/B] : Progress"
 msgstr "[B]TRAKT[/B] : Fortschritt"
 
-msgctxt "#30095"
+msgctxt "#30090"
 msgid "[B]TRAKT[/B] : Episodes"
 msgstr "[B]TRAKT[/B] : Folgen"
 
-msgctxt "#30096"
+msgctxt "#30091"
+msgid "[B]IMDB[/B] : Watchlist"
+msgstr "[B]IMDB[/B] : Merkliste"
+
+msgctxt "#30092"
+msgid "[B]IMDB[/B] : TV Watchlist"
+msgstr "[B]IMDB[/B] : TV Merkliste"
+
+msgctxt "#30093"
 msgid "Movie Lists"
 msgstr "Filmliste"
 
-msgctxt "#30097"
+msgctxt "#30094"
 msgid "TV Show Lists"
 msgstr "Serienliste"
 
+msgctxt "#30095"
+msgid "Favourite Movies"
+msgstr "Lieblingsfilme"
+
+msgctxt "#30096"
+msgid "Favourite Episodes"
+msgstr "Lieblingsfolgen"
+
+msgctxt "#30097"
+msgid "Favourite TV"
+msgstr "Lieblings-TV"
+
 msgctxt "#30098"
-msgid "Episode Lists"
-msgstr ""
+msgid "Downloads"
+msgstr "Downloads"
+
+msgctxt "#30099"
+msgid "Movies"
+msgstr "Filme"
+
+msgctxt "#30100"
+msgid "TV"
+msgstr "TV"
 
 msgctxt "#30111"
 msgid "[B]SETTINGS[/B] : General"
@@ -273,28 +275,76 @@ msgid "[B]SETTINGS[/B] : Subtitles"
 msgstr "[B]EINSTELLUNGEN[/B] : Untertitel"
 
 msgctxt "#30115"
-msgid "[B]SETTINGS[/B] : Providers"
-msgstr ""
+msgid "[B]SOURCES[/B] : Movies"
+msgstr "[B]QUELLEN[/B] : Filme"
+
+msgctxt "#30116"
+msgid "[B]SOURCES[/B] : TV"
+msgstr "[B]QUELLEN[/B] : TV"
+
+msgctxt "#30117"
+msgid "[B]HOSTS[/B] : HD Priority"
+msgstr "[B]ANBIETER[/B] : HD Priorität"
+
+msgctxt "#30118"
+msgid "[B]HOSTS[/B] : SD Priority"
+msgstr "[B]ANBIETER[/B] : SD Priorität"
 
 msgctxt "#30119"
-msgid "[B]EXODUS[/B] : Clear providers..."
-msgstr ""
+msgid "[B]GENESIS[/B] : Clear sources..."
+msgstr "[B]GENESIS[/B] : Quellen bereinigen..."
 
 msgctxt "#30120"
-msgid "[B]EXODUS[/B] : Clear cache..."
-msgstr "[B]EXODUS[/B] : Zwischenspeiver leeren..."
+msgid "[B]GENESIS[/B] : Clear cache..."
+msgstr "[B]GENESIS[/B] : Zwischenspeiver leeren..."
+
+msgctxt "#30121"
+msgid "[B]GENESIS[/B] : Library"
+msgstr "[B]GENESIS[/B] : Bibliothek"
 
 msgctxt "#30122"
-msgid "[B]EXODUS[/B] : Downloads"
-msgstr "[B]EXODUS[/B] : Downloads"
+msgid "[B]GENESIS[/B] : Downloads"
+msgstr "[B]GENESIS[/B] : Downloads"
 
-msgctxt "#30141"
-msgid "Movies"
-msgstr "Filme"
+msgctxt "#30131"
+msgid "[B]LIBRARY[/B] : Settings"
+msgstr "[B]BIBLIOTHEK[/B] : Einstellungen"
 
-msgctxt "#30142"
-msgid "TV Shows"
-msgstr "Serien"
+msgctxt "#30132"
+msgid "[B]GENESIS[/B] : Update folders..."
+msgstr "[B]GENESIS[/B] : Ordner für Updates..."
+
+msgctxt "#30133"
+msgid "[B]GENESIS[/B] : Movie folder..."
+msgstr "[B]GENESIS[/B] : Ordner für Filme..."
+
+msgctxt "#30134"
+msgid "[B]GENESIS[/B] : TV folder..."
+msgstr "[B]GENESIS[/B] : Ordner für TV..."
+
+msgctxt "#30135"
+msgid "[B]TRAKT[/B] : Import Collection..."
+msgstr "[B]TRAKT[/B] : Sammlung importieren..."
+
+msgctxt "#30136"
+msgid "[B]TRAKT[/B] : Import Watchlist..."
+msgstr "[B]TRAKT[/B] : Merkliste importieren..."
+
+msgctxt "#30137"
+msgid "[B]TRAKT[/B] : Import TV Collection..."
+msgstr "[B]TRAKT[/B] : TV-Sammlung importieren..."
+
+msgctxt "#30138"
+msgid "[B]TRAKT[/B] : Import TV Watchlist..."
+msgstr "[B]TRAKT[/B] : TV-Merkliste importieren..."
+
+msgctxt "#30139"
+msgid "[B]IMDB[/B] : Import Watchlist..."
+msgstr "[B]IMDB[/B] : Merkliste importieren..."
+
+msgctxt "#30140"
+msgid "[B]IMDB[/B] : Import TV Watchlist..."
+msgstr "[B]IMDB[/B] : TV-Merkliste importieren..."
 
 msgctxt "#30151"
 msgid "Movies"
@@ -312,9 +362,9 @@ msgctxt "#30154"
 msgid "People (TV)"
 msgstr "Personen (TV)"
 
-msgctxt "#30155"
-msgid "Queue item"
-msgstr "Eintrag zur Warteschlange hinzufügen"
+msgctxt "#30191"
+msgid "Add to Library"
+msgstr "Zur Bibliothek hinzufügen"
 
 msgctxt "#30201"
 msgid "Search"
@@ -356,6 +406,10 @@ msgctxt "#30210"
 msgid "Remove from favourites"
 msgstr "Aus Favoriten entfernen"
 
+msgctxt "#30211"
+msgid "Add to Library"
+msgstr "Zur Bibliothek hinzufügen"
+
 msgctxt "#30212"
 msgid "Set Movies view"
 msgstr "Setze Ansicht für Filme"
@@ -363,10 +417,6 @@ msgstr "Setze Ansicht für Filme"
 msgctxt "#30213"
 msgid "[I]Next Page[/I]"
 msgstr "[I]Nächste Seite[/I]"
-
-msgctxt "#30214"
-msgid "Movie trailer"
-msgstr ""
 
 msgctxt "#30231"
 msgid "Search"
@@ -400,6 +450,10 @@ msgctxt "#30238"
 msgid "Remove from favourites"
 msgstr "Aus Favoriten entfernen"
 
+msgctxt "#30239"
+msgid "Add to Library"
+msgstr "Zur Bibliothek hinzufügen"
+
 msgctxt "#30240"
 msgid "Set TV Shows view"
 msgstr "Setze Ansicht für Serien"
@@ -407,10 +461,6 @@ msgstr "Setze Ansicht für Serien"
 msgctxt "#30241"
 msgid "[I]Next Page[/I]"
 msgstr "[I]Nächste Seite[/I]"
-
-msgctxt "#30242"
-msgid "TV show trailer"
-msgstr ""
 
 msgctxt "#30261"
 msgid "Queue item"
@@ -441,8 +491,8 @@ msgid "Remove from favourites"
 msgstr "Aus Favoriten entfernen"
 
 msgctxt "#30268"
-msgid "TV show trailer"
-msgstr ""
+msgid "Add to Library"
+msgstr "Zur Bibliothek hinzufügen"
 
 msgctxt "#30269"
 msgid "Set Seasons view"
@@ -463,14 +513,6 @@ msgstr "Informationen zur Folge"
 msgctxt "#30273"
 msgid "Set Episodes view"
 msgstr "Setze Ansicht für Folgen"
-
-msgctxt "#30274"
-msgid "Browse Seasons"
-msgstr ""
-
-msgctxt "#30275"
-msgid "Season"
-msgstr "Staffel"
 
 msgctxt "#30291"
 msgid "Auto-play"
@@ -496,10 +538,6 @@ msgctxt "#30296"
 msgid "Now playing..."
 msgstr "Derzeit am laufen..."
 
-msgctxt "#30297"
-msgid "Trailer"
-msgstr ""
-
 msgctxt "#30401"
 msgid "Are you sure?"
 msgstr "Sind Sie sicher?"
@@ -509,32 +547,28 @@ msgid "Process Complete"
 msgstr "Vorgang abgeschlossen"
 
 msgctxt "#30411"
-msgid "A RealDebrid account already exists"
-msgstr ""
+msgid "Added to Favourites"
+msgstr "Zu Favoriten hinzugefügt"
 
 msgctxt "#30412"
-msgid "After reset, save Exodus settings"
-msgstr ""
+msgid "Removed from Favourites"
+msgstr "Aus Favoriten entfernt"
 
-msgctxt "#30413"
-msgid "Do you want to reset?"
-msgstr ""
+msgctxt "#30421"
+msgid "Adding to library..."
+msgstr "Füge zur Bibliothek hinzu..."
 
-msgctxt "#30414"
-msgid "Yes"
-msgstr ""
+msgctxt "#30422"
+msgid "Updating TV shows..."
+msgstr "Aktualisiere Serien..."
 
-msgctxt "#30415"
-msgid "No"
-msgstr ""
+msgctxt "#30423"
+msgid "Process Complete"
+msgstr "Vorgang abgeschlossen"
 
-msgctxt "#30416"
-msgid "1) Visit : "
-msgstr ""
-
-msgctxt "#30417"
-msgid "2) When prompted enter : "
-msgstr ""
+msgctxt "#30425"
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
 
 msgctxt "#30451"
 msgid "Getting information"
@@ -592,46 +626,6 @@ msgctxt "#30478"
 msgid "Remove from"
 msgstr "Entfernen aus"
 
-msgctxt "#30479"
-msgid "A Trakt account already exists"
-msgstr ""
-
-msgctxt "#30480"
-msgid "After reset, save Exodus settings"
-msgstr ""
-
-msgctxt "#30481"
-msgid "Do you want to reset?"
-msgstr ""
-
-msgctxt "#30482"
-msgid "Yes"
-msgstr ""
-
-msgctxt "#30483"
-msgid "No"
-msgstr ""
-
-msgctxt "#30484"
-msgid "1) Visit : "
-msgstr ""
-
-msgctxt "#30485"
-msgid "2) If prompted, authorize Exodus to access your account"
-msgstr ""
-
-msgctxt "#30486"
-msgid "3) Enter the PIN provided or Cancel"
-msgstr ""
-
-msgctxt "#30487"
-msgid "Enter PIN"
-msgstr ""
-
-msgctxt "#30488"
-msgid "Cancel"
-msgstr ""
-
 msgctxt "#30491"
 msgid "This View is now Default"
 msgstr "Dies ist nun die Standardansicht"
@@ -657,8 +651,8 @@ msgid "Download item"
 msgstr "Ausgewählten Eintrag herunterladen"
 
 msgctxt "#30506"
-msgid "Refresh providers"
-msgstr ""
+msgid "Refresh sources"
+msgstr "Quellen aktualisieren"
 
 msgctxt "#30507"
 msgid "Add-on settings"
@@ -679,30 +673,6 @@ msgstr "Sind Sie sicher?"
 msgctxt "#30511"
 msgid "Process Complete"
 msgstr "Vorgang abgeschlossen"
-
-msgctxt "#30512"
-msgid "Time elapsed"
-msgstr ""
-
-msgctxt "#30513"
-msgid "seconds"
-msgstr "sekunden"
-
-msgctxt "#30514"
-msgid "Remaining providers"
-msgstr ""
-
-msgctxt "#30515"
-msgid "Loading streams"
-msgstr ""
-
-msgctxt "#30516"
-msgid "Movie trailer"
-msgstr ""
-
-msgctxt "#30517"
-msgid "TV show trailer"
-msgstr ""
 
 msgctxt "#30521"
 msgid "Monday"
@@ -797,8 +767,8 @@ msgid "Info Language"
 msgstr "Sprache für Informationen"
 
 msgctxt "#30804"
-msgid "Providers Timeout"
-msgstr ""
+msgid "Sources Timeout"
+msgstr "Zeitbegrenzung für Quellen"
 
 msgctxt "#30805"
 msgid "Main menu"
@@ -813,32 +783,32 @@ msgid "Disabled"
 msgstr "Deaktiviert"
 
 msgctxt "#30808"
+msgid "Default"
+msgstr "Standard"
+
+msgctxt "#30809"
 msgid "Featured"
 msgstr "Vorgestellt"
 
-msgctxt "#30809"
+msgctxt "#30810"
 msgid "People Watching"
 msgstr "Personen schauen"
 
-msgctxt "#30810"
-msgid "Most Popular"
-msgstr "Am Populärsten"
-
 msgctxt "#30811"
-msgid "In Theaters"
-msgstr "In Kinos"
-
-msgctxt "#30812"
 msgid "Latest Episodes"
 msgstr "Neueste Folgen"
 
-msgctxt "#30813"
+msgctxt "#30812"
 msgid "Disabled"
 msgstr "Deaktiviert"
 
+msgctxt "#30813"
+msgid "Default"
+msgstr "Standard"
+
 msgctxt "#30814"
-msgid "Episodes"
-msgstr "Folgen"
+msgid "Favourites"
+msgstr "Favoriten"
 
 msgctxt "#30815"
 msgid "Trakt Progress"
@@ -857,30 +827,6 @@ msgid "Disabled"
 msgstr "Deaktiviert"
 
 msgctxt "#30819"
-msgid "Enabled"
-msgstr "Aktiviert"
-
-msgctxt "#30820"
-msgid "Indicators"
-msgstr ""
-
-msgctxt "#30821"
-msgid "Local"
-msgstr ""
-
-msgctxt "#30822"
-msgid "Trakt"
-msgstr "Trakt"
-
-msgctxt "#30823"
-msgid "My Lists"
-msgstr "Meine Listen"
-
-msgctxt "#30824"
-msgid "Disabled"
-msgstr "Deaktiviert"
-
-msgctxt "#30825"
 msgid "Enabled"
 msgstr "Aktiviert"
 
@@ -913,8 +859,12 @@ msgid "Hosters with captchas"
 msgstr "Anbieter mit Captchas"
 
 msgctxt "#30837"
-msgid "Sort by Provider"
-msgstr ""
+msgid "Hosters with 1080p files"
+msgstr "Anbieter mit 1080p Dateien"
+
+msgctxt "#30838"
+msgid "Hosters with 720p files"
+msgstr "Anbieter mit 720p Dateien"
 
 msgctxt "#30839"
 msgid "Auto-play"
@@ -923,6 +873,10 @@ msgstr "Automatische Wiedergabe"
 msgctxt "#30840"
 msgid "Auto-play"
 msgstr "Automatische Wiedergabe"
+
+msgctxt "#30841"
+msgid "Auto-play (Library)"
+msgstr "Automatische Wiedergabe (Bibliothek)"
 
 msgctxt "#30842"
 msgid "Force SD playback in Auto-play"
@@ -940,21 +894,101 @@ msgctxt "#30845"
 msgid "Playback Info"
 msgstr "Wiedergabeinformationen"
 
-msgctxt "#30846"
-msgid "Progress Dialog"
-msgstr ""
-
-msgctxt "#30847"
-msgid "Safe"
-msgstr ""
-
-msgctxt "#30848"
-msgid "Unsafe"
-msgstr ""
-
 msgctxt "#30860"
-msgid "Providers"
-msgstr ""
+msgid "Movies"
+msgstr "Filme"
+
+msgctxt "#30861"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30870"
+msgid "HD Hosts"
+msgstr "HD Anbieter"
+
+msgctxt "#30871"
+msgid "SD Hosts"
+msgstr "SD Anbieter"
+
+msgctxt "#30881"
+msgid "Priority 1"
+msgstr "Priorität 1"
+
+msgctxt "#30882"
+msgid "Priority 2"
+msgstr "Priorität 2"
+
+msgctxt "#30883"
+msgid "Priority 3"
+msgstr "Priorität 3"
+
+msgctxt "#30884"
+msgid "Priority 4"
+msgstr "Priorität 4"
+
+msgctxt "#30885"
+msgid "Priority 5"
+msgstr "Priorität 5"
+
+msgctxt "#30886"
+msgid "Priority 6"
+msgstr "Priorität 6"
+
+msgctxt "#30887"
+msgid "Priority 7"
+msgstr "Priorität 7"
+
+msgctxt "#30888"
+msgid "Priority 8"
+msgstr "Priorität 8"
+
+msgctxt "#30889"
+msgid "Priority 9"
+msgstr "Priorität 9"
+
+msgctxt "#30890"
+msgid "Priority 10"
+msgstr "Priorität 10"
+
+msgctxt "#30891"
+msgid "Priority 11"
+msgstr "Priorität 11"
+
+msgctxt "#30892"
+msgid "Priority 12"
+msgstr "Priorität 12"
+
+msgctxt "#30893"
+msgid "Priority 13"
+msgstr "Priorität 13"
+
+msgctxt "#30894"
+msgid "Priority 14"
+msgstr "Priorität 14"
+
+msgctxt "#30895"
+msgid "Priority 15"
+msgstr "Priorität 15"
+
+msgctxt "#30896"
+msgid "Priority 16"
+msgstr "Priorität 16"
+
+msgctxt "#30897"
+msgid "Priority 17"
+msgstr "Priorität 17"
+
+msgctxt "#30898"
+msgid "Priority 18"
+msgstr "Priorität 18"
+
+msgctxt "#30899"
+msgid "Priority 19"
+msgstr "Priorität 19"
+
+msgctxt "#30900"
+msgid "Priority 20"
+msgstr "Priorität 20"
 
 msgctxt "#30910"
 msgid "Accounts"
@@ -972,9 +1006,47 @@ msgctxt "#30913"
 msgid "Password"
 msgstr "Passwort"
 
-msgctxt "#30914"
-msgid "Authorization..."
-msgstr ""
+msgctxt "#30920"
+msgid "Library"
+msgstr "Bibliothek"
+
+msgctxt "#30921"
+msgid ""
+"Genesis folders will be imported to library if they are added to media "
+"sources."
+msgstr "Genesis Verszeichnisse werden in die Bibliothek importiert wenn diese zu den Medienquellen hinzugefügt werden."
+
+msgctxt "#30922"
+msgid "Movies"
+msgstr "Filme"
+
+msgctxt "#30923"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30924"
+msgid "Auto update TV Shows"
+msgstr "Serien automatisch aktualisieren"
+
+msgctxt "#30925"
+msgid "Show notifications during update"
+msgstr "Hinweise währen der Aktualisierung anzeigen"
+
+msgctxt "#30926"
+msgid "Update library after adding content"
+msgstr "Nach hinzufügen von Inhalten die Bibliothek aktualisieren"
+
+msgctxt "#30927"
+msgid "Avoid creating duplicate content"
+msgstr "Vermeide das erstellen von Inhaltsduplikaten"
+
+msgctxt "#30928"
+msgid "Check movie before adding it"
+msgstr "Film vor dem hinzufügen prüfen"
+
+msgctxt "#30929"
+msgid "Check first episode of season before adding it"
+msgstr "Erste Folge der Staffel vor dem hinzufügen prüfen"
 
 msgctxt "#30940"
 msgid "Subtitles"
@@ -1015,15 +1087,3 @@ msgstr "Filme"
 msgctxt "#30952"
 msgid "TV"
 msgstr "TV"
-
-msgctxt "#30953"
-msgid "Enable downloads"
-msgstr ""
-
-msgctxt "#30954"
-msgid "Downloading features are disabled by default."
-msgstr ""
-
-msgctxt "#30955"
-msgid "Set up your download folders in order to enable them."
-msgstr ""

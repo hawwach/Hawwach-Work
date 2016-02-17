@@ -1,22 +1,17 @@
-# Addon Name: Exodus
-# Addon id: plugin.video.exodus
-# Addon Provider: Exodus
+# Addon Name: Specto
+# Addon id: plugin.video.specto
+# Addon Provider: Specto
 # Translators:
 # Translators:
 # Translators:
 # Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
-# lambda81, 2016
-# Michael <Theklavej@hotmail.com>, 2015
+# Michael, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: Exodus\n"
+"Project-Id-Version: Specto\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-01-20 07:27+0000\n"
-"Last-Translator: lambda81\n"
+"PO-Revision-Date: 2015-10-17 11:07+0000\n"
+"Last-Translator: Michael\n"
 "Language-Team: Danish (http://www.transifex.com/tv-addons/genesis/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,8 +32,8 @@ msgid "Channels"
 msgstr "Kanaler"
 
 msgctxt "#30004"
-msgid "My Lists"
-msgstr "Min Liste"
+msgid "My Specto"
+msgstr "Min Genesis"
 
 msgctxt "#30005"
 msgid "Latest Movies"
@@ -59,10 +54,6 @@ msgstr "Værktøjer"
 msgctxt "#30009"
 msgid "Search"
 msgstr "Søg"
-
-msgctxt "#30010"
-msgid "Downloads"
-msgstr "Downloads"
 
 msgctxt "#30021"
 msgid "Genres"
@@ -113,8 +104,8 @@ msgid "Latest Movies"
 msgstr "Nyeste film"
 
 msgctxt "#30033"
-msgid "My Lists"
-msgstr "Min Liste"
+msgid "Favourites"
+msgstr "Favoritter"
 
 msgctxt "#30034"
 msgid "People Search"
@@ -173,8 +164,12 @@ msgid "Latest Episodes"
 msgstr "Nyeste Afsnit"
 
 msgctxt "#30063"
-msgid "My Lists"
-msgstr "Min Liste"
+msgid "Favourite Episodes"
+msgstr "Favorit Afsnit"
+
+msgctxt "#30064"
+msgid "Favourites"
+msgstr "Favoritter"
 
 msgctxt "#30065"
 msgid "People Search"
@@ -185,76 +180,84 @@ msgid "Search"
 msgstr "Søg"
 
 msgctxt "#30081"
-msgid "No Trakt or IMDb account found."
-msgstr "Ingen Trakt eller IMDB konto fundet."
-
-msgctxt "#30082"
-msgid "Trakt indicators are disabled by default."
-msgstr "Trakt indikator er deaktiveret (standard)."
-
-msgctxt "#30083"
-msgid "In order to use them enable them in settings."
-msgstr "Kan aktiveres i indstillinger."
-
-msgctxt "#30084"
 msgid "[B]TRAKT[/B] : Collection"
 msgstr "[B]TRAKT[/B] : Samling"
+
+msgctxt "#30082"
+msgid "[B]TRAKT[/B] : Watchlist"
+msgstr "[B]TRAKT[/B] : Ønskeliste"
+
+msgctxt "#30083"
+msgid "[B]TRAKT[/B] : Featured"
+msgstr "[B]TRAKT[/B] : Optrædener"
+
+msgctxt "#30084"
+msgid "[B]TRAKT[/B] : Ratings"
+msgstr "[B]TRAKT[/B] : Bedømmelser"
 
 msgctxt "#30085"
 msgid "[B]TRAKT[/B] : TV Collection"
 msgstr "[B]TRAKT[/B] : TV Samling"
 
 msgctxt "#30086"
-msgid "[B]TRAKT[/B] : Watchlist"
-msgstr "[B]TRAKT[/B] : Ønskeliste"
-
-msgctxt "#30087"
 msgid "[B]TRAKT[/B] : TV Watchlist"
 msgstr "[B]TRAKT[/B] : TV Ønskeliste"
 
-msgctxt "#30088"
-msgid "[B]IMDB[/B] : Watchlist"
-msgstr "[B]IMDB[/B] : Ønskeliste"
-
-msgctxt "#30089"
-msgid "[B]IMDB[/B] : TV Watchlist"
-msgstr "[B]IMDB[/B] : TV Ønskeliste"
-
-msgctxt "#30090"
-msgid "[B]TRAKT[/B] : Featured"
-msgstr "[B]TRAKT[/B] : Optrædener"
-
-msgctxt "#30091"
+msgctxt "#30087"
 msgid "[B]TRAKT[/B] : TV Featured"
 msgstr "[B]TRAKT[/B] : TV Optrædener"
 
-msgctxt "#30092"
-msgid "[B]TRAKT[/B] : History"
-msgstr "[B]TRAKT[/B] : Historik"
+msgctxt "#30088"
+msgid "[B]TRAKT[/B] : TV Ratings"
+msgstr "[B]TRAKT[/B] : TV Bedømmelser"
 
-msgctxt "#30093"
-msgid "[B]TRAKT[/B] : TV History"
-msgstr "[B]TRAKT[/B] : TV Historik"
-
-msgctxt "#30094"
+msgctxt "#30089"
 msgid "[B]TRAKT[/B] : Progress"
 msgstr "[B]TRAKT[/B] : Spillelængde"
 
-msgctxt "#30095"
+msgctxt "#30090"
 msgid "[B]TRAKT[/B] : Episodes"
 msgstr "[B]TRAKT[/B] : Afsnit"
 
-msgctxt "#30096"
+msgctxt "#30091"
+msgid "[B]IMDB[/B] : Watchlist"
+msgstr "[B]IMDB[/B] : Ønskeliste"
+
+msgctxt "#30092"
+msgid "[B]IMDB[/B] : TV Watchlist"
+msgstr "[B]IMDB[/B] : TV Ønskeliste"
+
+msgctxt "#30093"
 msgid "Movie Lists"
 msgstr "Filmliste"
 
-msgctxt "#30097"
+msgctxt "#30094"
 msgid "TV Show Lists"
 msgstr "TV Serie liste"
 
+msgctxt "#30095"
+msgid "Favourite Movies"
+msgstr "Favorit Film"
+
+msgctxt "#30096"
+msgid "Favourite Episodes"
+msgstr "Favorit Afsnit"
+
+msgctxt "#30097"
+msgid "Favourite TV"
+msgstr "Favorit TV"
+
 msgctxt "#30098"
-msgid "Episode Lists"
-msgstr "Episode liste"
+msgid "Downloads"
+msgstr "Downloads"
+
+msgctxt "#30099"
+msgid "Movies"
+msgstr "Film"
+
+msgctxt "#30100"
+msgid "TV"
+msgstr "TV"
 
 msgctxt "#30111"
 msgid "[B]SETTINGS[/B] : General"
@@ -273,28 +276,76 @@ msgid "[B]SETTINGS[/B] : Subtitles"
 msgstr "[B]SETTINGS[/B] : Undertekster"
 
 msgctxt "#30115"
-msgid "[B]SETTINGS[/B] : Providers"
-msgstr "[B]SETTINGS[/B] : Udbydere"
+msgid "[B]SOURCES[/B] : Movies"
+msgstr "[B]SOURCES[/B] : Film"
+
+msgctxt "#30116"
+msgid "[B]SOURCES[/B] : TV"
+msgstr "[B]SOURCES[/B] : TV"
+
+msgctxt "#30117"
+msgid "[B]HOSTS[/B] : HD Priority"
+msgstr "[B]HOSTS[/B] : HD Prioritet"
+
+msgctxt "#30118"
+msgid "[B]HOSTS[/B] : SD Priority"
+msgstr "[B]HOSTS[/B] : SD Prioritet"
 
 msgctxt "#30119"
-msgid "[B]EXODUS[/B] : Clear providers..."
-msgstr "[B]EXODUS[/B] : Ryd udbydere..."
+msgid "[B]Specto[/B] : Clear sources..."
+msgstr "[B]Specto[/B] : Tøm Kilder..."
 
 msgctxt "#30120"
-msgid "[B]EXODUS[/B] : Clear cache..."
-msgstr "[B]EXODUS[/B] : Tøm cache..."
+msgid "[B]Specto[/B] : Clear cache..."
+msgstr "[B]Specto[/B] : Tøm cache..."
+
+msgctxt "#30121"
+msgid "[B]Specto[/B] : Library"
+msgstr "[B]Specto[/B] : Bibliotek"
 
 msgctxt "#30122"
-msgid "[B]EXODUS[/B] : Downloads"
-msgstr "[B]EXODUS[/B] : Downloads"
+msgid "[B]Specto[/B] : Downloads"
+msgstr "[B]Specto[/B] : Downloads"
 
-msgctxt "#30141"
-msgid "Movies"
-msgstr "Filmliste"
+msgctxt "#30131"
+msgid "[B]LIBRARY[/B] : Settings"
+msgstr "[B]LIBRARY[/B] : Indstillinger"
 
-msgctxt "#30142"
-msgid "TV Shows"
-msgstr "TV Serier"
+msgctxt "#30132"
+msgid "[B]Specto[/B] : Update folders..."
+msgstr "[B]Specto[/B] : Opdater foldere..."
+
+msgctxt "#30133"
+msgid "[B]Specto[/B] : Movie folder..."
+msgstr "[B]Specto[/B] : Film folder..."
+
+msgctxt "#30134"
+msgid "[B]Specto[/B] : TV folder..."
+msgstr "[B]Specto[/B] : TV folder..."
+
+msgctxt "#30135"
+msgid "[B]TRAKT[/B] : Import Collection..."
+msgstr "[B]TRAKT[/B] : Importer Samling..."
+
+msgctxt "#30136"
+msgid "[B]TRAKT[/B] : Import Watchlist..."
+msgstr "[B]TRAKT[/B] : Importer Ønskeliste..."
+
+msgctxt "#30137"
+msgid "[B]TRAKT[/B] : Import TV Collection..."
+msgstr "[B]TRAKT[/B] : Importer TV Samling..."
+
+msgctxt "#30138"
+msgid "[B]TRAKT[/B] : Import TV Watchlist..."
+msgstr "[B]TRAKT[/B] : Importer TV Ønskeliste..."
+
+msgctxt "#30139"
+msgid "[B]IMDB[/B] : Import Watchlist..."
+msgstr "[B]IMDB[/B] : Importer Ønskeliste..."
+
+msgctxt "#30140"
+msgid "[B]IMDB[/B] : Import TV Watchlist..."
+msgstr "[B]IMDB[/B] : Importer TV Ønskeliste..."
 
 msgctxt "#30151"
 msgid "Movies"
@@ -312,9 +363,9 @@ msgctxt "#30154"
 msgid "People (TV)"
 msgstr "Medvirkende (TV)"
 
-msgctxt "#30155"
-msgid "Queue item"
-msgstr "Put emne i kø"
+msgctxt "#30191"
+msgid "Add to Library"
+msgstr "Læg til Bibliotek"
 
 msgctxt "#30201"
 msgid "Search"
@@ -356,6 +407,10 @@ msgctxt "#30210"
 msgid "Remove from favourites"
 msgstr "Fjern fra favoritter"
 
+msgctxt "#30211"
+msgid "Add to Library"
+msgstr "Læg til Bibliotek"
+
 msgctxt "#30212"
 msgid "Set Movies view"
 msgstr "Sæt Ikon layout"
@@ -363,10 +418,6 @@ msgstr "Sæt Ikon layout"
 msgctxt "#30213"
 msgid "[I]Next Page[/I]"
 msgstr "[I]Næste Side[/I]"
-
-msgctxt "#30214"
-msgid "Movie trailer"
-msgstr "Film trailer"
 
 msgctxt "#30231"
 msgid "Search"
@@ -400,6 +451,10 @@ msgctxt "#30238"
 msgid "Remove from favourites"
 msgstr "Fjern fra favoritter"
 
+msgctxt "#30239"
+msgid "Add to Library"
+msgstr "Læg til Bibliotek"
+
 msgctxt "#30240"
 msgid "Set TV Shows view"
 msgstr "Sæt TV Serie layout"
@@ -407,10 +462,6 @@ msgstr "Sæt TV Serie layout"
 msgctxt "#30241"
 msgid "[I]Next Page[/I]"
 msgstr "[I]Næste Side[/I]"
-
-msgctxt "#30242"
-msgid "TV show trailer"
-msgstr "TV serie trailer"
 
 msgctxt "#30261"
 msgid "Queue item"
@@ -441,8 +492,8 @@ msgid "Remove from favourites"
 msgstr "Fjern fra favoritter"
 
 msgctxt "#30268"
-msgid "TV show trailer"
-msgstr "TV serie trailer"
+msgid "Add to Library"
+msgstr "Add til Bibliotek"
 
 msgctxt "#30269"
 msgid "Set Seasons view"
@@ -468,10 +519,6 @@ msgctxt "#30274"
 msgid "Browse Seasons"
 msgstr "Gennemse Sæsoner"
 
-msgctxt "#30275"
-msgid "Season"
-msgstr "Sæson"
-
 msgctxt "#30291"
 msgid "Auto-play"
 msgstr "Auto-spil"
@@ -496,10 +543,6 @@ msgctxt "#30296"
 msgid "Now playing..."
 msgstr "Spiller nu..."
 
-msgctxt "#30297"
-msgid "Trailer"
-msgstr "Trailer"
-
 msgctxt "#30401"
 msgid "Are you sure?"
 msgstr "Er du sikker?"
@@ -509,32 +552,28 @@ msgid "Process Complete"
 msgstr "Processen er færdig"
 
 msgctxt "#30411"
-msgid "A RealDebrid account already exists"
-msgstr ""
+msgid "Added to Favourites"
+msgstr "Lagt til Favoritter"
 
 msgctxt "#30412"
-msgid "After reset, save Exodus settings"
-msgstr ""
+msgid "Removed from Favourites"
+msgstr "Fjernet fra Favoritter"
 
-msgctxt "#30413"
-msgid "Do you want to reset?"
-msgstr ""
+msgctxt "#30421"
+msgid "Adding to library..."
+msgstr "Lagt til bibliotek..."
 
-msgctxt "#30414"
-msgid "Yes"
-msgstr ""
+msgctxt "#30422"
+msgid "Updating TV shows..."
+msgstr "Opdaterer TV Serier..."
 
-msgctxt "#30415"
-msgid "No"
-msgstr ""
+msgctxt "#30423"
+msgid "Process Complete"
+msgstr "Processen er Færdig"
 
-msgctxt "#30416"
-msgid "1) Visit : "
-msgstr ""
-
-msgctxt "#30417"
-msgid "2) When prompted enter : "
-msgstr ""
+msgctxt "#30425"
+msgid "Are you sure?"
+msgstr "Er du sikker?"
 
 msgctxt "#30451"
 msgid "Getting information"
@@ -592,46 +631,6 @@ msgctxt "#30478"
 msgid "Remove from"
 msgstr "Fjern fra"
 
-msgctxt "#30479"
-msgid "A Trakt account already exists"
-msgstr ""
-
-msgctxt "#30480"
-msgid "After reset, save Exodus settings"
-msgstr ""
-
-msgctxt "#30481"
-msgid "Do you want to reset?"
-msgstr ""
-
-msgctxt "#30482"
-msgid "Yes"
-msgstr ""
-
-msgctxt "#30483"
-msgid "No"
-msgstr ""
-
-msgctxt "#30484"
-msgid "1) Visit : "
-msgstr ""
-
-msgctxt "#30485"
-msgid "2) If prompted, authorize Exodus to access your account"
-msgstr ""
-
-msgctxt "#30486"
-msgid "3) Enter the PIN provided or Cancel"
-msgstr ""
-
-msgctxt "#30487"
-msgid "Enter PIN"
-msgstr ""
-
-msgctxt "#30488"
-msgid "Cancel"
-msgstr ""
-
 msgctxt "#30491"
 msgid "This View is now Default"
 msgstr "Dette Layout er nu Standard"
@@ -657,8 +656,8 @@ msgid "Download item"
 msgstr "Download emne"
 
 msgctxt "#30506"
-msgid "Refresh providers"
-msgstr "Opdater udbydere"
+msgid "Refresh sources"
+msgstr "Refresh kilder"
 
 msgctxt "#30507"
 msgid "Add-on settings"
@@ -689,20 +688,12 @@ msgid "seconds"
 msgstr "sekunder"
 
 msgctxt "#30514"
-msgid "Remaining providers"
-msgstr "Resterende udbydere"
+msgid "Remaining sources"
+msgstr "Kilder tilbage"
 
 msgctxt "#30515"
-msgid "Loading streams"
-msgstr "Loader streams"
-
-msgctxt "#30516"
-msgid "Movie trailer"
-msgstr "Film trailer"
-
-msgctxt "#30517"
-msgid "TV show trailer"
-msgstr "TV serie trailer"
+msgid "Loading sources"
+msgstr "Henter kilder"
 
 msgctxt "#30521"
 msgid "Monday"
@@ -797,8 +788,8 @@ msgid "Info Language"
 msgstr "Info Sprog"
 
 msgctxt "#30804"
-msgid "Providers Timeout"
-msgstr "Udbyder timeout"
+msgid "Sources Timeout"
+msgstr "Kilder Timeout"
 
 msgctxt "#30805"
 msgid "Main menu"
@@ -813,32 +804,32 @@ msgid "Disabled"
 msgstr "Slået fra"
 
 msgctxt "#30808"
+msgid "Default"
+msgstr "Standard"
+
+msgctxt "#30809"
 msgid "Featured"
 msgstr "Optrædener"
 
-msgctxt "#30809"
-msgid "People Watching"
-msgstr "Andre Ser nu"
-
 msgctxt "#30810"
-msgid "Most Popular"
-msgstr "Mest Populære"
+msgid "People Watching"
+msgstr "Andre Ser"
 
 msgctxt "#30811"
-msgid "In Theaters"
-msgstr "I Biograferne"
-
-msgctxt "#30812"
 msgid "Latest Episodes"
 msgstr "Nyeste Afsnit"
 
-msgctxt "#30813"
+msgctxt "#30812"
 msgid "Disabled"
 msgstr "Slået fra"
 
+msgctxt "#30813"
+msgid "Default"
+msgstr "Standard"
+
 msgctxt "#30814"
-msgid "Episodes"
-msgstr "Afsnit"
+msgid "Favourites"
+msgstr "Favoritter"
 
 msgctxt "#30815"
 msgid "Trakt Progress"
@@ -857,30 +848,6 @@ msgid "Disabled"
 msgstr "Slået fra"
 
 msgctxt "#30819"
-msgid "Enabled"
-msgstr "Slået til"
-
-msgctxt "#30820"
-msgid "Indicators"
-msgstr "Indikatorer"
-
-msgctxt "#30821"
-msgid "Local"
-msgstr "Lokal"
-
-msgctxt "#30822"
-msgid "Trakt"
-msgstr "Trakt"
-
-msgctxt "#30823"
-msgid "My Lists"
-msgstr "Min Liste"
-
-msgctxt "#30824"
-msgid "Disabled"
-msgstr "Slået fra"
-
-msgctxt "#30825"
 msgid "Enabled"
 msgstr "Slået til"
 
@@ -913,8 +880,12 @@ msgid "Hosters with captchas"
 msgstr "Værter med captchas"
 
 msgctxt "#30837"
-msgid "Sort by Provider"
-msgstr "Sorter efter udbyder"
+msgid "Hosters with 1080p files"
+msgstr "Værter med 1080p filer"
+
+msgctxt "#30838"
+msgid "Hosters with 720p files"
+msgstr "Værter med 720p filer"
 
 msgctxt "#30839"
 msgid "Auto-play"
@@ -923,6 +894,10 @@ msgstr "Auto-spil"
 msgctxt "#30840"
 msgid "Auto-play"
 msgstr "Auto-spil"
+
+msgctxt "#30841"
+msgid "Auto-play (Library)"
+msgstr "Auto-spil (Bibliotek)"
 
 msgctxt "#30842"
 msgid "Force SD playback in Auto-play"
@@ -940,21 +915,101 @@ msgctxt "#30845"
 msgid "Playback Info"
 msgstr "Afspilning Info"
 
-msgctxt "#30846"
-msgid "Progress Dialog"
-msgstr "Fremskridt"
-
-msgctxt "#30847"
-msgid "Safe"
-msgstr "Sikker"
-
-msgctxt "#30848"
-msgid "Unsafe"
-msgstr "Usikker"
-
 msgctxt "#30860"
-msgid "Providers"
-msgstr "Udbydere"
+msgid "Movies"
+msgstr "Film"
+
+msgctxt "#30861"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30870"
+msgid "HD Hosts"
+msgstr "HD Værter"
+
+msgctxt "#30871"
+msgid "SD Hosts"
+msgstr "SD Værter"
+
+msgctxt "#30881"
+msgid "Priority 1"
+msgstr "Prioritet 1"
+
+msgctxt "#30882"
+msgid "Priority 2"
+msgstr "Prioritet 2"
+
+msgctxt "#30883"
+msgid "Priority 3"
+msgstr "Prioritet 3"
+
+msgctxt "#30884"
+msgid "Priority 4"
+msgstr "Prioritet 4"
+
+msgctxt "#30885"
+msgid "Priority 5"
+msgstr "Prioritet 5"
+
+msgctxt "#30886"
+msgid "Priority 6"
+msgstr "Prioritet 6"
+
+msgctxt "#30887"
+msgid "Priority 7"
+msgstr "Prioritet 7"
+
+msgctxt "#30888"
+msgid "Priority 8"
+msgstr "Prioritet 8"
+
+msgctxt "#30889"
+msgid "Priority 9"
+msgstr "Prioritet 9"
+
+msgctxt "#30890"
+msgid "Priority 10"
+msgstr "Prioritet 10"
+
+msgctxt "#30891"
+msgid "Priority 11"
+msgstr "Prioritet 11"
+
+msgctxt "#30892"
+msgid "Priority 12"
+msgstr "Prioritet 12"
+
+msgctxt "#30893"
+msgid "Priority 13"
+msgstr "Prioritet 13"
+
+msgctxt "#30894"
+msgid "Priority 14"
+msgstr "Prioritet 14"
+
+msgctxt "#30895"
+msgid "Priority 15"
+msgstr "Prioritet 15"
+
+msgctxt "#30896"
+msgid "Priority 16"
+msgstr "Prioritet 16"
+
+msgctxt "#30897"
+msgid "Priority 17"
+msgstr "Prioritet 17"
+
+msgctxt "#30898"
+msgid "Priority 18"
+msgstr "Prioritet 18"
+
+msgctxt "#30899"
+msgid "Priority 19"
+msgstr "Prioritet 19"
+
+msgctxt "#30900"
+msgid "Priority 20"
+msgstr "Prioritet 20"
 
 msgctxt "#30910"
 msgid "Accounts"
@@ -972,9 +1027,47 @@ msgctxt "#30913"
 msgid "Password"
 msgstr "Password"
 
-msgctxt "#30914"
-msgid "Authorization..."
-msgstr "Godkendelse"
+msgctxt "#30920"
+msgid "Library"
+msgstr "Bibliotek"
+
+msgctxt "#30921"
+msgid ""
+"Specto folderswill be imported to library if they are added to media "
+"sources."
+msgstr "Specto foldere bliver importeret til biblioteket hvis de lægges til medie kilder"
+
+msgctxt "#30922"
+msgid "Movies"
+msgstr "Film"
+
+msgctxt "#30923"
+msgid "TV"
+msgstr "TV"
+
+msgctxt "#30924"
+msgid "Auto update TV Shows"
+msgstr "Auto opdater TV Serier"
+
+msgctxt "#30925"
+msgid "Show notifications during update"
+msgstr "Vis beskeder i løbet af opdatering"
+
+msgctxt "#30926"
+msgid "Update library after adding content"
+msgstr "Opdater bibliotek efter nyt indhold"
+
+msgctxt "#30927"
+msgid "Avoid creating duplicate content"
+msgstr "Undgå at danne dobbelt indhold"
+
+msgctxt "#30928"
+msgid "Check movie before adding it"
+msgstr "Check film før den lægges til"
+
+msgctxt "#30929"
+msgid "Check first episode of season before adding it"
+msgstr "Check første afsnit af sæson før den lægges til"
 
 msgctxt "#30940"
 msgid "Subtitles"
@@ -1015,15 +1108,3 @@ msgstr "Film"
 msgctxt "#30952"
 msgid "TV"
 msgstr "TV"
-
-msgctxt "#30953"
-msgid "Enable downloads"
-msgstr "Aktiver downloads"
-
-msgctxt "#30954"
-msgid "Downloading features are disabled by default."
-msgstr "Download funktion er deaktiveret (standard)."
-
-msgctxt "#30955"
-msgid "Set up your download folders in order to enable them."
-msgstr "Indstil dine download mapper for at aktivere dem."
