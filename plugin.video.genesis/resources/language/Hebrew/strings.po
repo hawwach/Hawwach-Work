@@ -1,20 +1,24 @@
-# Addon Name: Genesis
-# Addon id: plugin.video.specto
-# Addon Provider: Genesis
+# Addon Name: Exodus
+# Addon id: plugin.video.exodus
+# Addon Provider: Exodus
 # Translators:
 # Translators:
 # Translators:
 # Translators:
-# Itay Mizi, 2015
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Itay Mizi <itaydj@gmail.com>, 2015
 # lambda81, 2015
-# lambda81, 2015
-# lidor malich, 2015
+# lambda81, 2015-2016
+# lidor malich <lidormalich@gmail.com>, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: Genesis\n"
+"Project-Id-Version: Exodus\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2015-10-18 17:05+0000\n"
-"Last-Translator: Tomer meirov\n"
+"PO-Revision-Date: 2016-01-20 07:27+0000\n"
+"Last-Translator: lambda81\n"
 "Language-Team: Hebrew (http://www.transifex.com/tv-addons/genesis/language/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,8 +39,8 @@ msgid "Channels"
 msgstr "ערוצים"
 
 msgctxt "#30004"
-msgid "My Genesis"
-msgstr "ג'נסיס שלי"
+msgid "My Lists"
+msgstr "הרשימות שלי"
 
 msgctxt "#30005"
 msgid "Latest Movies"
@@ -57,6 +61,10 @@ msgstr "כלים"
 msgctxt "#30009"
 msgid "Search"
 msgstr "חיפוש"
+
+msgctxt "#30010"
+msgid "Downloads"
+msgstr "הורדות"
 
 msgctxt "#30021"
 msgid "Genres"
@@ -107,8 +115,8 @@ msgid "Latest Movies"
 msgstr "סרטים אחרונים"
 
 msgctxt "#30033"
-msgid "Favourites"
-msgstr "מועדפים"
+msgid "My Lists"
+msgstr "הרשימות שלי"
 
 msgctxt "#30034"
 msgid "People Search"
@@ -167,12 +175,8 @@ msgid "Latest Episodes"
 msgstr "פרקים אחרונים"
 
 msgctxt "#30063"
-msgid "Favourite Episodes"
-msgstr "פרקים מועדפים"
-
-msgctxt "#30064"
-msgid "Favourites"
-msgstr "מועדפים"
+msgid "My Lists"
+msgstr "הרשימות שלי"
 
 msgctxt "#30065"
 msgid "People Search"
@@ -183,172 +187,116 @@ msgid "Search"
 msgstr "חיפוש"
 
 msgctxt "#30081"
-msgid "[B]TRAKT[/B] : Collection"
-msgstr "אוסף:[B]TRAKT[/B] "
+msgid "No Trakt or IMDb account found."
+msgstr ""
 
 msgctxt "#30082"
-msgid "[B]TRAKT[/B] : Watchlist"
-msgstr "רשימת צפייה:[B]TRAKT[/B]"
+msgid "Trakt indicators are disabled by default."
+msgstr ""
 
 msgctxt "#30083"
-msgid "[B]TRAKT[/B] : Featured"
-msgstr "מומלצים:[B]TRAKT[/B]"
+msgid "In order to use them enable them in settings."
+msgstr ""
 
 msgctxt "#30084"
-msgid "[B]TRAKT[/B] : Ratings"
-msgstr "רייטינג:[B]TRAKT[/B]"
+msgid "[B]TRAKT[/B] : Collection"
+msgstr "אוסף:[B]TRAKT[/B] "
 
 msgctxt "#30085"
 msgid "[B]TRAKT[/B] : TV Collection"
 msgstr "אוסף סדרות:[B]TRAKT[/B]"
 
 msgctxt "#30086"
+msgid "[B]TRAKT[/B] : Watchlist"
+msgstr "רשימת צפייה:[B]TRAKT[/B]"
+
+msgctxt "#30087"
 msgid "[B]TRAKT[/B] : TV Watchlist"
 msgstr "רשימת צפייה בסדרות:[B]TRAKT[/B]"
 
-msgctxt "#30087"
+msgctxt "#30088"
+msgid "[B]IMDB[/B] : Watchlist"
+msgstr "רשימת צפייה: [B]IMDB[/B] "
+
+msgctxt "#30089"
+msgid "[B]IMDB[/B] : TV Watchlist"
+msgstr "רשימת צפייה בסדרות: [B]IMDB[/B]"
+
+msgctxt "#30090"
+msgid "[B]TRAKT[/B] : Featured"
+msgstr "מומלצים:[B]TRAKT[/B]"
+
+msgctxt "#30091"
 msgid "[B]TRAKT[/B] : TV Featured"
 msgstr "סדרות מומלצות: [B]TRAKT[/B] "
 
-msgctxt "#30088"
-msgid "[B]TRAKT[/B] : TV Ratings"
-msgstr "דירוג סדרות: [B]TRAKT[/B] "
+msgctxt "#30092"
+msgid "[B]TRAKT[/B] : History"
+msgstr ""
 
-msgctxt "#30089"
+msgctxt "#30093"
+msgid "[B]TRAKT[/B] : TV History"
+msgstr ""
+
+msgctxt "#30094"
 msgid "[B]TRAKT[/B] : Progress"
 msgstr "התקדמות: [B]TRAKT[/B] "
 
-msgctxt "#30090"
+msgctxt "#30095"
 msgid "[B]TRAKT[/B] : Episodes"
 msgstr "פרקים: [B]TRAKT[/B] "
 
-msgctxt "#30091"
-msgid "[B]IMDB[/B] : Watchlist"
-msgstr "רשימת צפייה: [B]TRAKT[/B] "
-
-msgctxt "#30092"
-msgid "[B]IMDB[/B] : TV Watchlist"
-msgstr "רשימת צפייה בסדרות: [B]TRAKT[/B]"
-
-msgctxt "#30093"
+msgctxt "#30096"
 msgid "Movie Lists"
 msgstr "רשימת סרטים"
 
-msgctxt "#30094"
+msgctxt "#30097"
 msgid "TV Show Lists"
 msgstr "רשימת סדרות"
 
-msgctxt "#30095"
-msgid "Favourite Movies"
-msgstr "סרטים מועדפים"
-
-msgctxt "#30096"
-msgid "Favourite Episodes"
-msgstr "פרקים מועדפים"
-
-msgctxt "#30097"
-msgid "Favourite TV"
-msgstr "סדרות מועדפות"
-
 msgctxt "#30098"
-msgid "Downloads"
-msgstr "הורדות"
-
-msgctxt "#30099"
-msgid "Movies"
-msgstr "סרטים"
-
-msgctxt "#30100"
-msgid "TV"
-msgstr "סדרות"
+msgid "Episode Lists"
+msgstr ""
 
 msgctxt "#30111"
 msgid "[B]SETTINGS[/B] : General"
-msgstr "סגנון: [B]הגדרות[/B]"
+msgstr "כללי [B]הגדרות:[/B]"
 
 msgctxt "#30112"
 msgid "[B]SETTINGS[/B] : Accounts"
-msgstr "חשבון: [B]הגדרות[/B]"
+msgstr " חשבון [B]הגדרות:[/B]"
 
 msgctxt "#30113"
 msgid "[B]SETTINGS[/B] : Playback"
-msgstr "שמע: [B]הגדרות[/B]"
+msgstr "שמע [B]הגדרות:[/B]"
 
 msgctxt "#30114"
 msgid "[B]SETTINGS[/B] : Subtitles"
-msgstr "כתוביות: [B]הגדרות[/B]"
+msgstr "כתוביות [B]הגדרות:[/B]"
 
 msgctxt "#30115"
-msgid "[B]SOURCES[/B] : Movies"
-msgstr "סרטים: [B]מקור[/B]"
-
-msgctxt "#30116"
-msgid "[B]SOURCES[/B] : TV"
-msgstr "סדרות: [B]מקור[/B]"
-
-msgctxt "#30117"
-msgid "[B]HOSTS[/B] : HD Priority"
-msgstr "HD אחסון: [B]שרת[/B]"
-
-msgctxt "#30118"
-msgid "[B]HOSTS[/B] : SD Priority"
-msgstr "SD אחסון: [B]שרת[/B]"
+msgid "[B]SETTINGS[/B] : Providers"
+msgstr ""
 
 msgctxt "#30119"
-msgid "[B]GENESIS[/B] : Clear sources..."
-msgstr "נקה העדפת מקורות אחסון :[B]ג'נסיס[/B]"
+msgid "[B]EXODUS[/B] : Clear providers..."
+msgstr ""
 
 msgctxt "#30120"
-msgid "[B]GENESIS[/B] : Clear cache..."
-msgstr "נקה Cache :[B]ג'נסיס[/B]"
-
-msgctxt "#30121"
-msgid "[B]GENESIS[/B] : Library"
-msgstr "ספריה :[B]ג'נסיס[/B]"
+msgid "[B]EXODUS[/B] : Clear cache..."
+msgstr "נקה מטמון [B]ג'נסיס:[/B]"
 
 msgctxt "#30122"
-msgid "[B]GENESIS[/B] : Downloads"
-msgstr " הורדות:[B]ג'נסיס[/B]"
+msgid "[B]EXODUS[/B] : Downloads"
+msgstr " הורדות [B]ג'נסיס:[/B]"
 
-msgctxt "#30131"
-msgid "[B]LIBRARY[/B] : Settings"
-msgstr "הגדרות:[B]ספריה[/B]"
+msgctxt "#30141"
+msgid "Movies"
+msgstr "סרטים"
 
-msgctxt "#30132"
-msgid "[B]GENESIS[/B] : Update folders..."
-msgstr "עדכון תיקייה:[B]ג'נסיס[/B]"
-
-msgctxt "#30133"
-msgid "[B]GENESIS[/B] : Movie folder..."
-msgstr "תיקיית סרטים:[B]ג'נסיס[/B]"
-
-msgctxt "#30134"
-msgid "[B]GENESIS[/B] : TV folder..."
-msgstr "תיקיית סדרות:[B]ג'נסיס[/B]"
-
-msgctxt "#30135"
-msgid "[B]TRAKT[/B] : Import Collection..."
-msgstr "יבוא אוסף: [B]TRAKT[/B] "
-
-msgctxt "#30136"
-msgid "[B]TRAKT[/B] : Import Watchlist..."
-msgstr "יבא רשימת צפייה: [B]TRAKT[/B] "
-
-msgctxt "#30137"
-msgid "[B]TRAKT[/B] : Import TV Collection..."
-msgstr "יבא אוסף סדרות: [B]TRAKT[/B] "
-
-msgctxt "#30138"
-msgid "[B]TRAKT[/B] : Import TV Watchlist..."
-msgstr "יבא רשימת צפייה לסדרות: [B]TRAKT[/B]"
-
-msgctxt "#30139"
-msgid "[B]IMDB[/B] : Import Watchlist..."
-msgstr "יבא רשימת צפייה: [B]IMDB[/B]"
-
-msgctxt "#30140"
-msgid "[B]IMDB[/B] : Import TV Watchlist..."
-msgstr "יבא רשימת צפייה בסדרות: [B]IMDB[/B]"
+msgctxt "#30142"
+msgid "TV Shows"
+msgstr "סדרות"
 
 msgctxt "#30151"
 msgid "Movies"
@@ -366,9 +314,9 @@ msgctxt "#30154"
 msgid "People (TV)"
 msgstr "שחקנים(סדרות)"
 
-msgctxt "#30191"
-msgid "Add to Library"
-msgstr "הוסף לספרייה"
+msgctxt "#30155"
+msgid "Queue item"
+msgstr "הוספה לתור"
 
 msgctxt "#30201"
 msgid "Search"
@@ -410,10 +358,6 @@ msgctxt "#30210"
 msgid "Remove from favourites"
 msgstr "הסרה ממועדפים"
 
-msgctxt "#30211"
-msgid "Add to Library"
-msgstr "הוסף לספריה"
-
 msgctxt "#30212"
 msgid "Set Movies view"
 msgstr "הגדר תצוגת סרט"
@@ -421,6 +365,10 @@ msgstr "הגדר תצוגת סרט"
 msgctxt "#30213"
 msgid "[I]Next Page[/I]"
 msgstr "[I]עמוד הבא[/I]"
+
+msgctxt "#30214"
+msgid "Movie trailer"
+msgstr ""
 
 msgctxt "#30231"
 msgid "Search"
@@ -454,10 +402,6 @@ msgctxt "#30238"
 msgid "Remove from favourites"
 msgstr "הסרה ממועדפים"
 
-msgctxt "#30239"
-msgid "Add to Library"
-msgstr "הוסף לספריה"
-
 msgctxt "#30240"
 msgid "Set TV Shows view"
 msgstr "הגדר תצוגת סדרה"
@@ -465,6 +409,10 @@ msgstr "הגדר תצוגת סדרה"
 msgctxt "#30241"
 msgid "[I]Next Page[/I]"
 msgstr "[I]עמוד הבא[/I]"
+
+msgctxt "#30242"
+msgid "TV show trailer"
+msgstr ""
 
 msgctxt "#30261"
 msgid "Queue item"
@@ -495,8 +443,8 @@ msgid "Remove from favourites"
 msgstr "הסרה ממועדפים"
 
 msgctxt "#30268"
-msgid "Add to Library"
-msgstr "הוסף לספריה"
+msgid "TV show trailer"
+msgstr ""
 
 msgctxt "#30269"
 msgid "Set Seasons view"
@@ -522,6 +470,10 @@ msgctxt "#30274"
 msgid "Browse Seasons"
 msgstr "עיון בעונות"
 
+msgctxt "#30275"
+msgid "Season"
+msgstr "עונה"
+
 msgctxt "#30291"
 msgid "Auto-play"
 msgstr "ניגון אוטומטי..."
@@ -546,6 +498,10 @@ msgctxt "#30296"
 msgid "Now playing..."
 msgstr "מנגן עכשיו"
 
+msgctxt "#30297"
+msgid "Trailer"
+msgstr ""
+
 msgctxt "#30401"
 msgid "Are you sure?"
 msgstr "האם אתה בטוח?"
@@ -555,28 +511,32 @@ msgid "Process Complete"
 msgstr "התהליך הושלם"
 
 msgctxt "#30411"
-msgid "Added to Favourites"
-msgstr "הוסף למועדפים"
+msgid "A RealDebrid account already exists"
+msgstr ""
 
 msgctxt "#30412"
-msgid "Removed from Favourites"
-msgstr "הסר ממועדפים"
+msgid "After reset, save Exodus settings"
+msgstr ""
 
-msgctxt "#30421"
-msgid "Adding to library..."
-msgstr "מוסיף לספריה..."
+msgctxt "#30413"
+msgid "Do you want to reset?"
+msgstr ""
 
-msgctxt "#30422"
-msgid "Updating TV shows..."
-msgstr "מעדכן סדרות..."
+msgctxt "#30414"
+msgid "Yes"
+msgstr ""
 
-msgctxt "#30423"
-msgid "Process Complete"
-msgstr "התהליך הושלם"
+msgctxt "#30415"
+msgid "No"
+msgstr ""
 
-msgctxt "#30425"
-msgid "Are you sure?"
-msgstr "האם אתה בטוח?"
+msgctxt "#30416"
+msgid "1) Visit : "
+msgstr ""
+
+msgctxt "#30417"
+msgid "2) When prompted enter : "
+msgstr ""
 
 msgctxt "#30451"
 msgid "Getting information"
@@ -634,6 +594,46 @@ msgctxt "#30478"
 msgid "Remove from"
 msgstr "הסר מ"
 
+msgctxt "#30479"
+msgid "A Trakt account already exists"
+msgstr ""
+
+msgctxt "#30480"
+msgid "After reset, save Exodus settings"
+msgstr ""
+
+msgctxt "#30481"
+msgid "Do you want to reset?"
+msgstr ""
+
+msgctxt "#30482"
+msgid "Yes"
+msgstr ""
+
+msgctxt "#30483"
+msgid "No"
+msgstr ""
+
+msgctxt "#30484"
+msgid "1) Visit : "
+msgstr ""
+
+msgctxt "#30485"
+msgid "2) If prompted, authorize Exodus to access your account"
+msgstr ""
+
+msgctxt "#30486"
+msgid "3) Enter the PIN provided or Cancel"
+msgstr ""
+
+msgctxt "#30487"
+msgid "Enter PIN"
+msgstr ""
+
+msgctxt "#30488"
+msgid "Cancel"
+msgstr ""
+
 msgctxt "#30491"
 msgid "This View is now Default"
 msgstr "התצוגה הזאת היא ברירת-מחדל"
@@ -659,8 +659,8 @@ msgid "Download item"
 msgstr "הורדת פריט"
 
 msgctxt "#30506"
-msgid "Refresh sources"
-msgstr "רענן מקורות"
+msgid "Refresh providers"
+msgstr ""
 
 msgctxt "#30507"
 msgid "Add-on settings"
@@ -691,12 +691,20 @@ msgid "seconds"
 msgstr "שניות"
 
 msgctxt "#30514"
-msgid "Remaining sources"
-msgstr "מקורות שנשארו"
+msgid "Remaining providers"
+msgstr ""
 
 msgctxt "#30515"
-msgid "Loading sources"
-msgstr "טוען מקורות"
+msgid "Loading streams"
+msgstr ""
+
+msgctxt "#30516"
+msgid "Movie trailer"
+msgstr ""
+
+msgctxt "#30517"
+msgid "TV show trailer"
+msgstr ""
 
 msgctxt "#30521"
 msgid "Monday"
@@ -791,8 +799,8 @@ msgid "Info Language"
 msgstr "שפת מידע"
 
 msgctxt "#30804"
-msgid "Sources Timeout"
-msgstr "זמן(בשניות) להחלפת שרת"
+msgid "Providers Timeout"
+msgstr ""
 
 msgctxt "#30805"
 msgid "Main menu"
@@ -807,32 +815,32 @@ msgid "Disabled"
 msgstr "לא מאופשר"
 
 msgctxt "#30808"
-msgid "Default"
-msgstr "ברירת-מחדל"
+msgid "Featured"
+msgstr "מוצגים עכשיו"
 
 msgctxt "#30809"
-msgid "Featured"
-msgstr "מומלצים"
-
-msgctxt "#30810"
 msgid "People Watching"
 msgstr "אנשים צפו"
 
+msgctxt "#30810"
+msgid "Most Popular"
+msgstr "הכי פופולארי"
+
 msgctxt "#30811"
+msgid "In Theaters"
+msgstr "עכשיו בקולנוע"
+
+msgctxt "#30812"
 msgid "Latest Episodes"
 msgstr "פרקים אחרונים"
 
-msgctxt "#30812"
+msgctxt "#30813"
 msgid "Disabled"
 msgstr "לא מאופשר"
 
-msgctxt "#30813"
-msgid "Default"
-msgstr "ברירת-מחדל"
-
 msgctxt "#30814"
-msgid "Favourites"
-msgstr "מועדפים"
+msgid "Episodes"
+msgstr "פרקים"
 
 msgctxt "#30815"
 msgid "Trakt Progress"
@@ -844,13 +852,37 @@ msgstr "Trackt פרקים"
 
 msgctxt "#30817"
 msgid "TV Calendar"
-msgstr "לוח שנה"
+msgstr "לוח שידורים"
 
 msgctxt "#30818"
 msgid "Disabled"
 msgstr "לא מאופשר"
 
 msgctxt "#30819"
+msgid "Enabled"
+msgstr "מאופשר"
+
+msgctxt "#30820"
+msgid "Indicators"
+msgstr ""
+
+msgctxt "#30821"
+msgid "Local"
+msgstr ""
+
+msgctxt "#30822"
+msgid "Trakt"
+msgstr "Trakt"
+
+msgctxt "#30823"
+msgid "My Lists"
+msgstr "הרשימות שלי"
+
+msgctxt "#30824"
+msgid "Disabled"
+msgstr "לא מאופשר"
+
+msgctxt "#30825"
 msgid "Enabled"
 msgstr "מאופשר"
 
@@ -883,12 +915,8 @@ msgid "Hosters with captchas"
 msgstr "קוד אימות"
 
 msgctxt "#30837"
-msgid "Hosters with 1080p files"
-msgstr "שרת עם קבצי 1080P"
-
-msgctxt "#30838"
-msgid "Hosters with 720p files"
-msgstr "שרת עם קבצי 720P"
+msgid "Sort by Provider"
+msgstr ""
 
 msgctxt "#30839"
 msgid "Auto-play"
@@ -897,10 +925,6 @@ msgstr "ניגון אוטומטי"
 msgctxt "#30840"
 msgid "Auto-play"
 msgstr "ניגון אוטומטי"
-
-msgctxt "#30841"
-msgid "Auto-play (Library)"
-msgstr "ניגון אוטומטי(ספריה)"
 
 msgctxt "#30842"
 msgid "Force SD playback in Auto-play"
@@ -918,101 +942,21 @@ msgctxt "#30845"
 msgid "Playback Info"
 msgstr "מידע על השמע"
 
+msgctxt "#30846"
+msgid "Progress Dialog"
+msgstr ""
+
+msgctxt "#30847"
+msgid "Safe"
+msgstr ""
+
+msgctxt "#30848"
+msgid "Unsafe"
+msgstr ""
+
 msgctxt "#30860"
-msgid "Movies"
-msgstr "סרטים"
-
-msgctxt "#30861"
-msgid "TV"
-msgstr "סדרות"
-
-msgctxt "#30870"
-msgid "HD Hosts"
-msgstr "שרת HD"
-
-msgctxt "#30871"
-msgid "SD Hosts"
-msgstr "שרת SD"
-
-msgctxt "#30881"
-msgid "Priority 1"
-msgstr "עדיפות מספר 1"
-
-msgctxt "#30882"
-msgid "Priority 2"
-msgstr "עדיפות מספר 2"
-
-msgctxt "#30883"
-msgid "Priority 3"
-msgstr "עדיפות מספר 3"
-
-msgctxt "#30884"
-msgid "Priority 4"
-msgstr "עדיפות מספר 4"
-
-msgctxt "#30885"
-msgid "Priority 5"
-msgstr "עדיפות מספר 5"
-
-msgctxt "#30886"
-msgid "Priority 6"
-msgstr "עדיפות מספר 6"
-
-msgctxt "#30887"
-msgid "Priority 7"
-msgstr "עדיפות מספר 7"
-
-msgctxt "#30888"
-msgid "Priority 8"
-msgstr "עדיפות מספר 8"
-
-msgctxt "#30889"
-msgid "Priority 9"
-msgstr "עדיפות מספר 9"
-
-msgctxt "#30890"
-msgid "Priority 10"
-msgstr "עדיפות מספר 10"
-
-msgctxt "#30891"
-msgid "Priority 11"
-msgstr "עדיפות מספר 11"
-
-msgctxt "#30892"
-msgid "Priority 12"
-msgstr "עדיפות מספר 12"
-
-msgctxt "#30893"
-msgid "Priority 13"
-msgstr "עדיפות מספר 13"
-
-msgctxt "#30894"
-msgid "Priority 14"
-msgstr "עדיפות מספר 14"
-
-msgctxt "#30895"
-msgid "Priority 15"
-msgstr "עדיפות מספר 15"
-
-msgctxt "#30896"
-msgid "Priority 16"
-msgstr "עדיפות מספר 16"
-
-msgctxt "#30897"
-msgid "Priority 17"
-msgstr "עדיפות מספר 17"
-
-msgctxt "#30898"
-msgid "Priority 18"
-msgstr "עדיפות מספר 18"
-
-msgctxt "#30899"
-msgid "Priority 19"
-msgstr "עדיפות מספר 19"
-
-msgctxt "#30900"
-msgid "Priority 20"
-msgstr "עדיפות מספר 20"
+msgid "Providers"
+msgstr ""
 
 msgctxt "#30910"
 msgid "Accounts"
@@ -1030,47 +974,9 @@ msgctxt "#30913"
 msgid "Password"
 msgstr "סיסמה"
 
-msgctxt "#30920"
-msgid "Library"
-msgstr "ספריה"
-
-msgctxt "#30921"
-msgid ""
-"Genesis folders will be imported to library if they are added to media "
-"sources."
-msgstr "תיקיית ג'נסיס תיובא רק אם קימיים מקורות לניגון."
-
-msgctxt "#30922"
-msgid "Movies"
-msgstr "סרטים"
-
-msgctxt "#30923"
-msgid "TV"
-msgstr "סדרות"
-
-msgctxt "#30924"
-msgid "Auto update TV Shows"
-msgstr "עדכון אוטומטי של סדרות"
-
-msgctxt "#30925"
-msgid "Show notifications during update"
-msgstr "הצג הודעות במהלך העדכון"
-
-msgctxt "#30926"
-msgid "Update library after adding content"
-msgstr "עדכון ספריה לאחר הוספת תוכן"
-
-msgctxt "#30927"
-msgid "Avoid creating duplicate content"
-msgstr "הימנע מיצירת תוכן כפול"
-
-msgctxt "#30928"
-msgid "Check movie before adding it"
-msgstr "בדוק סרטים לפני הוספה"
-
-msgctxt "#30929"
-msgid "Check first episode of season before adding it"
-msgstr "בדוק פרק ראשון של עונה לפני הוספה"
+msgctxt "#30914"
+msgid "Authorization..."
+msgstr ""
 
 msgctxt "#30940"
 msgid "Subtitles"
@@ -1111,3 +1017,15 @@ msgstr "סרטים"
 msgctxt "#30952"
 msgid "TV"
 msgstr "סדרות"
+
+msgctxt "#30953"
+msgid "Enable downloads"
+msgstr ""
+
+msgctxt "#30954"
+msgid "Downloading features are disabled by default."
+msgstr ""
+
+msgctxt "#30955"
+msgid "Set up your download folders in order to enable them."
+msgstr ""
