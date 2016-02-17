@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Specto Add-on
-    Copyright (C) 2015 lambda
+    Exodus Add-on
+    Copyright (C) 2016 lambda
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,7 +21,6 @@
 
 import urlparse,sys
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?','')))
-print("PARAMS:",params)
 
 
 try:
@@ -43,19 +42,15 @@ except:
 try:
     imdb = params['imdb']
 except:
-    imdb = '0'
+    imdb = None
 try:
     tmdb = params['tmdb']
 except:
-    tmdb = '0'
+    tmdb = None
 try:
     tvdb = params['tvdb']
 except:
-    tvdb = '0'
-try:
-    tvrage = params['tvrage']
-except:
-    tvrage = '0'
+    tvdb = None
 try:
     season = params['season']
 except:
@@ -69,21 +64,9 @@ try:
 except:
     tvshowtitle = None
 try:
-    tvshowtitle = params['show']
+    premiered = params['premiered']
 except:
-    pass
-try:
-    alter = params['alter']
-except:
-    alter = '0'
-try:
-    alter = params['genre']
-except:
-    pass
-try:
-    date = params['date']
-except:
-    date = None
+    premiered = None
 try:
     url = params['url']
 except:
@@ -108,10 +91,6 @@ try:
     content = params['content']
 except:
     content = None
-try:
-    provider = params['provider']
-except:
-    provider = None
 
 
 
@@ -129,7 +108,7 @@ elif action == 'tvNavigator':
 
 elif action == 'myNavigator':
     from resources.lib.indexers import navigator
-    navigator.navigator().specto()
+    navigator.navigator().lists()
 
 elif action == 'downloadNavigator':
     from resources.lib.indexers import navigator
@@ -138,10 +117,6 @@ elif action == 'downloadNavigator':
 elif action == 'toolNavigator':
     from resources.lib.indexers import navigator
     navigator.navigator().tools()
-
-elif action == 'libtoolNavigator':
-    from resources.lib.indexers import navigator
-    navigator.navigator().library()
 
 elif action == 'searchNavigator':
     from resources.lib.indexers import navigator
@@ -154,10 +129,6 @@ elif action == 'movies':
 elif action == 'movieWidget':
     from resources.lib.indexers import movies
     movies.movies().widget()
-
-elif action == 'movieFavourites':
-    from resources.lib.indexers import movies
-    movies.movies().favourites()
 
 elif action == 'movieSearch':
     from resources.lib.indexers import movies
@@ -195,10 +166,6 @@ elif action == 'tvshows':
     from resources.lib.indexers import tvshows
     tvshows.tvshows().get(url)
 
-elif action == 'tvFavourites':
-    from resources.lib.indexers import tvshows
-    tvshows.tvshows().favourites()
-
 elif action == 'tvSearch':
     from resources.lib.indexers import tvshows
     tvshows.tvshows().search(query)
@@ -225,11 +192,11 @@ elif action == 'tvUserlists':
 
 elif action == 'seasons':
     from resources.lib.indexers import episodes
-    episodes.seasons().get(tvshowtitle, year, imdb, tmdb, tvdb, tvrage)
+    episodes.seasons().get(tvshowtitle, year, imdb, tmdb, tvdb)
 
 elif action == 'episodes':
     from resources.lib.indexers import episodes
-    episodes.episodes().get(tvshowtitle, year, imdb, tmdb, tvdb, tvrage, season, episode)
+    episodes.episodes().get(tvshowtitle, year, imdb, tmdb, tvdb, season, episode)
 
 elif action == 'calendar':
     from resources.lib.indexers import episodes
@@ -239,114 +206,88 @@ elif action == 'tvWidget':
     from resources.lib.indexers import episodes
     episodes.episodes().widget()
 
-elif action == 'episodeFavourites':
-    from resources.lib.indexers import episodes
-    episodes.episodes().favourites()
-
 elif action == 'calendars':
     from resources.lib.indexers import episodes
     episodes.episodes().calendars()
 
+elif action == 'episodeUserlists':
+    from resources.lib.indexers import episodes
+    episodes.episodes().userlists()
+
 elif action == 'refresh':
-    from resources.lib.libraries import control
+    from resources.lib.modules import control
     control.refresh()
 
 elif action == 'queueItem':
-    from resources.lib.libraries import control
+    from resources.lib.modules import control
     control.queueItem()
 
 elif action == 'openPlaylist':
-    from resources.lib.libraries import control
+    from resources.lib.modules import control
     control.openPlaylist()
 
 elif action == 'openSettings':
-    from resources.lib.libraries import control
+    from resources.lib.modules import control
     control.openSettings(query)
 
+elif action == 'artwork':
+    from resources.lib.modules import control
+    control.artwork()
+
 elif action == 'moviePlaycount':
-    from resources.lib.libraries import playcount
-    playcount.movies(title, year, imdb, query)
+    from resources.lib.modules import playcount
+    playcount.movies(imdb, query)
 
 elif action == 'episodePlaycount':
-    from resources.lib.libraries import playcount
+    from resources.lib.modules import playcount
     playcount.episodes(imdb, tvdb, season, episode, query)
 
 elif action == 'tvPlaycount':
-    from resources.lib.libraries import playcount
-    playcount.tvshows(name, year, imdb, tvdb, season, query)
+    from resources.lib.modules import playcount
+    playcount.tvshows(name, imdb, tvdb, season, query)
 
 elif action == 'trailer':
-    from resources.lib.libraries import trailer
+    from resources.lib.modules import trailer
     trailer.trailer().play(name, url)
 
 elif action == 'clearCache':
-    from resources.lib.libraries import cache
+    from resources.lib.modules import cache
     cache.clear()
 
-elif action == 'addFavourite':
-    from resources.lib.libraries import favourites
-    favourites.addFavourite(meta, content, query)
-
-elif action == 'deleteFavourite':
-    from resources.lib.libraries import favourites
-    favourites.deleteFavourite(meta, content)
-
 elif action == 'addView':
-    from resources.lib.libraries import views
+    from resources.lib.modules import views
     views.addView(content)
 
 elif action == 'traktManager':
-    from resources.lib.libraries import trakt
+    from resources.lib.modules import trakt
     trakt.manager(name, imdb, tvdb, content)
 
-elif action == 'movieToLibrary':
-    from resources.lib.libraries import libtools
-    libtools.libmovies().add(name, title, year, imdb, tmdb)
+elif action == 'authTrakt':
+    from resources.lib.modules import trakt
+    trakt.authTrakt()
 
-elif action == 'moviesToLibrary':
-    from resources.lib.libraries import libtools
-    libtools.libmovies().range(url)
-
-elif action == 'tvshowToLibrary':
-    from resources.lib.libraries import libtools
-    libtools.libtvshows().add(tvshowtitle, year, imdb, tmdb, tvdb, tvrage)
-
-elif action == 'tvshowsToLibrary':
-    from resources.lib.libraries import libtools
-    libtools.libtvshows().range(url)
-
-elif action == 'updateLibrary':
-    from resources.lib.libraries import libtools
-    libtools.libepisodes().update(query)
-
-elif action == 'service':
-    from resources.lib.libraries import libtools
-    libtools.libepisodes().service()
-
-elif action == 'resolve':
-    from resources.lib.sources import sources
-    from resources.lib.libraries import control
-    url = sources().sourcesResolve(url, provider)
-    control.addItem(handle=int(sys.argv[1]), url=url, listitem=control.item(name))
-    control.directory(int(sys.argv[1]))
+elif action == 'rdAuthorize':
+    from resources.lib.modules import debrid
+    debrid.rdAuthorize()
 
 elif action == 'download':
+    import json
     from resources.lib.sources import sources
-    from resources.lib.libraries import simpledownloader
-    url = sources().sourcesResolve(url, provider)
-    simpledownloader.download(name, image, url)
+    from resources.lib.modules import downloader
+    try: downloader.download(name, image, sources().sourcesResolve(json.loads(source)[0]))
+    except: pass
 
 elif action == 'play':
     from resources.lib.sources import sources
-    sources().play(name, title, year, imdb, tmdb, tvdb, tvrage, season, episode, tvshowtitle, alter, date, meta, url)
+    sources().play(title, year, imdb, tmdb, tvdb, season, episode, tvshowtitle, premiered, meta, url)
 
 elif action == 'sources':
     from resources.lib.sources import sources
-    sources().addItem(name, title, year, imdb, tmdb, tvdb, tvrage, season, episode, tvshowtitle, alter, date, meta)
+    sources().addItem(title, year, imdb, tmdb, tvdb, season, episode, tvshowtitle, premiered, meta)
 
 elif action == 'playItem':
     from resources.lib.sources import sources
-    sources().playItem(content, name, year, imdb, tvdb, source)
+    sources().playItem(source)
 
 elif action == 'alterSources':
     from resources.lib.sources import sources

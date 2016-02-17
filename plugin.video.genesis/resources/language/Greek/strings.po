@@ -1,16 +1,20 @@
-# Addon Name: Specto
-# Addon id: plugin.video.specto
-# Addon Provider: Specto
+# Addon Name: Exodus
+# Addon id: plugin.video.exodus
+# Addon Provider: Exodus
 # Translators:
 # Translators:
 # Translators:
 # Translators:
-# lambda81, 2015
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# lambda81, 2015-2016
 msgid ""
 msgstr ""
-"Project-Id-Version: Specto\n"
+"Project-Id-Version: Exodus\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2015-10-16 13:49+0000\n"
+"PO-Revision-Date: 2016-01-20 07:27+0000\n"
 "Last-Translator: lambda81\n"
 "Language-Team: Greek (http://www.transifex.com/tv-addons/genesis/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -32,8 +36,8 @@ msgid "Channels"
 msgstr "Κανάλια"
 
 msgctxt "#30004"
-msgid "My Specto"
-msgstr "My Specto"
+msgid "My Lists"
+msgstr "Οι Λίστες μου"
 
 msgctxt "#30005"
 msgid "Latest Movies"
@@ -54,6 +58,10 @@ msgstr "Εργαλεία"
 msgctxt "#30009"
 msgid "Search"
 msgstr "Αναζήτηση"
+
+msgctxt "#30010"
+msgid "Downloads"
+msgstr "Λήψεις"
 
 msgctxt "#30021"
 msgid "Genres"
@@ -104,8 +112,8 @@ msgid "Latest Movies"
 msgstr "Πρόσφατες Ταινίες"
 
 msgctxt "#30033"
-msgid "Favourites"
-msgstr "Αγαπημένα"
+msgid "My Lists"
+msgstr "Οι Λίστες μου"
 
 msgctxt "#30034"
 msgid "People Search"
@@ -164,12 +172,8 @@ msgid "Latest Episodes"
 msgstr "Πρόσφατα Επεισόδια"
 
 msgctxt "#30063"
-msgid "Favourite Episodes"
-msgstr "Αγαπημένα Επεισόδια"
-
-msgctxt "#30064"
-msgid "Favourites"
-msgstr "Αγαπημένα"
+msgid "My Lists"
+msgstr "Οι Λίστες μου"
 
 msgctxt "#30065"
 msgid "People Search"
@@ -180,84 +184,76 @@ msgid "Search"
 msgstr "Αναζήτηση"
 
 msgctxt "#30081"
-msgid "[B]TRAKT[/B] : Collection"
-msgstr "[B]TRAKT[/B] : Συλλογή"
+msgid "No Trakt or IMDb account found."
+msgstr "Δεν βρέθηκε λογαριασμός Trakt ή IMDb."
 
 msgctxt "#30082"
-msgid "[B]TRAKT[/B] : Watchlist"
-msgstr "[B]TRAKT[/B] : Watchlist"
+msgid "Trakt indicators are disabled by default."
+msgstr "Οι δείκτες Trakt είναι αρχικά απενεργοποιημένοι."
 
 msgctxt "#30083"
-msgid "[B]TRAKT[/B] : Featured"
-msgstr "[B]TRAKT[/B] : Προτάσεις"
+msgid "In order to use them enable them in settings."
+msgstr "Η χρήση τους απαιτεί την επιλογή τους στις ρυθμίσεις."
 
 msgctxt "#30084"
-msgid "[B]TRAKT[/B] : Ratings"
-msgstr "[B]TRAKT[/B] : Αξιολογήσεις"
+msgid "[B]TRAKT[/B] : Collection"
+msgstr "[B]TRAKT[/B] : Συλλογή"
 
 msgctxt "#30085"
 msgid "[B]TRAKT[/B] : TV Collection"
 msgstr "[B]TRAKT[/B] : TV Συλλογή"
 
 msgctxt "#30086"
+msgid "[B]TRAKT[/B] : Watchlist"
+msgstr "[B]TRAKT[/B] : Watchlist"
+
+msgctxt "#30087"
 msgid "[B]TRAKT[/B] : TV Watchlist"
 msgstr "[B]TRAKT[/B] : TV Watchlist"
 
-msgctxt "#30087"
-msgid "[B]TRAKT[/B] : TV Featured"
-msgstr "[B]TRAKT[/B] : TV Προτάσεις"
-
 msgctxt "#30088"
-msgid "[B]TRAKT[/B] : TV Ratings"
-msgstr "[B]TRAKT[/B] : TV Αξιολογήσεις"
-
-msgctxt "#30089"
-msgid "[B]TRAKT[/B] : Progress"
-msgstr "[B]TRAKT[/B] : Πρόοδος"
-
-msgctxt "#30090"
-msgid "[B]TRAKT[/B] : Episodes"
-msgstr "[B]TRAKT[/B] : Επεισόδια"
-
-msgctxt "#30091"
 msgid "[B]IMDB[/B] : Watchlist"
 msgstr "[B]IMDB[/B] : Watchlist"
 
-msgctxt "#30092"
+msgctxt "#30089"
 msgid "[B]IMDB[/B] : TV Watchlist"
 msgstr "[B]IMDB[/B] : TV Watchlist"
 
+msgctxt "#30090"
+msgid "[B]TRAKT[/B] : Featured"
+msgstr "[B]TRAKT[/B] : Προτάσεις"
+
+msgctxt "#30091"
+msgid "[B]TRAKT[/B] : TV Featured"
+msgstr "[B]TRAKT[/B] : TV Προτάσεις"
+
+msgctxt "#30092"
+msgid "[B]TRAKT[/B] : History"
+msgstr "[B]TRAKT[/B] : Επεισόδια"
+
 msgctxt "#30093"
+msgid "[B]TRAKT[/B] : TV History"
+msgstr "[B]TRAKT[/B] : TV Watchlist"
+
+msgctxt "#30094"
+msgid "[B]TRAKT[/B] : Progress"
+msgstr "[B]TRAKT[/B] : Πρόοδος"
+
+msgctxt "#30095"
+msgid "[B]TRAKT[/B] : Episodes"
+msgstr "[B]TRAKT[/B] : Επεισόδια"
+
+msgctxt "#30096"
 msgid "Movie Lists"
 msgstr "Λίστες Ταινιών"
 
-msgctxt "#30094"
+msgctxt "#30097"
 msgid "TV Show Lists"
 msgstr "Λίστες Σειρών"
 
-msgctxt "#30095"
-msgid "Favourite Movies"
-msgstr "Αγαπημένες Ταινίες"
-
-msgctxt "#30096"
-msgid "Favourite Episodes"
-msgstr "Αγαπημένα Επεισόδια"
-
-msgctxt "#30097"
-msgid "Favourite TV"
-msgstr "Αγαπημένες Σειρές"
-
 msgctxt "#30098"
-msgid "Downloads"
-msgstr "Λήψεις"
-
-msgctxt "#30099"
-msgid "Movies"
-msgstr "Ταινίες"
-
-msgctxt "#30100"
-msgid "TV"
-msgstr "TV"
+msgid "Episode Lists"
+msgstr "Λίστες Επεισοδίων"
 
 msgctxt "#30111"
 msgid "[B]SETTINGS[/B] : General"
@@ -276,76 +272,28 @@ msgid "[B]SETTINGS[/B] : Subtitles"
 msgstr "[B]ΡΥΘΜΙΣΕΙΣ[/B] : Υπότιτλοι"
 
 msgctxt "#30115"
-msgid "[B]SOURCES[/B] : Movies"
-msgstr "[B]ΠΗΓΕΣ[/B] : Ταινίες"
-
-msgctxt "#30116"
-msgid "[B]SOURCES[/B] : TV"
-msgstr "[B]ΠΗΓΕΣ[/B] : TV"
-
-msgctxt "#30117"
-msgid "[B]HOSTS[/B] : HD Priority"
-msgstr "[B]ΡΟΕΣ[/B] : Προτεραιότητα HD"
-
-msgctxt "#30118"
-msgid "[B]HOSTS[/B] : SD Priority"
-msgstr "[B]ΡΟΕΣ[/B] : Προτεραιότητα SD"
+msgid "[B]SETTINGS[/B] : Providers"
+msgstr "[B]ΡΥΘΜΙΣΕΙΣ[/B] : Πάροχοι"
 
 msgctxt "#30119"
-msgid "[B]Specto[/B] : Clear sources..."
-msgstr "[B]Specto[/B] : Καθαρισμός πηγών..."
+msgid "[B]EXODUS[/B] : Clear providers..."
+msgstr "[B]EXODUS[/B] : Καθαρισμός πάροχων..."
 
 msgctxt "#30120"
-msgid "[B]Specto[/B] : Clear cache..."
-msgstr "[B]Specto[/B] : Καθαρισμός μνήμης..."
-
-msgctxt "#30121"
-msgid "[B]Specto[/B] : Library"
-msgstr "[B]Specto[/B] : Συλλογή"
+msgid "[B]EXODUS[/B] : Clear cache..."
+msgstr "[B]EXODUS[/B] : Καθαρισμός μνήμης..."
 
 msgctxt "#30122"
-msgid "[B]Specto[/B] : Downloads"
-msgstr "[B]Specto[/B] : Λήψεις"
+msgid "[B]EXODUS[/B] : Downloads"
+msgstr "[B]EXODUS[/B] : Λήψεις"
 
-msgctxt "#30131"
-msgid "[B]LIBRARY[/B] : Settings"
-msgstr "[B]ΣΥΛΛΟΓΗ[/B] : Ρυθμίσεις"
+msgctxt "#30141"
+msgid "Movies"
+msgstr "Ταινίες"
 
-msgctxt "#30132"
-msgid "[B]Specto[/B] : Update folders..."
-msgstr "[B]Specto[/B] : Ανανέωση Φακέλων..."
-
-msgctxt "#30133"
-msgid "[B]Specto[/B] : Movie folder..."
-msgstr "[B]Specto[/B] : Φάκελος ταινιών..."
-
-msgctxt "#30134"
-msgid "[B]Specto[/B] : TV folder..."
-msgstr "[B]Specto[/B] : Φάκελος σειρών..."
-
-msgctxt "#30135"
-msgid "[B]TRAKT[/B] : Import Collection..."
-msgstr "[B]TRAKT[/B] : Εισαγωγή Συλλογής..."
-
-msgctxt "#30136"
-msgid "[B]TRAKT[/B] : Import Watchlist..."
-msgstr "[B]TRAKT[/B] : Εισαγωγή Watchlist..."
-
-msgctxt "#30137"
-msgid "[B]TRAKT[/B] : Import TV Collection..."
-msgstr "[B]TRAKT[/B] : Εισαγωγή TV Συλλογής..."
-
-msgctxt "#30138"
-msgid "[B]TRAKT[/B] : Import TV Watchlist..."
-msgstr "[B]TRAKT[/B] : Εισαγωγή TV Watchlist..."
-
-msgctxt "#30139"
-msgid "[B]IMDB[/B] : Import Watchlist..."
-msgstr "[B]IMDB[/B] : Εισαγωγή Watchlist..."
-
-msgctxt "#30140"
-msgid "[B]IMDB[/B] : Import TV Watchlist..."
-msgstr "[B]IMDB[/B] : Εισαγωγή TV Watchlist..."
+msgctxt "#30142"
+msgid "TV Shows"
+msgstr "Σειρές"
 
 msgctxt "#30151"
 msgid "Movies"
@@ -363,9 +311,9 @@ msgctxt "#30154"
 msgid "People (TV)"
 msgstr "Πρόσωπα (Σειρές)"
 
-msgctxt "#30191"
-msgid "Add to Library"
-msgstr "Προσθήκη στη Βιβλιοθήκη"
+msgctxt "#30155"
+msgid "Queue item"
+msgstr "Προσθήκη αντικειμένου στην ουρά"
 
 msgctxt "#30201"
 msgid "Search"
@@ -407,10 +355,6 @@ msgctxt "#30210"
 msgid "Remove from favourites"
 msgstr "Αφαίρεση από τα αγαπημένα"
 
-msgctxt "#30211"
-msgid "Add to Library"
-msgstr "Προσθήκη στη Βιβλιοθήκη"
-
 msgctxt "#30212"
 msgid "Set Movies view"
 msgstr "Ορισμός προβολής Ταινιών"
@@ -418,6 +362,10 @@ msgstr "Ορισμός προβολής Ταινιών"
 msgctxt "#30213"
 msgid "[I]Next Page[/I]"
 msgstr "[I]Επόμενη Σελίδα[/I]"
+
+msgctxt "#30214"
+msgid "Movie trailer"
+msgstr "Διαφημιστικό ταινίας"
 
 msgctxt "#30231"
 msgid "Search"
@@ -451,10 +399,6 @@ msgctxt "#30238"
 msgid "Remove from favourites"
 msgstr "Αφαίρεση από τα αγαπημένα"
 
-msgctxt "#30239"
-msgid "Add to Library"
-msgstr "Προσθήκη στη Βιβλιοθήκη"
-
 msgctxt "#30240"
 msgid "Set TV Shows view"
 msgstr "Ορισμός προβολής Σειρών"
@@ -462,6 +406,10 @@ msgstr "Ορισμός προβολής Σειρών"
 msgctxt "#30241"
 msgid "[I]Next Page[/I]"
 msgstr "[I]Επόμενη Σελίδα[/I]"
+
+msgctxt "#30242"
+msgid "TV show trailer"
+msgstr "Διαφημιστικό σειράς"
 
 msgctxt "#30261"
 msgid "Queue item"
@@ -492,8 +440,8 @@ msgid "Remove from favourites"
 msgstr "Αφαίρεση από τα αγαπημένα"
 
 msgctxt "#30268"
-msgid "Add to Library"
-msgstr "Προσθήκη στη Βιβλιοθήκη"
+msgid "TV show trailer"
+msgstr "Διαφημιστικό σειράς"
 
 msgctxt "#30269"
 msgid "Set Seasons view"
@@ -519,6 +467,10 @@ msgctxt "#30274"
 msgid "Browse Seasons"
 msgstr "Μετάβαση στους κύκλους"
 
+msgctxt "#30275"
+msgid "Season"
+msgstr "Κύκλος"
+
 msgctxt "#30291"
 msgid "Auto-play"
 msgstr "Αυτόματη αναπαραγωγή"
@@ -543,6 +495,10 @@ msgctxt "#30296"
 msgid "Now playing..."
 msgstr "Τώρα παίζεται..."
 
+msgctxt "#30297"
+msgid "Trailer"
+msgstr "Διαφημιστικό"
+
 msgctxt "#30401"
 msgid "Are you sure?"
 msgstr "Είστε σίγουροι;"
@@ -552,28 +508,32 @@ msgid "Process Complete"
 msgstr "Ολοκλήρωση εργασίας"
 
 msgctxt "#30411"
-msgid "Added to Favourites"
-msgstr "Προστέθηκε στα Αγαπημένα"
+msgid "A RealDebrid account already exists"
+msgstr ""
 
 msgctxt "#30412"
-msgid "Removed from Favourites"
-msgstr "Αφαιρέθηκε από τα Αγαπημένα"
+msgid "After reset, save Exodus settings"
+msgstr ""
 
-msgctxt "#30421"
-msgid "Adding to library..."
-msgstr "Προσθήκη στη συλλογή..."
+msgctxt "#30413"
+msgid "Do you want to reset?"
+msgstr ""
 
-msgctxt "#30422"
-msgid "Updating TV shows..."
-msgstr "Ανανέωση σειρών"
+msgctxt "#30414"
+msgid "Yes"
+msgstr ""
 
-msgctxt "#30423"
-msgid "Process Complete"
-msgstr "Ολοκλήρωση εργασίας"
+msgctxt "#30415"
+msgid "No"
+msgstr ""
 
-msgctxt "#30425"
-msgid "Are you sure?"
-msgstr "Είστε σίγουροι;"
+msgctxt "#30416"
+msgid "1) Visit : "
+msgstr ""
+
+msgctxt "#30417"
+msgid "2) When prompted enter : "
+msgstr ""
 
 msgctxt "#30451"
 msgid "Getting information"
@@ -631,6 +591,46 @@ msgctxt "#30478"
 msgid "Remove from"
 msgstr "Αφαίρεση από"
 
+msgctxt "#30479"
+msgid "A Trakt account already exists"
+msgstr ""
+
+msgctxt "#30480"
+msgid "After reset, save Exodus settings"
+msgstr ""
+
+msgctxt "#30481"
+msgid "Do you want to reset?"
+msgstr ""
+
+msgctxt "#30482"
+msgid "Yes"
+msgstr ""
+
+msgctxt "#30483"
+msgid "No"
+msgstr ""
+
+msgctxt "#30484"
+msgid "1) Visit : "
+msgstr ""
+
+msgctxt "#30485"
+msgid "2) If prompted, authorize Exodus to access your account"
+msgstr ""
+
+msgctxt "#30486"
+msgid "3) Enter the PIN provided or Cancel"
+msgstr ""
+
+msgctxt "#30487"
+msgid "Enter PIN"
+msgstr ""
+
+msgctxt "#30488"
+msgid "Cancel"
+msgstr ""
+
 msgctxt "#30491"
 msgid "This View is now Default"
 msgstr "Η θέαση είναι πλέον προεπιλεγμένη"
@@ -656,8 +656,8 @@ msgid "Download item"
 msgstr "Λήψη αντικειμένου"
 
 msgctxt "#30506"
-msgid "Refresh sources"
-msgstr "Ανανέωση πηγών"
+msgid "Refresh providers"
+msgstr "Ανανέωση πάροχων"
 
 msgctxt "#30507"
 msgid "Add-on settings"
@@ -688,12 +688,20 @@ msgid "seconds"
 msgstr "δευτερόλεπτα"
 
 msgctxt "#30514"
-msgid "Remaining sources"
-msgstr "Εναπομείνασες πηγές"
+msgid "Remaining providers"
+msgstr "Εναπομείναντες πάροχοι"
 
 msgctxt "#30515"
-msgid "Loading sources"
-msgstr "Φόρτωση πηγών"
+msgid "Loading streams"
+msgstr "Φόρτωση ροών"
+
+msgctxt "#30516"
+msgid "Movie trailer"
+msgstr "Διαφημιστικό ταινίας"
+
+msgctxt "#30517"
+msgid "TV show trailer"
+msgstr "Διαφημιστικό σειράς"
 
 msgctxt "#30521"
 msgid "Monday"
@@ -788,8 +796,8 @@ msgid "Info Language"
 msgstr "Γλώσσα πληροφοριών"
 
 msgctxt "#30804"
-msgid "Sources Timeout"
-msgstr "Χρονικό όριο πηγών"
+msgid "Providers Timeout"
+msgstr "Χρονικό όριο πάροχων"
 
 msgctxt "#30805"
 msgid "Main menu"
@@ -804,32 +812,32 @@ msgid "Disabled"
 msgstr "Ανενεργό"
 
 msgctxt "#30808"
-msgid "Default"
-msgstr "Προεπιλογή"
-
-msgctxt "#30809"
 msgid "Featured"
 msgstr "Προτάσεις"
 
-msgctxt "#30810"
+msgctxt "#30809"
 msgid "People Watching"
 msgstr "Προβολές"
 
+msgctxt "#30810"
+msgid "Most Popular"
+msgstr "Πιο δημοφιλή"
+
 msgctxt "#30811"
+msgid "In Theaters"
+msgstr "Στους κινηματογράφους"
+
+msgctxt "#30812"
 msgid "Latest Episodes"
 msgstr "Πρόσφατα Επεισόδια"
 
-msgctxt "#30812"
+msgctxt "#30813"
 msgid "Disabled"
 msgstr "Ανενεργό"
 
-msgctxt "#30813"
-msgid "Default"
-msgstr "Προεπιλογή"
-
 msgctxt "#30814"
-msgid "Favourites"
-msgstr "Αγαπημένα"
+msgid "Episodes"
+msgstr "Επεισόδια"
 
 msgctxt "#30815"
 msgid "Trakt Progress"
@@ -848,6 +856,30 @@ msgid "Disabled"
 msgstr "Ανενεργό"
 
 msgctxt "#30819"
+msgid "Enabled"
+msgstr "Ενεργό"
+
+msgctxt "#30820"
+msgid "Indicators"
+msgstr "Δείκτες"
+
+msgctxt "#30821"
+msgid "Local"
+msgstr "Τοπικά"
+
+msgctxt "#30822"
+msgid "Trakt"
+msgstr "Trakt"
+
+msgctxt "#30823"
+msgid "My Lists"
+msgstr "Οι Λίστες μου"
+
+msgctxt "#30824"
+msgid "Disabled"
+msgstr "Ανενεργό"
+
+msgctxt "#30825"
 msgid "Enabled"
 msgstr "Ενεργό"
 
@@ -880,12 +912,8 @@ msgid "Hosters with captchas"
 msgstr "Ροές με captcha"
 
 msgctxt "#30837"
-msgid "Hosters with 1080p files"
-msgstr "Ροές με αρχεία 1080p"
-
-msgctxt "#30838"
-msgid "Hosters with 720p files"
-msgstr "Ροές με αρχεία 720p"
+msgid "Sort by Provider"
+msgstr "Ταξινόμηση ανα πάροχο"
 
 msgctxt "#30839"
 msgid "Auto-play"
@@ -894,10 +922,6 @@ msgstr "Αυτόματη αναπαραγωγή"
 msgctxt "#30840"
 msgid "Auto-play"
 msgstr "Αυτόματη αναπαραγωγή"
-
-msgctxt "#30841"
-msgid "Auto-play (Library)"
-msgstr "Αυτόματη αναπαραγωγή (Βιβλιοθήκη)"
 
 msgctxt "#30842"
 msgid "Force SD playback in Auto-play"
@@ -915,101 +939,21 @@ msgctxt "#30845"
 msgid "Playback Info"
 msgstr "Πληροφορίες αναπαραγωγής"
 
+msgctxt "#30846"
+msgid "Progress Dialog"
+msgstr "Διάλογος προόδου"
+
+msgctxt "#30847"
+msgid "Safe"
+msgstr "Ασφαλές"
+
+msgctxt "#30848"
+msgid "Unsafe"
+msgstr "Μη ασφαλές"
+
 msgctxt "#30860"
-msgid "Movies"
-msgstr "Ταινίες"
-
-msgctxt "#30861"
-msgid "TV"
-msgstr "TV"
-
-msgctxt "#30870"
-msgid "HD Hosts"
-msgstr "HD Ροές"
-
-msgctxt "#30871"
-msgid "SD Hosts"
-msgstr "SD Ροές"
-
-msgctxt "#30881"
-msgid "Priority 1"
-msgstr "Προτεραιότητα 1"
-
-msgctxt "#30882"
-msgid "Priority 2"
-msgstr "Προτεραιότητα 2"
-
-msgctxt "#30883"
-msgid "Priority 3"
-msgstr "Προτεραιότητα 3"
-
-msgctxt "#30884"
-msgid "Priority 4"
-msgstr "Προτεραιότητα 4"
-
-msgctxt "#30885"
-msgid "Priority 5"
-msgstr "Προτεραιότητα 5"
-
-msgctxt "#30886"
-msgid "Priority 6"
-msgstr "Προτεραιότητα 6"
-
-msgctxt "#30887"
-msgid "Priority 7"
-msgstr "Προτεραιότητα 7"
-
-msgctxt "#30888"
-msgid "Priority 8"
-msgstr "Προτεραιότητα 8"
-
-msgctxt "#30889"
-msgid "Priority 9"
-msgstr "Προτεραιότητα 9"
-
-msgctxt "#30890"
-msgid "Priority 10"
-msgstr "Προτεραιότητα 10"
-
-msgctxt "#30891"
-msgid "Priority 11"
-msgstr "Προτεραιότητα 11"
-
-msgctxt "#30892"
-msgid "Priority 12"
-msgstr "Προτεραιότητα 12"
-
-msgctxt "#30893"
-msgid "Priority 13"
-msgstr "Προτεραιότητα 13"
-
-msgctxt "#30894"
-msgid "Priority 14"
-msgstr "Προτεραιότητα 14"
-
-msgctxt "#30895"
-msgid "Priority 15"
-msgstr "Προτεραιότητα 15"
-
-msgctxt "#30896"
-msgid "Priority 16"
-msgstr "Προτεραιότητα 16"
-
-msgctxt "#30897"
-msgid "Priority 17"
-msgstr "Προτεραιότητα 17"
-
-msgctxt "#30898"
-msgid "Priority 18"
-msgstr "Προτεραιότητα 18"
-
-msgctxt "#30899"
-msgid "Priority 19"
-msgstr "Προτεραιότητα 19"
-
-msgctxt "#30900"
-msgid "Priority 20"
-msgstr "Προτεραιότητα 20"
+msgid "Providers"
+msgstr "Πάροχοι"
 
 msgctxt "#30910"
 msgid "Accounts"
@@ -1027,47 +971,9 @@ msgctxt "#30913"
 msgid "Password"
 msgstr "Κωδικός"
 
-msgctxt "#30920"
-msgid "Library"
-msgstr "Βιβλιοθήκη"
-
-msgctxt "#30921"
-msgid ""
-"Specto folderswill be imported to library if they are added to media "
-"sources."
-msgstr "Οι φάκελοι του Specto θα εισαχθούν στη βιβλιοθήκη εάν προστεθούν στις πηγές περιεχομένου."
-
-msgctxt "#30922"
-msgid "Movies"
-msgstr "Ταινίες"
-
-msgctxt "#30923"
-msgid "TV"
-msgstr "TV"
-
-msgctxt "#30924"
-msgid "Auto update TV Shows"
-msgstr "Αυτόματη ενημέρωση σειρών"
-
-msgctxt "#30925"
-msgid "Show notifications during update"
-msgstr "Εμφάνιση ειδοποίησης κατά την ενημερώση"
-
-msgctxt "#30926"
-msgid "Update library after adding content"
-msgstr "Ανανέωση βιβλιοθήκης κατά την προσθήκη περιεχομένου"
-
-msgctxt "#30927"
-msgid "Avoid creating duplicate content"
-msgstr "Αποφυγή δημιουργίας διπλότυπων"
-
-msgctxt "#30928"
-msgid "Check movie before adding it"
-msgstr "Έλεγχος ταινίας πριν προστεθεί"
-
-msgctxt "#30929"
-msgid "Check first episode of season before adding it"
-msgstr "Έλεγχος πρώτου επεισοδίου κύκλου πριν προστεθεί"
+msgctxt "#30914"
+msgid "Authorization..."
+msgstr "Εξουσιοδότηση..."
 
 msgctxt "#30940"
 msgid "Subtitles"
@@ -1108,3 +1014,15 @@ msgstr "Ταινίες"
 msgctxt "#30952"
 msgid "TV"
 msgstr "TV"
+
+msgctxt "#30953"
+msgid "Enable downloads"
+msgstr "Ενεργοποιήση λήψεων"
+
+msgctxt "#30954"
+msgid "Downloading features are disabled by default."
+msgstr "Οι επιλογές λήψεων είναι απενεργοποιημένες."
+
+msgctxt "#30955"
+msgid "Set up your download folders in order to enable them."
+msgstr "Επιλέξτε τους φακέλους λήψεων για να ενεργοποιηθούν."

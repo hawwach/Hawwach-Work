@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Specto Add-on
-    Copyright (C) 2015 lambda
+    Exodus Add-on
+    Copyright (C) 2016 lambda
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@
 
 import sys,re,json,urllib,urlparse,datetime
 
-from resources.lib.libraries import control
-from resources.lib.libraries import client
-from resources.lib.libraries import workers
+from resources.lib.modules import control
+from resources.lib.modules import client
+from resources.lib.modules import workers
 
 
 class channels:
@@ -38,8 +38,8 @@ class channels:
         self.sky_programme_link = 'http://tv.sky.com/programme/channel/%s/%s/%s.json'
 
 
-    def get(self):
-        channels = [('01', 'Sky Premiere', '1409'), ('02', 'Sky Premiere +1', '1823'), ('03', 'Sky Showcase', '1814'), ('04', 'Sky Greats', '1815'), ('05', 'Sky Disney', '1838'), ('06', 'Sky Family', '1808'), ('07', 'Sky Action', '1001'), ('08', 'Sky Comedy', '1002'), ('09', 'Sky Crime', '1818'), ('10', 'Sky Drama', '1816'), ('11', 'Sky Sci Fi', '1807'), ('12', 'Sky Select', '1811'), ('13', 'Film4', '1627'), ('14', 'TCM', '5605')] 
+    def get(self): 
+        channels = [('01', 'Sky Premiere', '4021'), ('02', 'Sky Premiere +1', '1823'), ('03', 'Sky Showcase', '4033'), ('04', 'Sky Greats', '1815'), ('05', 'Sky Disney', '4013'), ('06', 'Sky Family', '4018'), ('07', 'Sky Action', '4014'), ('08', 'Sky Comedy', '4019'), ('09', 'Sky Crime', '4062'), ('10', 'Sky Drama', '4016'), ('11', 'Sky Sci Fi', '4017'), ('12', 'Sky Select', '4020'), ('13', 'Film4', '4044'), ('14', 'Film4 +1', '1629'), ('15', 'TCM', '3811'), ('16', 'TCM +1', '5275')] 
 
         threads = []
         for i in channels: threads.append(workers.Thread(self.sky_list, i[0], i[1], i[2]))
@@ -106,10 +106,6 @@ class channels:
             year = re.sub('[^0-9]', '', str(year))
             year = year.encode('utf-8')
 
-            name = '%s (%s)' % (title, year)
-            try: name = name.encode('utf-8')
-            except: pass
-
             imdb = item['imdbID']
             if imdb == None or imdb == '' or imdb == 'N/A': raise Exception()
             imdb = 'tt' + re.sub('[^0-9]', '', str(imdb))
@@ -175,7 +171,7 @@ class channels:
             try: tagline = tagline.encode('utf-8')
             except: pass
 
-            self.list.append({'title': title, 'originaltitle': title, 'year': year, 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast, 'plot': plot, 'tagline': tagline, 'name': name, 'code': imdb, 'imdb': imdb, 'poster': poster, 'channel': i[2], 'num': i[3]})
+            self.list.append({'title': title, 'originaltitle': title, 'year': year, 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast, 'plot': plot, 'tagline': tagline, 'code': imdb, 'imdb': imdb, 'tmdb': '0', 'poster': poster, 'channel': i[2], 'num': i[3]})
         except:
             pass
 
@@ -204,10 +200,10 @@ class channels:
 
         for i in items:
             try:
-                label = "[B]%s[/B] : %s" % (i['channel'].upper(), i['name'])
-                sysname = urllib.quote_plus(i['name'])
+                label = '[B]%s[/B] : %s (%s)' % (i['channel'].upper(), i['title'], i['year'])
+                sysname = urllib.quote_plus('%s (%s)' % (i['title'], i['year']))
                 systitle = urllib.quote_plus(i['title'])
-                imdb, tmdb, year = i['imdb'], '0', i['year']
+                imdb, tmdb, year = i['imdb'], i['tmdb'], i['year']
 
                 poster, banner = i['poster'], i['poster']
                 if poster == '0': poster = addonPoster
@@ -221,11 +217,12 @@ class channels:
                 except: pass
                 sysmeta = urllib.quote_plus(json.dumps(meta))
 
-                url = '%s?action=play&name=%s&title=%s&year=%s&imdb=%s&tmdb=%s&meta=%s&t=%s' % (sysaddon, sysname, systitle, year, imdb, tmdb, sysmeta, self.systime)
+                url = '%s?action=play&title=%s&year=%s&imdb=%s&tmdb=%s&meta=%s&t=%s' % (sysaddon, systitle, year, imdb, tmdb, sysmeta, self.systime)
                 sysurl = urllib.quote_plus(url)
 
                 cm = []
                 cm.append((playbackMenu, 'RunPlugin(%s?action=alterSources&url=%s&meta=%s)' % (sysaddon, sysurl, sysmeta)))
+                cm.append((control.lang(30297).encode('utf-8'), 'RunPlugin(%s?action=trailer&name=%s)' % (sysaddon, sysname)))
                 cm.append((control.lang(30293).encode('utf-8'), 'Action(Info)'))
                 cm.append((control.lang(30294).encode('utf-8'), 'RunPlugin(%s?action=refresh)' % (sysaddon)))
                 cm.append((control.lang(30295).encode('utf-8'), 'RunPlugin(%s?action=openSettings)' % (sysaddon)))

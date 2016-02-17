@@ -1,25 +1,6 @@
 ======================
-Specto
+Exodus
 ======================
-
-About
------
-Mrknow fork of *****
-
-
-About
------
-The origins of streaming
-
-
-Attributions
----------------------
-- 4orbs theme by Marquerite 
-- Clean theme by jokster 
-- Embossed theme by jokster  
-- GOne theme by jokster 
-- Metro theme by rayw1986 
-
 
 License
 -------
