@@ -44,18 +44,18 @@ class LoginClient(object):
         },
         'youtube-for-kodi-14': {
             'system': 'Helix',
-            'key': 'AIzaSyCOxb_JvsI1-ZneJ2SXTkwZvW3fdtaR3bg',
-            'id': '45906745725-ucn38a9eumqcgfkmv14th17s0eq8kt5f.apps.googleusercontent.com',
-            'secret': 'sK6GK-ZhzgXWehCdjaGybHRi'
+            'key': 'AIzaSyDOnCJxyoHEngdc_RZYkF_exmxP8kacRy0',
+            'id': '300079739215-rinmhjr9dqe0l03jggest5p0dcsdfisu.apps.googleusercontent.com',
+            'secret': 'hrLp2EtvI4InB7auFreSYjHT'
         },
         'youtube-for-kodi-15': {
             'system': 'Isengard',
-            'key': 'AIzaSyBAdxZCHbeJwnQ7dDZQJNfcaF46MdqJ24E',
-            'id': '988476436049-l9sfcivj4jtm1f2ppcvvbgsli6kvtis0.apps.googleusercontent.com',
-            'secret': '_BEENv-a3-egDz_QKo5pGZCK'
+            'key': 'AIzaSyDOnCJxyoHEngdc_RZYkF_exmxP8kacRy0',
+            'id': '300079739215-rinmhjr9dqe0l03jggest5p0dcsdfisu.apps.googleusercontent.com',
+            'secret': 'hrLp2EtvI4InB7auFreSYjHT'
         },
         'youtube-for-kodi-16': {
-            'system': 'J...',
+            'system': 'Jarvis',
             'key': 'AIzaSyBbgC4PZ2_hUdqqX7MIgdg2fK1nohv1jrw',
             'id': '17932591024-8jruv1v7s78gipo7s17c91bnk26rqgpf.apps.googleusercontent.com',
             'secret': 'bK9T234WWhqzYdcQLif1L35K'
