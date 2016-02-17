@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Exodus Add-on
-    Copyright (C) 2016 lambda
+    Specto Add-on
+    Copyright (C) 2015 lambda
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 '''
 
 
-import sys,pkgutil,re,json,urllib,urlparse,random,datetime,time
+import sys,pkgutil,re,json,urllib,urlparse,datetime,time
 
 try: import xbmc
 except: pass
@@ -29,78 +29,91 @@ try:
 except:
     from pysqlite2 import dbapi2 as database
 
-from resources.lib.modules import control
-from resources.lib.modules import cleantitle
-from resources.lib.modules import client
-from resources.lib.modules import debrid
-from resources.lib.modules import workers
+from resources.lib.libraries import control
+from resources.lib.libraries import alterepisode
+from resources.lib.libraries import cleantitle
+from resources.lib.libraries import client
+from resources.lib.libraries import workers
+from resources.lib.resolvers import realdebrid
+from resources.lib.resolvers import premiumize
+from resources.lib import resolvers
 
 
 class sources:
     def __init__(self):
-        self.getConstants()
-        self.sources = []
+        self.sources = [] ; self.sourcesDictionary()
 
 
-    def play(self, title, year, imdb, tmdb, tvdb, season, episode, tvshowtitle, premiered, meta, url):
+    def play(self, name, title, year, imdb, tmdb, tvdb, tvrage, season, episode, tvshowtitle, alter, date, meta, url):
         try:
-            if not control.addonInfo('id').lower() == control.infoLabel('Container.PluginName').lower():
-                progress = True if control.setting('progress.dialog') == '1' else False
-            else:
-                control.resolve(int(sys.argv[1]), True, control.item(path=''))
-                control.execute('Dialog.Close(okdialog)')
-                progress = True
+            if not control.infoLabel('Container.FolderPath').startswith('plugin://'):
+                control.playlist.clear()
 
-            if 'super.fav' in control.infoLabel('Container.PluginName'):
-                return control.dialog.ok('Exodus', control.lang(30518).encode('utf-8'), '', '')
+            control.resolve(int(sys.argv[1]), True, control.item(path=''))
+            control.execute('Dialog.Close(okdialog)')
 
-            self.sources = self.getSources(title, year, imdb, tmdb, tvdb, season, episode, tvshowtitle, premiered, progress=progress)
+            if imdb == '0': imdb = '0000000'
+            imdb = 'tt' + re.sub('[^0-9]', '', str(imdb))
+
+            content = 'movie' if tvshowtitle == None else 'episode'
+
+            self.sources = self.getSources(name, title, year, imdb, tmdb, tvdb, tvrage, season, episode, tvshowtitle, alter, date)
+            if self.sources == []: raise Exception()
+
             self.sources = self.sourcesFilter()
 
             if control.window.getProperty('PseudoTVRunning') == 'True':
-                return control.resolve(int(sys.argv[1]), True, control.item(path=str(self.sourcesDirect(progress=progress))))
+                url = self.sourcesDirect()
 
-            if self.sources == []: raise Exception()
+            elif url == 'dialog://':
+                url = self.sourcesDialog()
 
-            if url == 'direct://': url = self.sourcesDirect(progress=progress)
-            elif url == 'dialog://': url = self.sourcesDialog(progress=progress)
-            elif control.setting('autoplay') == 'false': url = self.sourcesDialog(progress=progress)
-            else: url = self.sourcesDirect(progress=progress)
+            elif url == 'direct://':
+                url = self.sourcesDirect()
+
+            elif not control.infoLabel('Container.FolderPath').startswith('plugin://') and control.setting('autoplay_library') == 'false':
+                url = self.sourcesDialog()
+
+            elif control.infoLabel('Container.FolderPath').startswith('plugin://') and control.setting('autoplay') == 'false':
+                url = self.sourcesDialog()
+
+            else:
+                url = self.sourcesDirect()
 
             if url == None: raise Exception()
             if url == 'close://': return
 
+            if control.setting('playback_info') == 'true':
+                control.infoDialog(self.selectedSource, heading=name)
+
             control.sleep(200)
 
-            if not tvshowtitle == None: title = tvshowtitle
-
-            from resources.lib.modules.player import player
-            player().run(title, year, season, episode, imdb, tmdb, tvdb, meta, url)
+            from resources.lib.libraries.player import player
+            player().run(content, name, url, year, imdb, tvdb, meta)
 
             return url
         except:
             control.infoDialog(control.lang(30501).encode('utf-8'))
 
 
-    def addItem(self, title, year, imdb, tmdb, tvdb, season, episode, tvshowtitle, premiered, meta):
+    def addItem(self, name, title, year, imdb, tmdb, tvdb, tvrage, season, episode, tvshowtitle, alter, date, meta):
         try:
-            if 'super.fav' in control.infoLabel('Container.PluginName'):
-                return control.dialog.ok('Exodus', control.lang(30518).encode('utf-8'), '', '')
+            if imdb == '0': imdb = '0000000'
+            imdb = 'tt' + re.sub('[^0-9]', '', str(imdb))
 
-            self.sources = self.getSources(title, year, imdb, tmdb, tvdb, season, episode, tvshowtitle, premiered)
+            content = 'movie' if tvshowtitle == None else 'episode'
+
+            self.sources = self.getSources(name, title, year, imdb, tmdb, tvdb, tvrage, season, episode, tvshowtitle, alter, date)
             if self.sources == []: raise Exception()
-
             self.progressDialog = control.progressDialog
             self.progressDialog.create(control.addonInfo('name'), '')
             self.progressDialog.update(0, control.lang(30515).encode('utf-8'), str(' '))
 
             self.sources = self.sourcesFilter()
+            infoMenu = control.lang(30502).encode('utf-8') if content == 'movie' else control.lang(30503).encode('utf-8')
 
-            trailerMenu = control.lang(30516).encode('utf-8') if tvshowtitle == None else control.lang(30517).encode('utf-8')
-
-            infoMenu = control.lang(30502).encode('utf-8') if tvshowtitle == None else control.lang(30503).encode('utf-8')
-
-            downloads = True if control.setting('downloads') == 'true' and not (control.setting('movie.download.path') == '' or control.setting('tv.download.path') == '') else False
+            sysmeta = urllib.quote_plus(meta)
+            sysaddon = sys.argv[0]
 
             meta = json.loads(meta)
 
@@ -117,29 +130,25 @@ class sources:
             if control.setting('fanart') == 'true' and not fanart == '0': pass
             else: fanart = control.addonFanart()
 
-            systitle = urllib.quote_plus('%s (%s)' % (title, year) if tvshowtitle == None or season == None or episode == None else '%s S%02dE%02d' % (tvshowtitle, int(season), int(episode)))
-            sysname = urllib.quote_plus('%s (%s)' % (title, year) if tvshowtitle == None or season == None or episode == None else tvshowtitle)
-            sysimage, sysaddon = urllib.quote_plus(poster), sys.argv[0]
-
             for i in range(len(self.sources)):
                 try:
-                    #if self.progressDialog.iscanceled(): break
+                    if self.progressDialog.iscanceled(): break
 
                     self.progressDialog.update(int((100 / float(len(self.sources))) * i))
+                    url, label, provider = self.sources[i]['url'], self.sources[i]['label'], self.sources[i]['provider']
 
-                    label = self.sources[i]['label']
+
+                    sysname, sysurl, sysimage, sysprovider = urllib.quote_plus(name), urllib.quote_plus(url), urllib.quote_plus(poster), urllib.quote_plus(provider)
 
                     syssource = urllib.quote_plus(json.dumps([self.sources[i]]))
-
-                    url = '%s?action=playItem&source=%s' % (sysaddon, syssource)
+                    if i == 0:
+                        query = 'action=playItem&content=%s&name=%s&year=%s&imdb=%s&tvdb=%s&source=%s&meta=%s' % (content, sysname, year, imdb, tvdb, syssource, sysmeta)
+                    else:
+                        query = 'action=playItem&content=%s&name=%s&year=%s&imdb=%s&tvdb=%s&source=%s' % (content, sysname, year, imdb, tvdb, syssource)
 
                     cm = []
                     cm.append((control.lang(30504).encode('utf-8'), 'RunPlugin(%s?action=queueItem)' % sysaddon))
-
-                    if downloads == True:
-                        cm.append((control.lang(30505).encode('utf-8'), 'RunPlugin(%s?action=download&name=%s&image=%s&source=%s)' % (sysaddon, systitle, sysimage, syssource)))
-
-                    cm.append((trailerMenu, 'RunPlugin(%s?action=trailer&name=%s)' % (sysaddon, sysname)))
+                    cm.append((control.lang(30505).encode('utf-8'), 'RunPlugin(%s?action=download&name=%s&image=%s&url=%s&provider=%s)' % (sysaddon, sysname, sysimage, sysurl, sysprovider)))
                     cm.append((infoMenu, 'Action(Info)'))
                     cm.append((control.lang(30506).encode('utf-8'), 'RunPlugin(%s?action=refresh)' % sysaddon))
                     cm.append((control.lang(30507).encode('utf-8'), 'RunPlugin(%s?action=openSettings)' % sysaddon))
@@ -151,8 +160,10 @@ class sources:
                     item.setInfo(type='Video', infoLabels = meta)
                     if not fanart == None: item.setProperty('Fanart_Image', fanart)
                     item.setProperty('Video', 'true')
+                    #item.setProperty('IsPlayable', 'true')
                     item.addContextMenuItems(cm, replaceItems=True)
-                    control.addItem(handle=int(sys.argv[1]), url=url, listitem=item, isFolder=False)
+
+                    control.addItem(handle=int(sys.argv[1]), url='%s?%s' % (sysaddon, query), listitem=item, isFolder=False)
                 except:
                     pass
 
@@ -165,45 +176,42 @@ class sources:
             except: pass
 
 
-    def playItem(self, source):
+    def playItem(self, content, name, year, imdb, tvdb, source):
         try:
-            f = dict(urlparse.parse_qsl(control.infoLabel('Container.FolderPath').replace('?','')))
-
-            meta = f['meta'] if 'meta' in f else None
-            title = f['title'] if 'title' in f else None
-            title = f['tvshowtitle'] if 'tvshowtitle' in f else title
-            year = f['year'] if 'year' in f else None
-            season = f['season'] if 'season' in f else None
-            episode = f['episode'] if 'episode' in f else None
-            imdb = f['imdb'] if 'imdb' in f else None
-            tmdb = f['tmdb'] if 'tmdb' in f else None
-            tvdb = f['tvdb'] if 'tvdb' in f else None
+            control.resolve(int(sys.argv[1]), True, control.item(path=''))
+            control.execute('Dialog.Close(okdialog)')
 
             next = [] ; prev = [] ; total = []
+            meta = None
 
-            for i in range(1,1000):
+            for i in range(1,10000):
                 try:
                     u = control.infoLabel('ListItem(%s).FolderPath' % str(i))
                     if u in total: raise Exception()
                     total.append(u)
                     u = dict(urlparse.parse_qsl(u.replace('?','')))
+                    if 'meta' in u: meta = u['meta']
                     u = json.loads(u['source'])[0]
                     next.append(u)
                 except:
                     break
-            for i in range(-1000,0)[::-1]:
+            for i in range(-10000,0)[::-1]:
                 try:
                     u = control.infoLabel('ListItem(%s).FolderPath' % str(i))
                     if u in total: raise Exception()
                     total.append(u)
                     u = dict(urlparse.parse_qsl(u.replace('?','')))
+                    if 'meta' in u: meta = u['meta']
                     u = json.loads(u['source'])[0]
                     prev.append(u)
                 except:
                     break
 
             items = json.loads(source)
-            items = [i for i in items+next+prev][:20]
+
+            source, quality = items[0]['source'], items[0]['quality']
+            items = [i for i in items+next+prev if i['quality'] == quality and i['source'] == source][:10]
+            items += [i for i in next+prev if i['quality'] == quality and not i['source'] == source][:10]
 
             self.progressDialog = control.progressDialog
             self.progressDialog.create(control.addonInfo('name'), '')
@@ -217,7 +225,7 @@ class sources:
 
                     if items[i]['source'] == block: raise Exception()
 
-                    w = workers.Thread(self.sourcesResolve, items[i])
+                    w = workers.Thread(self.sourcesResolve, items[i]['url'], items[i]['provider'])
                     w.start()
 
                     m = ''
@@ -247,8 +255,11 @@ class sources:
 
                     control.sleep(200)
 
-                    from resources.lib.modules.player import player
-                    player().run(title, year, season, episode, imdb, tmdb, tvdb, meta, self.url)
+                    if control.setting('playback_info') == 'true':
+                        control.infoDialog(items[i]['label'], heading=name)
+
+                    from resources.lib.libraries.player import player
+                    player().run(content, name, self.url, year, imdb, tvdb, meta)
 
                     return self.url
                 except:
@@ -264,38 +275,41 @@ class sources:
             pass
 
 
-    def getSources(self, title, year, imdb, tmdb, tvdb, season, episode, tvshowtitle, premiered, progress=True):
+    def getSources(self, name, title, year, imdb, tmdb, tvdb, tvrage, season, episode, tvshowtitle, alter, date):
         sourceDict = []
-        for package, name, is_pkg in pkgutil.walk_packages(__path__): sourceDict.append((name, is_pkg))
+        for package, name, is_pkg in pkgutil.walk_packages(__path__):
+            sourceDict.append((name, is_pkg))
         sourceDict = [i[0] for i in sourceDict if i[1] == False]
 
         content = 'movie' if tvshowtitle == None else 'episode'
 
+
         if content == 'movie':
             sourceDict = [i for i in sourceDict if i.endswith(('_mv', '_mv_tv'))]
+            try: sourceDict = [(i, control.setting(re.sub('_mv_tv$|_mv$|_tv$', '', i))) for i in sourceDict]
+            except: sourceDict = [(i, 'true') for i in sourceDict]
         else:
             sourceDict = [i for i in sourceDict if i.endswith(('_tv', '_mv_tv'))]
-
-        try: sourceDict = [(i, control.setting('provider.' + re.sub('_mv_tv$|_mv$|_tv$', '', i))) for i in sourceDict]
-        except: sourceDict = [(i, 'true') for i in sourceDict]
-
-        sourceDict = [i[0] for i in sourceDict if i[1] == 'true']
+            try: sourceDict = [(i, control.setting(re.sub('_mv_tv$|_mv$|_tv$', '', i) + '_tv')) for i in sourceDict]
+            except: sourceDict = [(i, 'true') for i in sourceDict]
 
         threads = []
 
         control.makeFile(control.dataPath)
-        self.sourceFile = control.providercacheFile
+        self.sourceFile = control.sourcescacheFile
 
+        sourceDict = [i[0] for i in sourceDict if i[1] == 'true']
 
         if content == 'movie':
             title = cleantitle.normalize(title)
             for source in sourceDict: threads.append(workers.Thread(self.getMovieSource, title, year, imdb, re.sub('_mv_tv$|_mv$|_tv$', '', source), __import__(source, globals(), locals(), [], -1).source()))
         else:
             tvshowtitle = cleantitle.normalize(tvshowtitle)
-            for source in sourceDict: threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season, episode, tvshowtitle, premiered, re.sub('_mv_tv$|_mv$|_tv$', '', source), __import__(source, globals(), locals(), [], -1).source()))
+            season, episode = alterepisode.alterepisode().get(imdb, tmdb, tvdb, tvrage, season, episode, alter, title, date)
+            for source in sourceDict: threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season, episode, tvshowtitle, date, re.sub('_mv_tv$|_mv$|_tv$', '', source), __import__(source, globals(), locals(), [], -1).source()))
 
 
-        try: timeout = int(control.setting('scrapers.timeout.1'))
+        try: timeout = int(control.setting('sources_timeout_40'))
         except: timeout = 40
 
         [i.start() for i in threads]
@@ -305,10 +319,10 @@ class sources:
         sourceLabel = [re.sub('_mv_tv$|_mv$|_tv$', '', i) for i in sourceDict]
         sourceLabel = [re.sub('v\d+$', '', i).upper() for i in sourceLabel]
 
-        if progress == True:
-            self.progressDialog = control.progressDialog
-            self.progressDialog.create(control.addonInfo('name'), '')
-            self.progressDialog.update(0)
+
+        self.progressDialog = control.progressDialog
+        self.progressDialog.create(control.addonInfo('name'), '')
+        self.progressDialog.update(0)
 
         string1 = control.lang(30512).encode('utf-8')
         string2 = control.lang(30513).encode('utf-8')
@@ -323,9 +337,9 @@ class sources:
 
                 if len(info) > 5: info = len(info)
 
-                if progress == True:
-                    self.progressDialog.update(int((100 / float(len(threads))) * len([x for x in threads if x.is_alive() == False])), str('%s: %s %s' % (string1, int(i * 0.5), string2)), str('%s: %s' % (string3, str(info).translate(None, "[]'"))))
-                    if self.progressDialog.iscanceled(): break
+                self.progressDialog.update(int((100 / float(len(threads))) * len([x for x in threads if x.is_alive() == False])), str('%s: %s %s' % (string1, int(i * 0.5), string2)), str('%s: %s' % (string3, str(info).translate(None, "[]'"))))
+
+                if self.progressDialog.iscanceled(): break
 
                 is_alive = [x.is_alive() for x in threads]
                 if all(x == False for x in is_alive): break
@@ -333,10 +347,63 @@ class sources:
             except:
                 pass
 
-        try: self.progressDialog.close()
-        except: pass
+        self.progressDialog.close()
 
         return self.sources
+
+
+    def checkSources(self, name, title, year, imdb, tmdb, tvdb, tvrage, season, episode, tvshowtitle, alter, date):
+        sourceDict = []
+        for package, name, is_pkg in pkgutil.walk_packages(__path__): sourceDict.append((name, is_pkg))
+        sourceDict = [i[0] for i in sourceDict if i[1] == False]
+
+        content = 'movie' if tvshowtitle == None else 'episode'
+
+
+        if content == 'movie':
+            sourceDict = [i for i in sourceDict if i.endswith(('_mv', '_mv_tv'))]
+            try: sourceDict = [(i, control.setting(re.sub('_mv_tv$|_mv$|_tv$', '', i))) for i in sourceDict]
+            except: sourceDict = [(i, 'true') for i in sourceDict]
+        else:
+            sourceDict = [i for i in sourceDict if i.endswith(('_tv', '_mv_tv'))]
+            try: sourceDict = [(i, control.setting(re.sub('_mv_tv$|_mv$|_tv$', '', i) + '_tv')) for i in sourceDict]
+            except: sourceDict = [(i, 'true') for i in sourceDict]
+
+        threads = []
+
+        control.makeFile(control.dataPath)
+        self.sourceFile = control.sourcescacheFile
+
+        sourceDict = [i[0] for i in sourceDict if i[1] == 'true']
+
+        if content == 'movie':
+            title = cleantitle.normalize(title)
+            for source in sourceDict: threads.append(workers.Thread(self.getMovieSource, title, year, imdb, re.sub('_mv_tv$|_mv$|_tv$', '', source), __import__(source, globals(), locals(), [], -1).source()))
+        else:
+            tvshowtitle = cleantitle.normalize(tvshowtitle)
+            season, episode = alterepisode.alterepisode().get(imdb, tmdb, tvdb, tvrage, season, episode, alter, title, date)
+            for source in sourceDict: threads.append(workers.Thread(self.getEpisodeSource, title, year, imdb, tvdb, season, episode, tvshowtitle, date, re.sub('_mv_tv$|_mv$|_tv$', '', source), __import__(source, globals(), locals(), [], -1).source()))
+
+
+        try: timeout = int(control.setting('sources_timeout_40'))
+        except: timeout = 40
+
+        [i.start() for i in threads]
+
+        for i in range(0, timeout * 2):
+            try:
+                if xbmc.abortRequested == True: return sys.exit()
+
+                if len(self.sources) >= 10: break
+
+                is_alive = [x.is_alive() for x in threads]
+                if all(x == False for x in is_alive): break
+                time.sleep(0.5)
+            except:
+                pass
+
+        if len(self.sources) >= 10: return True
+        else: return False
 
 
     def getMovieSource(self, title, year, imdb, source, call):
@@ -370,7 +437,7 @@ class sources:
             pass
 
         try:
-            if url == None: url = call.movie(imdb, title, year)
+            if url == None: url = call.get_movie(imdb, title, year)
             if url == None: raise Exception()
             dbcur.execute("DELETE FROM rel_url WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, '', ''))
             dbcur.execute("INSERT INTO rel_url Values (?, ?, ?, ?, ?)", (source, imdb, '', '', url))
@@ -380,7 +447,7 @@ class sources:
 
         try:
             sources = []
-            sources = call.sources(url, self.hostDict, self.hostprDict)
+            sources = call.get_sources(url, self.hosthdfullDict, self.hostsdfullDict, self.hostlocDict)
             if sources == None: sources = []
             self.sources.extend(sources)
             dbcur.execute("DELETE FROM rel_src WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, '', ''))
@@ -390,7 +457,7 @@ class sources:
             pass
 
 
-    def getEpisodeSource(self, title, year, imdb, tvdb, season, episode, tvshowtitle, premiered, source, call):
+    def getEpisodeSource(self, title, year, imdb, tvdb, season, episode, tvshowtitle, date, source, call):
         try:
             dbcon = database.connect(self.sourceFile)
             dbcur = dbcon.cursor()
@@ -421,7 +488,7 @@ class sources:
             pass
 
         try:
-            if url == None: url = call.tvshow(imdb, tvdb, tvshowtitle, year)
+            if url == None: url = call.get_show(imdb, tvdb, tvshowtitle, year)
             if url == None: raise Exception()
             dbcur.execute("DELETE FROM rel_url WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, '', ''))
             dbcur.execute("INSERT INTO rel_url Values (?, ?, ?, ?, ?)", (source, imdb, '', '', url))
@@ -439,7 +506,7 @@ class sources:
 
         try:
             if url == None: raise Exception()
-            if ep_url == None: ep_url = call.episode(url, imdb, tvdb, title, premiered, season, episode)
+            if ep_url == None: ep_url = call.get_episode(url, imdb, tvdb, title, date, season, episode)
             if ep_url == None: raise Exception()
             dbcur.execute("DELETE FROM rel_url WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, season, episode))
             dbcur.execute("INSERT INTO rel_url Values (?, ?, ?, ?, ?)", (source, imdb, season, episode, ep_url))
@@ -449,7 +516,7 @@ class sources:
 
         try:
             sources = []
-            sources = call.sources(ep_url, self.hostDict, self.hostprDict)
+            sources = call.get_sources(ep_url, self.hosthdfullDict, self.hostsdfullDict, self.hostlocDict)
             if sources == None: sources = []
             self.sources.extend(sources)
             dbcur.execute("DELETE FROM rel_src WHERE source = '%s' AND imdb_id = '%s' AND season = '%s' AND episode = '%s'" % (source, imdb, season, episode))
@@ -478,7 +545,7 @@ class sources:
             if not yes: return
 
             control.makeFile(control.dataPath)
-            dbcon = database.connect(control.providercacheFile)
+            dbcon = database.connect(control.sourcescacheFile)
             dbcur = dbcon.cursor()
             dbcur.execute("DROP TABLE IF EXISTS rel_src")
             dbcur.execute("VACUUM")
@@ -490,87 +557,121 @@ class sources:
 
 
     def sourcesFilter(self):
-        try: quality = control.setting('hosts.quality')
-        except: quality = '0'
-        try: captcha = control.setting('hosts.captcha')
-        except: captcha = 'true'
-        try: provider = control.setting('hosts.sort.provider')
-        except: provider = 'false'
+        self.sourcesReset()
+        try: customhdDict = [control.setting('hosthd50001'), control.setting('hosthd50002'), control.setting('hosthd50003'), control.setting('hosthd50004'), control.setting('hosthd50005'), control.setting('hosthd50006'), control.setting('hosthd50007'), control.setting('hosthd50008'), control.setting('hosthd50009'), control.setting('hosthd50010'), control.setting('hosthd50011'), control.setting('hosthd50012'), control.setting('hosthd50013'), control.setting('hosthd50014'), control.setting('hosthd50015'), control.setting('hosthd50016'), control.setting('hosthd50017'), control.setting('hosthd50018'), control.setting('hosthd50019'), control.setting('hosthd50020')]
+        except: customhdDict = []
+        try: customsdDict = [control.setting('host50001'), control.setting('host50002'), control.setting('host50003'), control.setting('host50004'), control.setting('host50005'), control.setting('host50006'), control.setting('host50007'), control.setting('host50008'), control.setting('host50009'), control.setting('host50010'), control.setting('host50011'), control.setting('host50012'), control.setting('host50013'), control.setting('host50014'), control.setting('host50015'), control.setting('host50016'), control.setting('host50017'), control.setting('host50018'), control.setting('host50019'), control.setting('host50020')]
+        except: customsdDict = []
 
+        hd_rank = []
+        hd_rank += [i for i in self.rdDict if i in self.hostprDict + self.hosthdDict]
+        hd_rank += [i for i in self.pzDict if i in self.hostprDict + self.hosthdDict]
+        hd_rank += customhdDict
+        hd_rank += [i['source'] for i in self.sources if i['quality'] in ['1080p', 'HD'] and not i['source'] in customhdDict + self.hostprDict + self.hosthdDict]
+        hd_rank += self.hosthdDict
+        hd_rank = [i.lower() for i in hd_rank]
+        hd_rank = [x for y,x in enumerate(hd_rank) if x not in hd_rank[:y]]
 
-        random.shuffle(self.sources)
+        sd_rank = []
+        sd_rank += [i for i in self.rdDict if i in self.hostprDict + self.hosthqDict]
+        sd_rank += [i for i in self.pzDict if i in self.hostprDict + self.hosthqDict]
+        sd_rank += customsdDict
+        sd_rank += [i['source'] for i in self.sources if i['quality'] == 'SD' and not i['source'] in customsdDict + self.hostprDict + self.hosthqDict + self.hostmqDict + self.hostlqDict]
+        sd_rank += self.hosthqDict + self.hostmqDict + self.hostlqDict
+        sd_rank = [i.lower() for i in sd_rank]
+        sd_rank = [x for y,x in enumerate(sd_rank) if x not in sd_rank[:y]]
 
-        if provider == 'true':
-            self.sources = sorted(self.sources, key=lambda k: k['provider'])
-
-        local = [i for i in self.sources if 'local' in i and i['local'] == True]
-        self.sources = [i for i in self.sources if not i in local]
+        for i in range(len(self.sources)): self.sources[i]['source'] = self.sources[i]['source'].lower()
+        self.sources = sorted(self.sources, key=lambda k: k['source'])
 
         filter = []
-        filter += [i for i in self.sources if i['direct'] == True]
-        filter += [i for i in self.sources if i['direct'] == False]
-        self.sources = filter
-
-        filter = []
-        for d in self.debridDict: filter += [dict(i.items() + [('debrid', d)]) for i in self.sources if i['source'].lower() in self.debridDict[d]]
-        filter += [i for i in self.sources if not i['source'].lower() in self.hostprDict and i['debridonly'] == False]
-        self.sources = filter
-
-        filter = []
-        filter += local
-        if quality == '0': filter += [i for i in self.sources if i['quality'] == '1080p' and 'debrid' in i]
-        if quality == '0' or quality == '1': filter += [i for i in self.sources if i['quality'] == 'HD' and 'debrid' in i]
-        if quality == '0': filter += [i for i in self.sources if i['quality'] == '1080p' and not 'debrid' in i and 'memberonly' in i]
-        if quality == '0' or quality == '1': filter += [i for i in self.sources if i['quality'] == 'HD' and not 'debrid' in i and 'memberonly' in i]
-        if quality == '0': filter += [i for i in self.sources if i['quality'] == '1080p' and not 'debrid' in i and not 'memberonly' in i]
-        if quality == '0' or quality == '1': filter += [i for i in self.sources if i['quality'] == 'HD' and not 'debrid' in i and not 'memberonly' in i]
-        filter += [i for i in self.sources if i['quality'] == 'SD']
+        for host in hd_rank: filter += [i for i in self.sources if i['quality'] == '1080p' and i['source'] == host]
+        for host in hd_rank: filter += [i for i in self.sources if i['quality'] == 'HD' and i['source'] == host]
+        for host in sd_rank: filter += [i for i in self.sources if i['quality'] == 'SD' and i['source'] == host]
         if len(filter) < 10: filter += [i for i in self.sources if i['quality'] == 'SCR']
         if len(filter) < 10: filter += [i for i in self.sources if i['quality'] == 'CAM']
         self.sources = filter
 
-        if captcha == 'false':
-            filter = [i for i in self.sources if i['source'].lower() in self.hostcapDict and not 'debrid' in i]
-            self.sources = [i for i in self.sources if not i in filter]
+        try: playback_quality = control.setting('playback_quality')
+        except: playback_quality = '0'
 
-        self.sources = self.sources[:2000]
+        if playback_quality == '1':
+            self.sources = [i for i in self.sources if not i['quality'] == '1080p']
+        elif playback_quality == '2':
+            self.sources = [i for i in self.sources if not i['quality'] in ['1080p', 'HD']]
+        elif playback_quality == '3':
+            self.sources = [i for i in self.sources if not i['quality'] in ['1080p', 'HD'] and i['source'] in self.hostmqDict + self.hostlqDict]
+        elif playback_quality == '4':
+            self.sources = [i for i in self.sources if not i['quality'] in ['1080p', 'HD'] and i['source'] in self.hostlqDict]
+
+        try: playback_captcha = control.setting('playback_captcha_hosts')
+        except: playback_captcha = 'false'
+
+        try: playback_1080p = control.setting('playback_1080p_hosts')
+        except: playback_1080p = 'true'
+
+        try: playback_720p = control.setting('playback_720p_hosts')
+        except: playback_720p = 'true'
+
+        if playback_captcha == 'false':
+            self.sources = [i for i in self.sources if not i['source'] in self.hostcapDict]
+
+        if playback_1080p == 'false':
+            self.sources = [i for i in self.sources if not (i['quality'] == '1080p' and i['source'] in self.hosthdDict and not i['source'] in self.rdDict + self.pzDict)]
+
+        if playback_720p == 'false':
+            self.sources = [i for i in self.sources if not (i['quality'] == 'HD' and i['source'] in self.hosthdDict and not i['source'] in self.rdDict + self.pzDict)]
 
         for i in range(len(self.sources)):
-            u = self.sources[i]['url']
             s = self.sources[i]['source'].lower()
             p = self.sources[i]['provider']
             p = re.sub('v\d*$', '', p)
 
             q = self.sources[i]['quality']
+            if q == 'SD' and s in self.hostmqDict: q = 'MQ'
+            elif q == 'SD' and s in self.hostlqDict: q = 'LQ'
+            elif q == 'SD': q = 'HQ'
 
-            try: f = (' | ' + ' | '.join(['[I]%s [/I]' % info.strip() for info in self.sources[i]['info'].split('|')])).replace('[I]HEVC [/I]', 'HEVC')
-            except: f = ''
+            try: d = self.sources[i]['info']
+            except: d = ''
+            if not d == '': d = ' | [I]%s [/I]' % d
 
-            try: d = self.sources[i]['debrid']
-            except: d = self.sources[i]['debrid'] = ''
-
-            if not d == '': label = '%02d | [B]%s[/B] | ' % (int(i+1), d)
-            #if not d == '': label = '%02d | [B]%s[/B] | [B]%s[/B] | ' % (int(i+1), p, d)
+            if s in self.rdDict: label = '%02d | [B]realdebrid[/B] | ' % int(i+1)
+            elif s in self.pzDict: label = '%02d | [B]premiumize[/B] | ' % int(i+1)
             else: label = '%02d | [B]%s[/B] | ' % (int(i+1), p)
 
-            if q in ['1080p', 'HD']: label += '%s%s | [B][I]%s [/I][/B]' % (s.rsplit('.', 1)[0], f, q)
-            else: label += '%s%s | [I]%s [/I]' % (s.rsplit('.', 1)[0], f, q)
-            label = label.replace('| 0 |', '|').replace(' | [I]0 [/I]', '')
+            if q in ['1080p', 'HD']: label += '%s%s | [B][I]%s [/I][/B]' % (s, d, q)
+            else: label += '%s%s | [I]%s [/I]' % (s, d, q)
 
             self.sources[i]['label'] = label.upper()
 
         return self.sources
 
 
-    def sourcesResolve(self, item):
+    def sourcesReset(self):
         try:
-            self.url = None
+            if control.setting('hosthd1') == '': return
 
-            u = url = item['url']
+            settingsFile = control.settingsFile
+            file = control.openFile(settingsFile) ; read = file.read().splitlines() ; file.close()
 
-            d = item['debrid'] ; direct = item['direct']
+            write = unicode( '<settings>' + '\n', 'UTF-8' )
+            for line in read:
+                if len(re.findall('<settings>', line)) > 0: continue
+                elif len(re.findall('</settings>', line)) > 0: continue
+                elif len(re.findall('id="(host|hosthd)500\d*"', line)) > 0: pass
+                elif len(re.findall('id="(host|hosthd)\d*"', line)) > 0: continue
+                write += unicode(line.rstrip() + '\n', 'UTF-8')
+            write += unicode('</settings>' + '\n', 'UTF-8')
 
-            provider = item['provider'].lower()
+            file = control.openFile(settingsFile, 'w') ; file.write(str(write)) ; file.close()
+        except:
+            return
+
+
+    def sourcesResolve(self, url, provider):
+        try:
+            provider = provider.lower()
 
             if not provider.endswith(('_mv', '_tv', '_mv_tv')):
                 sourceDict = []
@@ -580,50 +681,25 @@ class sources:
             source = __import__(provider, globals(), locals(), [], -1).source()
             url = source.resolve(url)
 
-            if url == None: raise Exception()
-
-            if not d == '':
-                self.url = url = debrid.resolver(url, d)
-                if not url == None: return url
-                else: raise Exception()
-
-            elif not direct == True:
-                try:
-                    url = [(i, i.get_host_and_id(u)) for i in self.resolvers]
-                    url = [i for i in url if not i[1] == False]
-                    url = [(i[0], i[0].valid_url(u, i[1][0]), i[1][0], i[1][1]) for i in url]
-                    url = [i for i in url if not i[1] == False][0]
-                    url = url[0].get_media_url(url[2], url[3])
-                except:
-                    url = False
-
-            if url == False: raise Exception()
-
             try: headers = dict(urlparse.parse_qsl(url.rsplit('|', 1)[1]))
             except: headers = dict('')
 
-            if url.startswith('http') and '.m3u8' in url:
-                result = client.request(url.split('|')[0], headers=headers, output='geturl', timeout='20')
-                if result == None: raise Exception()
-
-            elif url.startswith('http'):
-                result = client.request(url.split('|')[0], headers=headers, output='chunk', timeout='20')
-                if result == None: raise Exception()
-
+            result = client.request(url.split('|')[0], headers=headers, output='chunk', timeout='20')
+            if result == None: raise Exception()
             self.url = url
             return url
         except:
             return
 
 
-    def sourcesDialog(self, progress=True):
+    def sourcesDialog(self):
         try:
             sources = [{'label': '00 | [B]%s[/B]' % control.lang(30509).encode('utf-8').upper()}] + self.sources
 
             labels = [i['label'] for i in sources]
 
             select = control.selectDialog(labels)
-            if select == 0: return self.sourcesDirect(progress=progress)
+            if select == 0: return self.sourcesDirect()
             if select == -1: return 'close://'
 
             items = [self.sources[select-1]]
@@ -631,31 +707,31 @@ class sources:
             next = [y for x,y in enumerate(self.sources) if x >= select]
             prev = [y for x,y in enumerate(self.sources) if x < select][::-1]
 
-            items = [i for i in items+next+prev][:20]
+            source, quality = items[0]['source'], items[0]['quality']
+            items = [i for i in items+next+prev if i['quality'] == quality and i['source'] == source][:10]
+            items += [i for i in next+prev if i['quality'] == quality and not i['source'] == source][:10]
 
-            if progress == True:
-                self.progressDialog = control.progressDialog
-                self.progressDialog.create(control.addonInfo('name'), '')
-                self.progressDialog.update(0)
+            self.progressDialog = control.progressDialog
+            self.progressDialog.create(control.addonInfo('name'), '')
+            self.progressDialog.update(0)
 
             block = None
 
             for i in range(len(items)):
                 try:
-                    if progress == True:
-                        if self.progressDialog.iscanceled(): break
-                        self.progressDialog.update(int((100 / float(len(items))) * i), str(items[i]['label']), str(' '))
+                    if self.progressDialog.iscanceled(): break
+
+                    self.progressDialog.update(int((100 / float(len(items))) * i), str(items[i]['label']), str(' '))
 
                     if items[i]['source'] == block: raise Exception()
 
-                    w = workers.Thread(self.sourcesResolve, items[i])
+                    w = workers.Thread(self.sourcesResolve, items[i]['url'], items[i]['provider'])
                     w.start()
 
                     m = ''
 
                     for x in range(3600):
-                        if progress == True:
-                            if self.progressDialog.iscanceled(): return self.progressDialog.close()
+                        if self.progressDialog.iscanceled(): return self.progressDialog.close()
                         if xbmc.abortRequested == True: return sys.exit()
                         k = control.condVisibility('Window.IsActive(virtualkeyboard)')
                         if k: m += '1'; m = m[-1]
@@ -664,8 +740,7 @@ class sources:
 
                     for x in range(30):
                         if m == '': break
-                        if progress == True:
-                            if self.progressDialog.iscanceled(): return self.progressDialog.close()
+                        if self.progressDialog.iscanceled(): return self.progressDialog.close()
                         if xbmc.abortRequested == True: return sys.exit()
                         if w.is_alive() == False: break
                         time.sleep(0.5)
@@ -676,9 +751,7 @@ class sources:
                     if self.url == None: raise Exception()
 
                     self.selectedSource = items[i]['label']
-
-                    try: self.progressDialog.close()
-                    except: pass
+                    self.progressDialog.close()
 
                     return self.url
                 except:
@@ -692,33 +765,38 @@ class sources:
             except: pass
 
 
-    def sourcesDirect(self, progress=True):
-        filter = [i for i in self.sources if i['source'].lower() in self.hostcapDict and i['debrid'] == '']
-        self.sources = [i for i in self.sources if not i in filter]
+    def sourcesDirect(self):
+        self.sources = [i for i in self.sources if not i['source'] in self.hostcapDict]
 
-        self.sources = [i for i in self.sources if ('autoplay' in i and i['autoplay'] == True) or not 'autoplay' in i]
+        self.sources = [i for i in self.sources if not (i['quality'] in ['1080p', 'HD'] and i['source'] in self.hosthdDict and not i['source'] in self.rdDict + self.pzDict)]
 
-        if control.setting("autoplay.sd") == 'true':
+        self.sources = [i for i in self.sources if not i['source'] in ['easynews', 'furk', 'vk']]
+
+        if control.setting("playback_auto_sd") == 'true':
             self.sources = [i for i in self.sources if not i['quality'] in ['1080p', 'HD']]
 
         u = None
 
-        if progress == True:
-            self.progressDialog = control.progressDialog
-            self.progressDialog.create(control.addonInfo('name'), '')
-            self.progressDialog.update(0)
+        self.progressDialog = control.progressDialog
+        self.progressDialog.create(control.addonInfo('name'), '')
+        self.progressDialog.update(0)
 
         for i in range(len(self.sources)):
             try:
-                if progress == True:
-                    if self.progressDialog.iscanceled(): break
-                    self.progressDialog.update(int((100 / float(len(self.sources))) * i), str(self.sources[i]['label']), str(' '))
+                if self.progressDialog.iscanceled(): break
+
+                self.progressDialog.update(int((100 / float(len(self.sources))) * i), str(self.sources[i]['label']), str(' '))
 
                 if xbmc.abortRequested == True: return sys.exit()
 
-                url = self.sourcesResolve(self.sources[i])
+                url = self.sourcesResolve(self.sources[i]['url'], self.sources[i]['provider'])
+                if url == None: raise Exception()
                 if u == None: u = url
-                if not url == None: break
+
+                self.selectedSource = self.sources[i]['label']
+                self.progressDialog.close()
+
+                return url
             except:
                 pass
 
@@ -728,25 +806,52 @@ class sources:
         return u
 
 
-    def getConstants(self):
-        try:
-            import urlresolver.plugnplay
-            self.resolvers = urlresolver.plugnplay.man.implementors(urlresolver.UrlResolver)
-            self.resolvers = [i for i in self.resolvers if not '*' in i.domains]
-        except:
-            self.resolvers = []
+    def sourcesDictionary(self):
+        hosts = resolvers.info()
+        hosts = [i for i in hosts if 'host' in i]
 
-        try:
-            self.hostDict = [i.domains for i in self.resolvers]
-            self.hostDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostDict)]
-            self.hostDict = [x for y,x in enumerate(self.hostDict) if x not in self.hostDict[:y]]
-        except:
-            self.hostDict = []
+        self.rdDict = realdebrid.getHosts()
+        self.pzDict = premiumize.getHosts()
 
-        self.hostprDict = ['oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net', 'uploaded.to', 'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net']
+        self.hostlocDict = [i['netloc'] for i in hosts if i['quality'] == 'High' and i['captcha'] == False]
+        try: self.hostlocDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostlocDict)]
+        except: pass
+        self.hostlocDict = [x for y,x in enumerate(self.hostlocDict) if x not in self.hostlocDict[:y]]
 
-        self.hostcapDict = ['hugefiles.net', 'kingfiles.net', 'openload.io', 'openload.co']
+        self.hostdirhdDict = [i['netloc'] for i in resolvers.info() if 'quality' in i and i['quality'] == 'High' and 'captcha' in i and i['captcha'] == False and 'a/c' in i and i['a/c'] == False]
+        try: self.hostdirhdDict = [i.lower().rsplit('.', 1)[0] for i in reduce(lambda x, y: x+y, self.hostdirhdDict)]
+        except: pass
+        self.hostdirhdDict = [x for y,x in enumerate(self.hostdirhdDict) if x not in self.hostdirhdDict[:y]]
 
-        self.debridDict = debrid.debridDict()
+        self.hostprDict = [i['host'] for i in hosts if i['a/c'] == True]
+        try: self.hostprDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostprDict)]
+        except: pass
+        self.hostprDict = [x for y,x in enumerate(self.hostprDict) if x not in self.hostprDict[:y]]
+
+        self.hostcapDict = [i['host'] for i in hosts if i['captcha'] == True]
+        try: self.hostcapDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostcapDict)]
+        except: pass
+        self.hostcapDict = [i for i in self.hostcapDict if not i in self.rdDict + self.pzDict]
+
+        self.hosthdDict = [i['host'] for i in hosts if i['quality'] == 'High' and i['a/c'] == False and i['captcha'] == False]
+        self.hosthdDict += [i['host'] for i in hosts if i['quality'] == 'High' and i['a/c'] == False and i['captcha'] == True]
+        try: self.hosthdDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hosthdDict)]
+        except: pass
+
+        self.hosthqDict = [i['host'] for i in hosts if i['quality'] == 'High' and i['a/c'] == False and i['captcha'] == False]
+        try: self.hosthqDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hosthqDict)]
+        except: pass
+
+        self.hostmqDict = [i['host'] for i in hosts if i['quality'] == 'Medium' and i['a/c'] == False and i['captcha'] == False]
+        try: self.hostmqDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostmqDict)]
+        except: pass
+
+        self.hostlqDict = [i['host'] for i in hosts if i['quality'] == 'Low' and i['a/c'] == False and i['captcha'] == False]
+        try: self.hostlqDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostlqDict)]
+        except: pass
+
+        self.hostsdfullDict = self.hostprDict + self.hosthqDict + self.hostmqDict + self.hostlqDict
+
+        self.hosthdfullDict = self.hostprDict + self.hosthdDict
 
 

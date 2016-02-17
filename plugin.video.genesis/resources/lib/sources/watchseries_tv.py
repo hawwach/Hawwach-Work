@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Exodus Add-on
-    Copyright (C) 2016 lambda
+    Specto Add-on
+    Copyright (C) 2015 lambda
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,120 +19,122 @@
 '''
 
 
-import re,urllib,urlparse,json,base64,hashlib
+import re,urllib,urllib2,urlparse
 
-from resources.lib.modules import cleantitle
-from resources.lib.modules import client
+from resources.lib.libraries import cleantitle
+from resources.lib.libraries import client
+from resources.lib import resolvers
 
 
 class source:
     def __init__(self):
-        self.domains = ['watchseries.ag']
-        self.base_link = 'aHR0cDovL3dzLm1n'
-        self.hash_link = 'MzI4aiUlR3VTKiVzZkEyNDMxNDJmbyMyMyUl'
-        self.search_link = 'L2pzb24vc2VhcmNoLyVz'
-        self.agent_link = 'V1MgTW9iaWxl'
+        self.base_link = 'http://watchseries.ag'
+        self.link_1 = 'http://watchseries.ag'
+        self.link_2 = 'http://translate.googleusercontent.com/translate_c?anno=2&hl=en&sl=mt&tl=en&u=http://watchseries.ag'
+        self.link_3 = 'https://watchseries.unblocked.pw'
+        self.search_link = '/AdvancedSearch/%s-%s/by_popularity/%s'
+        self.episode_link = '/episode/%s_s%s_e%s.html'
+        self.headers = {}
 
 
-    def request(self, url):
+    def get_show(self, imdb, tvdb, tvshowtitle, year):
         try:
-            if not url.startswith('/'): url = '/' + url
-            if not url.startswith('/json'): url = '/json' + url
+            query = self.search_link % (str(int(year)-1), str(int(year)+1), urllib.quote_plus(tvshowtitle))
 
-            hash = hashlib.md5()
-            hash.update(base64.b64decode(self.hash_link) % url)
+            result = ''
+            links = [self.link_1, self.link_2, self.link_3]
+            for base_link in links:
+                result = client.source(urlparse.urljoin(base_link, query), headers=self.headers)
+                if 'episode-summary' in str(result): break
 
-            url = urlparse.urljoin(base64.b64decode(self.base_link), hash.hexdigest() + url)
+            result = result.decode('iso-8859-1').encode('utf-8')
+            result = client.parseDOM(result, 'div', attrs = {'class': 'episode-summary'})[0]
+            result = client.parseDOM(result, 'tr')
 
-            result = client.source(url, headers={'User-Agent': base64.b64decode(self.agent_link)})
-            result = json.loads(result)['results'].values()
-            return result
-        except:
-            return
+            tvshowtitle = cleantitle.tv(tvshowtitle)
+            years = ['(%s)' % str(year), '(%s)' % str(int(year)+1), '(%s)' % str(int(year)-1)]
+            result = [(re.compile('href=[\'|\"|\s|\<]*(.+?)[\'|\"|\s|\>]').findall(i)[0], client.parseDOM(i, 'a')[-1]) for i in result]
+            result = [(i[0], re.sub('<.+?>|</.+?>','', i[1])) for i in result]
+            result = [i for i in result if any(x in i[1] for x in years)]
 
+            result = [(client.replaceHTMLCodes(i[0]), i[1]) for i in result]
+            try: result = [(urlparse.parse_qs(urlparse.urlparse(i[0]).query)['u'][0], i[1]) for i in result]
+            except: pass
+            result = [(urlparse.urlparse(i[0]).path, i[1]) for i in result]
 
-    def tvshow(self, imdb, tvdb, tvshowtitle, year):
-        try:
-            query = base64.b64decode(self.search_link) % urllib.quote_plus(tvshowtitle)
+            match = [i[0] for i in result if tvshowtitle == cleantitle.tv(i[1])]
 
-            result = self.request(query)
-
-            tvshowtitle = cleantitle.get(tvshowtitle)
-            years = ['%s' % str(year), '%s' % str(int(year)+1), '%s' % str(int(year)-1)]
-
-            result = [i for i in result if any(x in str(i['year']) for x in years)]
-
-            match = [i['href'] for i in result if tvshowtitle == cleantitle.get(i['name'])]
-
-            match2 = [i['href'] for i in result]
+            match2 = [i[0] for i in result]
             match2 = [x for y,x in enumerate(match2) if x not in match2[:y]]
             if match2 == []: return
 
             for i in match2[:5]:
                 try:
-                    if len(match) > 0: url = match[0] ; break
-                    if imdb in str(self.request(i)[0]['imdb']): url = i ; break
+                    if len(match) > 0:
+                        url = match[0]
+                        break
+                    result = client.source(base_link + i, headers=self.headers)
+                    if str(imdb) in str(result):
+                        url = i
+                        break
                 except:
                     pass
 
-            url = '/' + url.split('/json/')[-1]
             url = url.encode('utf-8')
             return url
         except:
             return
 
 
-    def episode(self, url, imdb, tvdb, title, premiered, season, episode):
-        try:
-            if url == None: return
+    def get_episode(self, url, imdb, tvdb, title, date, season, episode):
+        if url == None: return
 
-            result = self.request(url)
-            result = result[0]['episodes'].values()
-
-            for i, v in enumerate(result):
-                try: result[i] = v.values()
-                except: pass
-
-            result = [i for i in result if type(i) == list]
-            result = sum(result, [])
-            result = [i for i in result if i['hasLinks'] == True]
-
-            title = cleantitle.get(title)
-            premiered = re.compile('(\d{4})-(\d{2})-(\d{2})').findall(premiered)[0]
-            premiered = '%s/%s/%s' % (premiered[2], premiered[1], premiered[0])
-
-            url = [i for i in result if title == cleantitle.get(i['name']) and premiered == i['release']][:1]
-            if len(url) == 0: url = [i for i in result if premiered == i['release']]
-            if len(url) == 0 or len(url) > 1: url = [i for i in result if '_s%01d_e%01d' % (int(season), int(episode)) in i['url']]
-
-            url = '/' + url[0]['url'].split('/json/')[-1]
-            url = url.encode('utf-8')
-            return url
-        except:
-            return
+        url = url.rsplit('/', 1)[-1]
+        url = self.episode_link % (url, season, episode)
+        url = client.replaceHTMLCodes(url)
+        url = url.encode('utf-8')
+        return url
 
 
-    def sources(self, url, hostDict, hostprDict):
+    def get_sources(self, url, hosthdDict, hostDict, locDict):
         try:
             sources = []
 
             if url == None: return sources
 
-            result = self.request(url)
+            url = url.replace('/json/', '/')
 
-            links = result[0]['links']
-            links = [i['url'] for i in links if i['lang'] == 'English']
+            result = ''
+            links = [self.link_1, self.link_2, self.link_3]
+            for base_link in links:
+                result = client.source(urlparse.urljoin(base_link, url), headers=self.headers)
+                if 'lang_1' in str(result): break
+
+            result = result.replace('\n','')
+            result = result.decode('iso-8859-1').encode('utf-8')
+            result = client.parseDOM(result, 'div', attrs = {'id': 'lang_1'})[0]
+
+            links = re.compile('href=[\'|\"|\s|\<]*(.+?)[\'|\"|\s|\>].+?title=[\'|\"|\s|\<]*(.+?)[\'|\"|\s|\>]').findall(result)
+            links = [x for y,x in enumerate(links) if x not in links[:y]]
 
             for i in links:
                 try:
-                    host = re.findall('([\w]+[.][\w]+)$', urlparse.urlparse(i.strip().lower()).netloc)[0]
+                    host = i[1]
+                    host = host.split('.', 1)[0]
+                    host = host.strip().lower()
                     if not host in hostDict: raise Exception()
                     host = client.replaceHTMLCodes(host)
                     host = host.encode('utf-8')
 
-                    url = i.encode('utf-8')
+                    url = i[0]
+                    url = client.replaceHTMLCodes(url)
+                    try: url = urlparse.parse_qs(urlparse.urlparse(url).query)['u'][0]
+                    except: pass
+                    if not url.startswith('http'): url = urlparse.urljoin(self.base_link, url)
+                    if not '/cale/' in url: raise Exception()
+                    url = url.encode('utf-8')
 
-                    sources.append({'source': host, 'quality': 'SD', 'provider': 'Watchseries', 'url': url, 'direct': False, 'debridonly': False})
+                    sources.append({'source': host, 'quality': 'SD', 'provider': 'Watchseries', 'url': url})
                 except:
                     pass
 
@@ -142,6 +144,37 @@ class source:
 
 
     def resolve(self, url):
-        return url
+        try:
+            url = url.replace('/json/', '/')
+            url = urlparse.urlparse(url).path
 
+            class NoRedirection(urllib2.HTTPErrorProcessor):
+                def http_response(self, request, response):
+                    return response
+
+            result = ''
+            links = [self.link_1, self.link_2, self.link_3]
+            for base_link in links:
+                try:
+                    opener = urllib2.build_opener(NoRedirection)
+                    opener.addheaders = [('User-Agent', 'Apple-iPhone')]
+                    opener.addheaders = [('Referer', base_link + url)]
+                    response = opener.open(base_link + url)
+                    result = response.read()
+                    response.close()
+                except:
+                    result = ''
+                if 'myButton' in result: break
+
+            url = re.compile('class=[\'|\"]*myButton.+?href=[\'|\"|\s|\<]*(.+?)[\'|\"|\s|\>]').findall(result)[0]
+            url = client.replaceHTMLCodes(url)
+            try: url = urlparse.parse_qs(urlparse.urlparse(url).query)['u'][0]
+            except: pass
+            try: url = urlparse.parse_qs(urlparse.urlparse(url).query)['url'][0]
+            except: pass
+
+            url = resolvers.request(url)
+            return url
+        except:
+            return
 

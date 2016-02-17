@@ -1,23 +1,19 @@
-# Addon Name: Exodus
-# Addon id: plugin.video.exodus
-# Addon Provider: Exodus
+# Addon Name: Specto
+# Addon id: plugin.video.specto
+# Addon Provider: Specto
 # Translators:
 # Translators:
 # Translators:
 # Translators:
-# Translators:
-# Translators:
-# Translators:
-# Translators:
-# Mafarricos <MafaStudios@gmail.com>, 2015
-# Helder <helderkid@gmail.com>, 2015-2016
-# lambda81, 2015-2016
+# Mafarricos, 2015
+# Helder, 2015
+# lambda81, 2015
 msgid ""
 msgstr ""
-"Project-Id-Version: Exodus\n"
+"Project-Id-Version: Specto\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2016-01-20 07:27+0000\n"
-"Last-Translator: lambda81\n"
+"PO-Revision-Date: 2015-10-17 12:10+0000\n"
+"Last-Translator: Helder\n"
 "Language-Team: Portuguese (http://www.transifex.com/tv-addons/genesis/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,8 +34,8 @@ msgid "Channels"
 msgstr "Canais"
 
 msgctxt "#30004"
-msgid "My Lists"
-msgstr "Minhas  Listas"
+msgid "My Specto"
+msgstr "Meu Specto"
 
 msgctxt "#30005"
 msgid "Latest Movies"
@@ -60,10 +56,6 @@ msgstr "Ferramentas"
 msgctxt "#30009"
 msgid "Search"
 msgstr "Pesquisar"
-
-msgctxt "#30010"
-msgid "Downloads"
-msgstr "Transferências"
 
 msgctxt "#30021"
 msgid "Genres"
@@ -114,8 +106,8 @@ msgid "Latest Movies"
 msgstr "Últimos Filmes"
 
 msgctxt "#30033"
-msgid "My Lists"
-msgstr "Minhas Listas"
+msgid "Favourites"
+msgstr "Favoritos"
 
 msgctxt "#30034"
 msgid "People Search"
@@ -174,8 +166,12 @@ msgid "Latest Episodes"
 msgstr "Últimos Episódios"
 
 msgctxt "#30063"
-msgid "My Lists"
-msgstr "Minhas Listas"
+msgid "Favourite Episodes"
+msgstr "Episódios Favoritos"
+
+msgctxt "#30064"
+msgid "Favourites"
+msgstr "Favoritos"
 
 msgctxt "#30065"
 msgid "People Search"
@@ -186,76 +182,84 @@ msgid "Search"
 msgstr "Pesquisar"
 
 msgctxt "#30081"
-msgid "No Trakt or IMDb account found."
-msgstr "Trakt ou IMDb não encontrada"
-
-msgctxt "#30082"
-msgid "Trakt indicators are disabled by default."
-msgstr "Indicadores Trackt desligados por defeito"
-
-msgctxt "#30083"
-msgid "In order to use them enable them in settings."
-msgstr "Para poder usar, ativa-os nas definições"
-
-msgctxt "#30084"
 msgid "[B]TRAKT[/B] : Collection"
 msgstr "[B]TRAKT[/B] : Coleção"
 
+msgctxt "#30082"
+msgid "[B]TRAKT[/B] : Watchlist"
+msgstr "[B]TRAKT[/B] : Watchlist"
+
+msgctxt "#30083"
+msgid "[B]TRAKT[/B] : Featured"
+msgstr "[B]TRAKT[/B] : Em Destaque"
+
+msgctxt "#30084"
+msgid "[B]TRAKT[/B] : Ratings"
+msgstr "[B]TRAKT[/B] : Classificações"
+
 msgctxt "#30085"
 msgid "[B]TRAKT[/B] : TV Collection"
-msgstr "[B]TRAKT[/B] : Biblioteca de Series"
+msgstr "[B]TRAKT[/B] : Coleção Séries"
 
 msgctxt "#30086"
-msgid "[B]TRAKT[/B] : Watchlist"
-msgstr "[B]TRAKT[/B] : Favoritos"
+msgid "[B]TRAKT[/B] : TV Watchlist"
+msgstr "[B]TRAKT[/B] : Watchlist Séries"
 
 msgctxt "#30087"
-msgid "[B]TRAKT[/B] : TV Watchlist"
-msgstr "[B]TRAKT[/B] : Series favoritas"
+msgid "[B]TRAKT[/B] : TV Featured"
+msgstr "[B]TRAKT[/B] : Séries em Destaque"
 
 msgctxt "#30088"
-msgid "[B]IMDB[/B] : Watchlist"
-msgstr "[B]IMDB[/B] : Favoritos"
+msgid "[B]TRAKT[/B] : TV Ratings"
+msgstr "[B]TRAKT[/B] : Classificação de Séries"
 
 msgctxt "#30089"
-msgid "[B]IMDB[/B] : TV Watchlist"
-msgstr "[B]IMDB[/B] : Series favoritas"
-
-msgctxt "#30090"
-msgid "[B]TRAKT[/B] : Featured"
-msgstr "[B]TRAKT[/B] : Destaques"
-
-msgctxt "#30091"
-msgid "[B]TRAKT[/B] : TV Featured"
-msgstr "[B]TRAKT[/B] : Destaques Series"
-
-msgctxt "#30092"
-msgid "[B]TRAKT[/B] : History"
-msgstr "[B]TRAKT[/B] : Histórico"
-
-msgctxt "#30093"
-msgid "[B]TRAKT[/B] : TV History"
-msgstr "[B]TRAKT[/B] : Histórico Séries"
-
-msgctxt "#30094"
 msgid "[B]TRAKT[/B] : Progress"
 msgstr "[B]TRAKT[/B] : Progresso"
 
-msgctxt "#30095"
+msgctxt "#30090"
 msgid "[B]TRAKT[/B] : Episodes"
 msgstr "[B]TRAKT[/B] : Episódios"
 
-msgctxt "#30096"
+msgctxt "#30091"
+msgid "[B]IMDB[/B] : Watchlist"
+msgstr "[B]IMDB[/B] : Watchlist"
+
+msgctxt "#30092"
+msgid "[B]IMDB[/B] : TV Watchlist"
+msgstr "[B]IMDB[/B] : Watchlist Séries"
+
+msgctxt "#30093"
 msgid "Movie Lists"
-msgstr "Lista Filmes"
+msgstr "Listas de Filmes"
+
+msgctxt "#30094"
+msgid "TV Show Lists"
+msgstr "Listas de Séries"
+
+msgctxt "#30095"
+msgid "Favourite Movies"
+msgstr "Filmes Favoritos"
+
+msgctxt "#30096"
+msgid "Favourite Episodes"
+msgstr "Episódios Favoritos"
 
 msgctxt "#30097"
-msgid "TV Show Lists"
-msgstr "Lista Séries"
+msgid "Favourite TV"
+msgstr "Séries Favoritas"
 
 msgctxt "#30098"
-msgid "Episode Lists"
-msgstr "Lista Episódios"
+msgid "Downloads"
+msgstr "Transferências"
+
+msgctxt "#30099"
+msgid "Movies"
+msgstr "Filmes"
+
+msgctxt "#30100"
+msgid "TV"
+msgstr "Séries"
 
 msgctxt "#30111"
 msgid "[B]SETTINGS[/B] : General"
@@ -274,28 +278,76 @@ msgid "[B]SETTINGS[/B] : Subtitles"
 msgstr "[B]CONFIGURAÇÕES[/B] : Legendas"
 
 msgctxt "#30115"
-msgid "[B]SETTINGS[/B] : Providers"
-msgstr ""
+msgid "[B]SOURCES[/B] : Movies"
+msgstr "[B]FONTES[/B] : Filmes"
+
+msgctxt "#30116"
+msgid "[B]SOURCES[/B] : TV"
+msgstr "[B]FONTES[/B] : Séries"
+
+msgctxt "#30117"
+msgid "[B]HOSTS[/B] : HD Priority"
+msgstr "[B]FONTES[/B] : Prioridade HD"
+
+msgctxt "#30118"
+msgid "[B]HOSTS[/B] : SD Priority"
+msgstr "[B]FONTES[/B] : Prioridade SD"
 
 msgctxt "#30119"
-msgid "[B]EXODUS[/B] : Clear providers..."
-msgstr ""
+msgid "[B]Specto[/B] : Clear sources..."
+msgstr "[B]Specto[/B] : Limpar fontes..."
 
 msgctxt "#30120"
-msgid "[B]EXODUS[/B] : Clear cache..."
-msgstr "[B]EXODUS[/B] : Limpar cache..."
+msgid "[B]Specto[/B] : Clear cache..."
+msgstr "[B]Specto[/B] : Limpar cache..."
+
+msgctxt "#30121"
+msgid "[B]Specto[/B] : Library"
+msgstr "[B]Specto[/B] : Biblioteca"
 
 msgctxt "#30122"
-msgid "[B]EXODUS[/B] : Downloads"
-msgstr "[B]EXODUS[/B] : Transferências"
+msgid "[B]Specto[/B] : Downloads"
+msgstr "[B]Specto[/B] : Transferências"
 
-msgctxt "#30141"
-msgid "Movies"
-msgstr "Filmes"
+msgctxt "#30131"
+msgid "[B]LIBRARY[/B] : Settings"
+msgstr "[B]BIBLIOTECA[/B] : Configurações"
 
-msgctxt "#30142"
-msgid "TV Shows"
-msgstr "Séries"
+msgctxt "#30132"
+msgid "[B]Specto[/B] : Update folders..."
+msgstr "[B]Specto[/B] : Atualizar pastas..."
+
+msgctxt "#30133"
+msgid "[B]Specto[/B] : Movie folder..."
+msgstr "[B]Specto[/B] : Pasta Filmes..."
+
+msgctxt "#30134"
+msgid "[B]Specto[/B] : TV folder..."
+msgstr "[B]Specto[/B] : Pasta Séries..."
+
+msgctxt "#30135"
+msgid "[B]TRAKT[/B] : Import Collection..."
+msgstr "[B]TRAKT[/B] : Importar Coleção..."
+
+msgctxt "#30136"
+msgid "[B]TRAKT[/B] : Import Watchlist..."
+msgstr "[B]TRAKT[/B] : Importar Watchlist..."
+
+msgctxt "#30137"
+msgid "[B]TRAKT[/B] : Import TV Collection..."
+msgstr "[B]TRAKT[/B] : Importar Coleção Séries..."
+
+msgctxt "#30138"
+msgid "[B]TRAKT[/B] : Import TV Watchlist..."
+msgstr "[B]TRAKT[/B] : Importar Watchlist Séries..."
+
+msgctxt "#30139"
+msgid "[B]IMDB[/B] : Import Watchlist..."
+msgstr "[B]IMDB[/B] : Importar Watchlist..."
+
+msgctxt "#30140"
+msgid "[B]IMDB[/B] : Import TV Watchlist..."
+msgstr "[B]IMDB[/B] : Import Watchlist Séries..."
 
 msgctxt "#30151"
 msgid "Movies"
@@ -313,9 +365,9 @@ msgctxt "#30154"
 msgid "People (TV)"
 msgstr "Atores (Séries)"
 
-msgctxt "#30155"
-msgid "Queue item"
-msgstr "Item em fila de espera"
+msgctxt "#30191"
+msgid "Add to Library"
+msgstr "Adicionar à Biblioteca"
 
 msgctxt "#30201"
 msgid "Search"
@@ -357,6 +409,10 @@ msgctxt "#30210"
 msgid "Remove from favourites"
 msgstr "Remover dos favoritos"
 
+msgctxt "#30211"
+msgid "Add to Library"
+msgstr "Adicionar à Biblioteca"
+
 msgctxt "#30212"
 msgid "Set Movies view"
 msgstr "Configurar vista de Filmes"
@@ -364,10 +420,6 @@ msgstr "Configurar vista de Filmes"
 msgctxt "#30213"
 msgid "[I]Next Page[/I]"
 msgstr "[I]Próxima Página[/I]"
-
-msgctxt "#30214"
-msgid "Movie trailer"
-msgstr "Trailer Filme"
 
 msgctxt "#30231"
 msgid "Search"
@@ -401,6 +453,10 @@ msgctxt "#30238"
 msgid "Remove from favourites"
 msgstr "Remover dos favoritos"
 
+msgctxt "#30239"
+msgid "Add to Library"
+msgstr "Adicionar à Biblioteca"
+
 msgctxt "#30240"
 msgid "Set TV Shows view"
 msgstr "Configurar vista de Séries"
@@ -408,10 +464,6 @@ msgstr "Configurar vista de Séries"
 msgctxt "#30241"
 msgid "[I]Next Page[/I]"
 msgstr "[I]Próxima Página[/I]"
-
-msgctxt "#30242"
-msgid "TV show trailer"
-msgstr "Trailer Serie"
 
 msgctxt "#30261"
 msgid "Queue item"
@@ -442,8 +494,8 @@ msgid "Remove from favourites"
 msgstr "Remover dos favoritos"
 
 msgctxt "#30268"
-msgid "TV show trailer"
-msgstr "Trailer Serie"
+msgid "Add to Library"
+msgstr "Adicionar à Biblioteca"
 
 msgctxt "#30269"
 msgid "Set Seasons view"
@@ -469,10 +521,6 @@ msgctxt "#30274"
 msgid "Browse Seasons"
 msgstr "Procurar temporadas"
 
-msgctxt "#30275"
-msgid "Season"
-msgstr "Temporada"
-
 msgctxt "#30291"
 msgid "Auto-play"
 msgstr "Reprodução Automática"
@@ -497,10 +545,6 @@ msgctxt "#30296"
 msgid "Now playing..."
 msgstr "A Reproduzir..."
 
-msgctxt "#30297"
-msgid "Trailer"
-msgstr "Trailer"
-
 msgctxt "#30401"
 msgid "Are you sure?"
 msgstr "Tem certeza?"
@@ -510,32 +554,28 @@ msgid "Process Complete"
 msgstr "Processo Terminado"
 
 msgctxt "#30411"
-msgid "A RealDebrid account already exists"
-msgstr ""
+msgid "Added to Favourites"
+msgstr "Adicionado aos Favoritos"
 
 msgctxt "#30412"
-msgid "After reset, save Exodus settings"
-msgstr ""
+msgid "Removed from Favourites"
+msgstr "Removido dos Favoritos"
 
-msgctxt "#30413"
-msgid "Do you want to reset?"
-msgstr ""
+msgctxt "#30421"
+msgid "Adding to library..."
+msgstr "Adicionar à biblioteca..."
 
-msgctxt "#30414"
-msgid "Yes"
-msgstr ""
+msgctxt "#30422"
+msgid "Updating TV shows..."
+msgstr "Atualizando Séries..."
 
-msgctxt "#30415"
-msgid "No"
-msgstr ""
+msgctxt "#30423"
+msgid "Process Complete"
+msgstr "Processo Terminado"
 
-msgctxt "#30416"
-msgid "1) Visit : "
-msgstr ""
-
-msgctxt "#30417"
-msgid "2) When prompted enter : "
-msgstr ""
+msgctxt "#30425"
+msgid "Are you sure?"
+msgstr "Tem certeza?"
 
 msgctxt "#30451"
 msgid "Getting information"
@@ -593,46 +633,6 @@ msgctxt "#30478"
 msgid "Remove from"
 msgstr "Remover de"
 
-msgctxt "#30479"
-msgid "A Trakt account already exists"
-msgstr ""
-
-msgctxt "#30480"
-msgid "After reset, save Exodus settings"
-msgstr ""
-
-msgctxt "#30481"
-msgid "Do you want to reset?"
-msgstr ""
-
-msgctxt "#30482"
-msgid "Yes"
-msgstr ""
-
-msgctxt "#30483"
-msgid "No"
-msgstr ""
-
-msgctxt "#30484"
-msgid "1) Visit : "
-msgstr ""
-
-msgctxt "#30485"
-msgid "2) If prompted, authorize Exodus to access your account"
-msgstr ""
-
-msgctxt "#30486"
-msgid "3) Enter the PIN provided or Cancel"
-msgstr ""
-
-msgctxt "#30487"
-msgid "Enter PIN"
-msgstr ""
-
-msgctxt "#30488"
-msgid "Cancel"
-msgstr ""
-
 msgctxt "#30491"
 msgid "This View is now Default"
 msgstr "Esta Vista está definida agora por defeito"
@@ -658,8 +658,8 @@ msgid "Download item"
 msgstr "Download do item"
 
 msgctxt "#30506"
-msgid "Refresh providers"
-msgstr ""
+msgid "Refresh sources"
+msgstr "Refrescar fontes"
 
 msgctxt "#30507"
 msgid "Add-on settings"
@@ -690,20 +690,12 @@ msgid "seconds"
 msgstr "Segundos"
 
 msgctxt "#30514"
-msgid "Remaining providers"
-msgstr ""
+msgid "Remaining sources"
+msgstr "Fontes Restantes"
 
 msgctxt "#30515"
-msgid "Loading streams"
-msgstr ""
-
-msgctxt "#30516"
-msgid "Movie trailer"
-msgstr "Trailer Filme"
-
-msgctxt "#30517"
-msgid "TV show trailer"
-msgstr "Trailer Série"
+msgid "Loading sources"
+msgstr "Carregando Fontes"
 
 msgctxt "#30521"
 msgid "Monday"
@@ -798,8 +790,8 @@ msgid "Info Language"
 msgstr "Informação da Língua"
 
 msgctxt "#30804"
-msgid "Providers Timeout"
-msgstr ""
+msgid "Sources Timeout"
+msgstr "Timeout das Fontes"
 
 msgctxt "#30805"
 msgid "Main menu"
@@ -814,32 +806,32 @@ msgid "Disabled"
 msgstr "Desativado"
 
 msgctxt "#30808"
+msgid "Default"
+msgstr "Por Defeito"
+
+msgctxt "#30809"
 msgid "Featured"
 msgstr "Em Destaque"
 
-msgctxt "#30809"
+msgctxt "#30810"
 msgid "People Watching"
 msgstr "A ser Visto"
 
-msgctxt "#30810"
-msgid "Most Popular"
-msgstr "Mais Populares"
-
 msgctxt "#30811"
-msgid "In Theaters"
-msgstr "Nos Cinemas"
-
-msgctxt "#30812"
 msgid "Latest Episodes"
 msgstr "Últimos Episódios"
 
-msgctxt "#30813"
+msgctxt "#30812"
 msgid "Disabled"
 msgstr "Desativado"
 
+msgctxt "#30813"
+msgid "Default"
+msgstr "Por Defeito"
+
 msgctxt "#30814"
-msgid "Episodes"
-msgstr "Episódios"
+msgid "Favourites"
+msgstr "Favoritos"
 
 msgctxt "#30815"
 msgid "Trakt Progress"
@@ -851,37 +843,13 @@ msgstr "Episódios Trakt"
 
 msgctxt "#30817"
 msgid "TV Calendar"
-msgstr "Calendário"
+msgstr "Calendário de Séries"
 
 msgctxt "#30818"
 msgid "Disabled"
 msgstr "Desativado"
 
 msgctxt "#30819"
-msgid "Enabled"
-msgstr "Ativado"
-
-msgctxt "#30820"
-msgid "Indicators"
-msgstr "Indicadores"
-
-msgctxt "#30821"
-msgid "Local"
-msgstr "Local"
-
-msgctxt "#30822"
-msgid "Trakt"
-msgstr "Trakt"
-
-msgctxt "#30823"
-msgid "My Lists"
-msgstr "Minhas Listas"
-
-msgctxt "#30824"
-msgid "Disabled"
-msgstr "Desativado"
-
-msgctxt "#30825"
 msgid "Enabled"
 msgstr "Ativado"
 
@@ -914,8 +882,12 @@ msgid "Hosters with captchas"
 msgstr "Fontes com captchas"
 
 msgctxt "#30837"
-msgid "Sort by Provider"
-msgstr "Organizar por Fonte"
+msgid "Hosters with 1080p files"
+msgstr "Fontes com 1080p"
+
+msgctxt "#30838"
+msgid "Hosters with 720p files"
+msgstr "Fontes com 720p"
 
 msgctxt "#30839"
 msgid "Auto-play"
@@ -924,6 +896,10 @@ msgstr "Reprodução Automática"
 msgctxt "#30840"
 msgid "Auto-play"
 msgstr "Reprodução Automática"
+
+msgctxt "#30841"
+msgid "Auto-play (Library)"
+msgstr "Reprodução Automática (Biblioteca)"
 
 msgctxt "#30842"
 msgid "Force SD playback in Auto-play"
@@ -941,21 +917,101 @@ msgctxt "#30845"
 msgid "Playback Info"
 msgstr "Informação de Reprodução"
 
-msgctxt "#30846"
-msgid "Progress Dialog"
-msgstr "Progresso"
-
-msgctxt "#30847"
-msgid "Safe"
-msgstr "Guardado"
-
-msgctxt "#30848"
-msgid "Unsafe"
-msgstr "Nao guardado"
-
 msgctxt "#30860"
-msgid "Providers"
-msgstr ""
+msgid "Movies"
+msgstr "Filmes"
+
+msgctxt "#30861"
+msgid "TV"
+msgstr "Séries"
+
+msgctxt "#30870"
+msgid "HD Hosts"
+msgstr "Fontes HD"
+
+msgctxt "#30871"
+msgid "SD Hosts"
+msgstr "Fontes SD"
+
+msgctxt "#30881"
+msgid "Priority 1"
+msgstr "Prioridade 1"
+
+msgctxt "#30882"
+msgid "Priority 2"
+msgstr "Prioridade 2"
+
+msgctxt "#30883"
+msgid "Priority 3"
+msgstr "Prioridade 3"
+
+msgctxt "#30884"
+msgid "Priority 4"
+msgstr "Prioridade 4"
+
+msgctxt "#30885"
+msgid "Priority 5"
+msgstr "Prioridade 5"
+
+msgctxt "#30886"
+msgid "Priority 6"
+msgstr "Prioridade 6"
+
+msgctxt "#30887"
+msgid "Priority 7"
+msgstr "Prioridade 7"
+
+msgctxt "#30888"
+msgid "Priority 8"
+msgstr "Prioridade 8"
+
+msgctxt "#30889"
+msgid "Priority 9"
+msgstr "Prioridade 9"
+
+msgctxt "#30890"
+msgid "Priority 10"
+msgstr "Prioridade 10"
+
+msgctxt "#30891"
+msgid "Priority 11"
+msgstr "Prioridade 11"
+
+msgctxt "#30892"
+msgid "Priority 12"
+msgstr "Prioridade 12"
+
+msgctxt "#30893"
+msgid "Priority 13"
+msgstr "Prioridade 13"
+
+msgctxt "#30894"
+msgid "Priority 14"
+msgstr "Prioridade 14"
+
+msgctxt "#30895"
+msgid "Priority 15"
+msgstr "Prioridade 15"
+
+msgctxt "#30896"
+msgid "Priority 16"
+msgstr "Prioridade 16"
+
+msgctxt "#30897"
+msgid "Priority 17"
+msgstr "Prioridade 17"
+
+msgctxt "#30898"
+msgid "Priority 18"
+msgstr "Prioridade 18"
+
+msgctxt "#30899"
+msgid "Priority 19"
+msgstr "Prioridade 19"
+
+msgctxt "#30900"
+msgid "Priority 20"
+msgstr "Prioridade 20"
 
 msgctxt "#30910"
 msgid "Accounts"
@@ -973,9 +1029,47 @@ msgctxt "#30913"
 msgid "Password"
 msgstr "Password"
 
-msgctxt "#30914"
-msgid "Authorization..."
-msgstr "Autorização"
+msgctxt "#30920"
+msgid "Library"
+msgstr "Biblioteca"
+
+msgctxt "#30921"
+msgid ""
+"Specto folderswill be imported to library if they are added to media "
+"sources."
+msgstr "Pastas do Specto irão ser importadas para a biblioteca se adicionadas às fontes de vídeos."
+
+msgctxt "#30922"
+msgid "Movies"
+msgstr "Filmes"
+
+msgctxt "#30923"
+msgid "TV"
+msgstr "Séries"
+
+msgctxt "#30924"
+msgid "Auto update TV Shows"
+msgstr "Atualizar automaticamente Séries"
+
+msgctxt "#30925"
+msgid "Show notifications during update"
+msgstr "Mostrar notificações durante a atualização"
+
+msgctxt "#30926"
+msgid "Update library after adding content"
+msgstr "Atualizar biblioteca depois de adicionar conteúdo"
+
+msgctxt "#30927"
+msgid "Avoid creating duplicate content"
+msgstr "Evitar criar conteúdo duplicado"
+
+msgctxt "#30928"
+msgid "Check movie before adding it"
+msgstr "Verificar filme antes de adiciona-lo"
+
+msgctxt "#30929"
+msgid "Check first episode of season before adding it"
+msgstr "Verificar primeiro episódio da temporada antes de adiciona-lo"
 
 msgctxt "#30940"
 msgid "Subtitles"
@@ -1016,15 +1110,3 @@ msgstr "Filmes"
 msgctxt "#30952"
 msgid "TV"
 msgstr "Séries"
-
-msgctxt "#30953"
-msgid "Enable downloads"
-msgstr "Ativar Downloads"
-
-msgctxt "#30954"
-msgid "Downloading features are disabled by default."
-msgstr ""
-
-msgctxt "#30955"
-msgid "Set up your download folders in order to enable them."
-msgstr "Define a pasta de Downloads para os poderes ativar"
