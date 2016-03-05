@@ -43,12 +43,13 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.genesis" name="Genesis" version="5.1.91" provider-name="hawwach">
+<addon id="plugin.video.genesis" name="Genesis" version="5.2.0" provider-name="hawwach">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.requests" version="1.0.0" />
 		<import addon="script.module.metahandler" optional="true" />
 		<import addon="plugin.video.youtube" optional="true" />
+
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video</provides>

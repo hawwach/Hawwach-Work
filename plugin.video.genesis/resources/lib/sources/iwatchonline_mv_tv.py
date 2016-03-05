@@ -29,7 +29,7 @@ from resources.lib import resolvers
 class source:
     def __init__(self):
         self.base_link = 'http://www.iwatchonline.ag'
-        self.link_1 = 'http://www.imovie.to'
+        self.link_1 = 'http://www.iwatchonline.video'
         self.link_2 = 'http://translate.googleusercontent.com/translate_c?anno=2&hl=en&sl=mt&tl=en&u=http://www.iwatchonline.ag'
         self.link_3 = 'https://iwatchonline.unblocked.pw'
         self.search_link = '/advance-search'
@@ -41,7 +41,7 @@ class source:
     def get_movie(self, imdb, title, year):
         try:
             query = self.search_link
-            post = urllib.urlencode({'searchquery': title, 'searchin': '1'})
+            post = {'searchquery': title, 'searchin': '1'}
 
             result = ''
             links = [self.link_1, self.link_3]
@@ -71,7 +71,7 @@ class source:
     def get_show(self, imdb, tvdb, tvshowtitle, year):
         try:
             query = self.search_link
-            post = urllib.urlencode({'searchquery': tvshowtitle, 'searchin': '2'})
+            post = {'searchquery': tvshowtitle, 'searchin': '2'}
 
             result = ''
             links = [self.link_1, self.link_3]
@@ -128,7 +128,8 @@ class source:
                     if not 'English' in lang: raise Exception()
 
                     host = re.compile('<img src=[\'|\"|\s|\<]*(.+?)[\'|\"|\s|\>]').findall(i)[0]
-                    host = host.rsplit('.', 1)[0].rsplit('.', 1)[0].rsplit('/', 1)[-1]
+                    host = host.split('/')[-1]
+                    host = host.split('.')[-3]
                     host = host.strip().lower()
                     host = client.replaceHTMLCodes(host)
                     host = host.encode('utf-8')
@@ -169,15 +170,19 @@ class source:
             for base_link in links:
                 result = client.request(urlparse.urljoin(base_link, url), headers=self.headers)
                 if 'frame' in str(result): break
-
+            #print("Result >>> result",result)
             url = re.compile('class=[\'|\"]*frame.+?src=[\'|\"|\s|\<]*(.+?)[\'|\"|\s|\>]').findall(result)[0]
             url = client.replaceHTMLCodes(url)
+            print("Result >>> url",url)
             try: url = urlparse.parse_qs(urlparse.urlparse(url).query)['u'][0]
             except: pass
             try: url = urlparse.parse_qs(urlparse.urlparse(url).query)['url'][0]
             except: pass
+            print("Result >>> url2 >>>>>>>>>>>>>>>>>>>>",url)
 
             url = resolvers.request(url)
+            print("Result >>> url3 +++++++++++++++++++++",url)
+
             return url
         except:
             return

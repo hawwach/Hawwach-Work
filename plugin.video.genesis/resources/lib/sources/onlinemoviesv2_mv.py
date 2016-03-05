@@ -30,7 +30,7 @@ from resources.lib import resolvers
 
 class source:
     def __init__(self):
-        self.base_link = 'http://onlinemovies.is'
+        self.base_link = 'http://onlinemovies.ws'
         self.search_link = '/?s=%s'
 
 
@@ -57,7 +57,7 @@ class source:
 
             url = urlparse.urljoin(self.base_link, url)
 
-            result = cloudflare.source(url)
+            result = client.source(url)
 
             quality = re.compile('>Quality:(.+?)\n').findall(result)[0]
 
@@ -91,7 +91,7 @@ class source:
 
     def resolve(self, url):
         try:
-            url = resolvers.request(url)
+            #url = resolvers.request(url)
             return url
         except:
             return

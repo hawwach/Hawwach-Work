@@ -18,10 +18,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+#TODO ['notifications-on-startup', False, 'DoFromService', True]
+#TODO Trakt
+#TODO RealDbrid v3
+
 
 import urlparse,sys
+from resources.lib.libraries import control
+
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?','')))
-print("PARAMS:",params)
+control.log("->----------                PARAMS: %s" % params)
 
 
 try:
@@ -118,6 +124,15 @@ except:
 if action == None:
     from resources.lib.indexers import navigator
     navigator.navigator().root()
+
+
+elif action == 'realdebridauth':
+    from resources.lib.resolvers.realdebrid import rdAuthorize
+    rdAuthorize()
+
+elif action == 'traktpinauth':
+    from resources.lib.indexers import navigator
+    navigator.navigator().trakt_pin_auth()
 
 elif action == 'movieNavigator':
     from resources.lib.indexers import navigator

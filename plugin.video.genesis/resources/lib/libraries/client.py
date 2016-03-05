@@ -19,11 +19,31 @@
 '''
 
 
-import re,sys,urllib2,HTMLParser
+import re,sys,urllib2,HTMLParser, urllib, urlparse
+import xbmc, random
 
+from resources.lib.libraries import cloudflare
+from resources.lib.libraries import control
+
+
+def shrink_host(url):
+    u = urlparse.urlparse(url)[1].split('.')
+    u = u[-2] + '.' + u[-1]
+    return u.encode('utf-8')
+
+
+
+IE_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko'
+FF_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+OPERA_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36 OPR/34.0.2036.50'
+IOS_USER_AGENT = 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25'
+ANDROID_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 Mobile Safari/537.36'
+#SMU_USER_AGENT = 'URLResolver for Kodi/%s' % (addon_version)
 
 def request(url, close=True, error=False, proxy=None, post=None, headers=None, mobile=False, safe=False, referer=None, cookie=None, output='', timeout='30'):
+    #control.log("#CLIENT# - %s  OUTPUT %s" % (url,output))
     try:
+        html=''
         handlers = []
         if not proxy == None:
             handlers += [urllib2.ProxyHandler({'http':'%s' % (proxy)}), urllib2.HTTPHandler]
@@ -51,8 +71,9 @@ def request(url, close=True, error=False, proxy=None, post=None, headers=None, m
         if 'User-Agent' in headers:
             pass
         elif not mobile == True:
-            #headers['User-Agent'] = 'Mozilla/5.0 (compatible, MSIE 11, Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko'
-            headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36'
+            #headers['User-Agent'] = 'User-Agent: Mozilla/5.0 (Windows NT 6.2; Trident/7.0; rv:11.0) like Gecko'
+            #headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36'
+            headers['User-Agent'] = randomagent()
         else:
             headers['User-Agent'] = 'Apple-iPhone/701.341'
         if 'referer' in headers:
@@ -61,19 +82,29 @@ def request(url, close=True, error=False, proxy=None, post=None, headers=None, m
             headers['referer'] = url
         else:
             headers['referer'] = referer
+
         #if not 'Accept-Language' in headers:
         #    headers['Accept-Language'] = 'en-US'
+
         if 'cookie' in headers:
             pass
         elif not cookie == None:
             headers['cookie'] = cookie
 
-        request = urllib2.Request(url, data=post, headers=headers)
-
+        if post is None:
+            request = urllib2.Request(url, headers=headers)
+        else:
+            request = urllib2.Request(url, urllib.urlencode(post), headers=headers)
+            #control.log("POST DATA %s" % post)
         try:
             response = urllib2.urlopen(request, timeout=int(timeout))
         except urllib2.HTTPError as response:
-            if error == False: return
+            moje = response
+            control.log("### CLIENT CLIENT %s" % response)
+            if response.code == 503 and 'cf-browser-verification' in moje.read():
+                html = cloudflare.solve(url,randomagent())
+            #if response.code == 401: return response
+
 
         if output == 'cookie':
             result = []
@@ -90,13 +121,19 @@ def request(url, close=True, error=False, proxy=None, post=None, headers=None, m
             result = response.read(16 * 1024)
         elif output == 'geturl':
             result = response.geturl()
+        elif output == 'response2':
+            result = (str(response.code), response.read())
         else:
-            if safe == True:
+            if html != '':
+                result = html
+            #
+            elif safe == True:
                 result = response.read(224 * 1024)
             else:
                 result = response.read()
         if close == True:
             response.close()
+        #control.log("### CLIENT Result %s" % result)
 
         return result
     except:
@@ -221,6 +258,55 @@ def replaceHTMLCodes(txt):
 
 
 def agent():
-    return 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36'
+    #return 'Mozilla/5.0 (compatible, MSIE 11, Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko'
+    #return 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/42.0'
+    #return 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.82 Safari/537.36'
+    return randomagent()
 
 
+def log(msg, level=xbmc.LOGNOTICE):
+    level = xbmc.LOGNOTICE
+    try:
+        if isinstance(msg, unicode):
+            msg = msg.encode('utf-8')
+
+        #xbmc.log('[SPECTO]: %s' % (msg), level)
+    except Exception as e:
+        try:
+            #xbmc.log('Logging Failure: %s' % (e), level)
+            a=1
+        except: pass  # just give up
+
+def randomagent():
+    BR_VERS = [
+        ['%s.0' % i for i in xrange(18, 43)],
+        ['37.0.2062.103', '37.0.2062.120', '37.0.2062.124', '38.0.2125.101', '38.0.2125.104', '38.0.2125.111', '39.0.2171.71', '39.0.2171.95', '39.0.2171.99', '40.0.2214.93', '40.0.2214.111',
+         '40.0.2214.115', '42.0.2311.90', '42.0.2311.135', '42.0.2311.152', '43.0.2357.81', '43.0.2357.124', '44.0.2403.155', '44.0.2403.157', '45.0.2454.101', '45.0.2454.85', '46.0.2490.71',
+         '46.0.2490.80', '46.0.2490.86', '47.0.2526.73', '47.0.2526.80'],
+        ['11.0']]
+    WIN_VERS = ['Windows NT 10.0', 'Windows NT 7.0', 'Windows NT 6.3', 'Windows NT 6.2', 'Windows NT 6.1', 'Windows NT 6.0', 'Windows NT 5.1', 'Windows NT 5.0']
+    FEATURES = ['; WOW64', '; Win64; IA64', '; Win64; x64', '']
+    RAND_UAS = ['Mozilla/5.0 ({win_ver}{feature}; rv:{br_ver}) Gecko/20100101 Firefox/{br_ver}',
+                'Mozilla/5.0 ({win_ver}{feature}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{br_ver} Safari/537.36',
+                'Mozilla/5.0 ({win_ver}{feature}; Trident/7.0; rv:{br_ver}) like Gecko']
+    index = random.randrange(len(RAND_UAS))
+    return RAND_UAS[index].format(win_ver=random.choice(WIN_VERS), feature=random.choice(FEATURES), br_ver=random.choice(BR_VERS[index]))
+
+def googletag(url):
+    quality = re.compile('itag=(\d*)').findall(url)
+    quality += re.compile('=m(\d*)$').findall(url)
+    try: quality = quality[0]
+    except: return []
+    control.log('<><><><><><><><><><><><> %s <><><><><><><><><>' % quality)
+    if quality in ['37', '137', '299', '96', '248', '303', '46']:
+        return [{'quality': '1080p', 'url': url}]
+    elif quality in ['22', '84', '136', '298', '120', '95', '247', '302', '45', '102']:
+        return [{'quality': 'HD', 'url': url}]
+    elif quality in ['35', '44', '135', '244', '94']:
+        return [{'quality': 'SD', 'url': url}]
+    elif quality in ['18', '34', '43', '82', '100', '101', '134', '243', '93']:
+        return [{'quality': 'SD', 'url': url}]
+    elif quality in ['5', '6', '36', '83', '133', '242', '92', '132']:
+        return [{'quality': 'SD', 'url': url}]
+    else:
+        return []

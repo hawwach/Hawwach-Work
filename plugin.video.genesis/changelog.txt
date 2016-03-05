@@ -1,9 +1,14 @@
 ------------------------
-Specto v2016.02.06
+ v2016.03.05
 ------------------------
 
 - Updated By MH_Hawwach
 
-------------------------
 
+This update will fix:
+    - watch1080p - cloudflare
+
+Important bugs to fix in this week:
+    - trakt.tv api v2
+    - realdebrid api
 
