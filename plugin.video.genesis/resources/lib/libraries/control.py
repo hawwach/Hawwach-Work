@@ -25,7 +25,7 @@ import base64, jsunpack
 tmdb_key = jsunpack.jsunpack_keys()
 tvdb_key = base64.urlsafe_b64decode('MUQ2MkYyRjkwMDMwQzQ0NA==')
 
-scriptID = 'plugin.video.specto'
+scriptID = 'plugin.video.genesis'
 ptv = xbmcaddon.Addon(scriptID)
 
 lang = xbmcaddon.Addon().getLocalizedString
