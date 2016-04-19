@@ -2,7 +2,7 @@
 <addons>
 <addon
   id="plugin.video.Arabic-VOD"
-  version="1.0.6"
+  version="1.0.7"
   name="Arabic VOD"
   provider-name="Hawwach">
   <requires>
