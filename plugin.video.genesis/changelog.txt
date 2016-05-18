@@ -1,14 +1,54 @@
 ------------------------
- v2016.03.05
+Specto v2016.05.08.7
 ------------------------
+Fix - searching
+Fix - oneclickwatch
+Fix - putlocker
+Add - resolvers yadi.sk, cloud.mail.ru
+Add DAYT 1080p source
 
-- Updated By MH_Hawwach
+------------------------
+Specto v2016.05.08.1
+------------------------
+Fix - dizilab for TV
+Fix - oneclickwatch
+Fix -videomega, uptobox resolvers
+Trakt.tv - now working
 
 
-This update will fix:
-    - watch1080p - cloudflare
+------------------------
+Specto v2016.04.23.1
+------------------------
+Fix scraper - beter handling cloudflare for 1080p sites
+Added Sources:
+    - Pelispedia
+    - rainierland
 
-Important bugs to fix in this week:
-    - trakt.tv api v2
-    - realdebrid api
+------------------------
+Specto v2016.04.20.1
+------------------------
+Fix muchmoovies - small source fix
+
+------------------------
+Specto v2016.03.26.1
+------------------------
+Fix marked as watched - Metahandler
+------------------------
+Specto v2016.03.12.3
+------------------------
+Cache repair
+Movies repair - done in 90%
+TV Shows repair  - done in 80%
+
+------------------------
+Specto v2016.03.11.3
+------------------------
+Cache repair
+Movies repair - done in 90%
+TV Shows repair  - done in 2%
+
+------------------------
+Specto v2016.03.06
+------------------------
+Openload   decodeOpenLoad made by mortael
 
