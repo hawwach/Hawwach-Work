@@ -1,0 +1,13 @@
+﻿<settings>
+  
+  <category label="User code Activation">
+  
+   
+    <setting id="new_url_source" type="text" label="Add your client code" default="" />
+    <setting type="sep" />
+    <setting type="action" label="Activate your Account" option="close" action="RunPlugin(plugin://plugin.Livetv.tn/?mode=7)" />
+    <setting type="sep" />
+  </category>
+
+ 
+</settings>
