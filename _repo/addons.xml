@@ -24,7 +24,7 @@
 
 <addon
   id="plugin.video.Arabic-VOD"
-  version="2.1.2"
+  version="2.1.4"
   name="Arabic-VOD"
   provider-name="Bisha">
   <requires>
