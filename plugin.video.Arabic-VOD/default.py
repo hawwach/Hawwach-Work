@@ -1,12 +1,6 @@
 # -*- coding: utf8 -*-
-import urllib,urllib2,re,xbmcplugin,xbmcgui
-import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-from httplib import HTTP
-from urlparse import urlparse
-import StringIO
-import httplib
-import time
-
+import urllib,urllib2,xbmcplugin,xbmcgui,xbmcaddon
+import re
 
 __settings__ = xbmcaddon.Addon(id='plugin.video.Arabic-VOD')
 __icon__ = __settings__.getAddonInfo('icon')
@@ -17,154 +11,118 @@ _pluginName = (sys.argv[0])
 
 
 
-def patch_http_response_read(func):
-    def inner(*args):
-        try:
-            return func(*args)
-        except httplib.IncompleteRead, e:
-            return e.partial
-
-    return inner
-httplib.HTTPResponse.read = patch_http_response_read(httplib.HTTPResponse.read)
-
 
 def CATEGORIES():
+	addDir("RAMADAN MORROCAN SERIES","/ramadan2016/مغربية",2,"hhttp://oi59.tinypic.com/2j2xruf.jpg")
+	addDir("RAMADAN SYRIAN SERIES","http://tv1.alarab.com/ramadan2016/سورية",2,"http://oi59.tinypic.com/2j2xruf.jpg")
+	addDir("RAMADAN EGYPTIAN SERIES","http://tv1.alarab.net/ramadan2016/مصرية",2,"http://oi59.tinypic.com/2j2xruf.jpg")
+	addDir("RAMADAN KHALIJI SERIES","http://tv1.alarab.net/ramadan2016/خليجية",2,"http://oi59.tinypic.com/2j2xruf.jpg")
+	addDir("RAMADAN LEBANESE SERIES","http://tv1.alarab.net/ramadan2016/لبانينة",2,"http://oi59.tinypic.com/2j2xruf.jpg")
+	addDir("RAMADAN KUWAITI SERIES","http://tv1.alarab.net/ramadan2016/كويتية",2,"http://oi59.tinypic.com/2j2xruf.jpg")
+	addDir("RAMADAN SAUDI SERIES","http://tv1.alarab.net/ramadan2016/سعودية",2,"http://oi59.tinypic.com/2j2xruf.jpg")
+	addDir("RAMADAN JORDANIAN SERIES","http://tv1.alarab.net/ramadan2016/اردنية",2,"http://oi59.tinypic.com/2j2xruf.jpg")
+	addDir("RAMADAN BAHRAINI SERIES","http://tv1.alarab.net/ramadan2016/بحرينية",2,"http://oi59.tinypic.com/2j2xruf.jpg")
+	addDir("RAMADAN EMARATI SERIES","http://tv1.alarab.net/ramadan2016/اماراتية",2,"http://oi59.tinypic.com/2j2xruf.jpg")
 
-	addDir('مسلسلات رمضان','http://www.sonara.net/vncat/92/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA-%D8%B1%D9%85%D8%B6%D8%A7%D9%86-2016',1,'http://oi59.tinypic.com/2j2xruf.jpg')
-	addDir('مسلسلات عربية','http://www.sonara.net/vncat/49/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA_%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9',1,'http://oi59.tinypic.com/2j2xruf.jpg')
-	addDir('مسلسلات تركية','http://www.sonara.net/vncat/50/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA_%D8%AA%D8%B1%D9%83%D9%8A%D8%A9',1,'http://oi59.tinypic.com/wc08k8.jpg')
-	addDir('افلام عربية','http://www.sonara.net/vcat/603/%D8%A7%D9%81%D9%84%D8%A7%D9%85_%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9',4,'http://oi62.tinypic.com/1g27ts.jpg')
-	addDir('برامج','http://www.sonara.net/vncat/52/%D8%A8%D8%B1%D8%A7%D9%85%D8%AC',1,'http://oi57.tinypic.com/343qjbc.jpg')
+def getMovie(url):
+	openerx = urllib2.build_opener()
+	sockx = openerx.open(url)
+	contentx = sockx.read()
+	sockx.close()
+	wieviele = contentx.count('<div class="video-box">')
+	teilen = contentx.split('<div class="video-box">')
+	for i in range(1,wieviele+1):
+		linkjetzt = teilen[i].split('"')
+		imgjetzt = linkjetzt[3]
+		urljetzt = "http://tv1.alarab.net/"+linkjetzt[1]
+		namejetzt = linkjetzt[5]
+		addLink(namejetzt,urljetzt,4,imgjetzt)
+	seitenzahl1 = contentx.split('<div class="pages"><center>')
+	seitenzahl2 = seitenzahl1[1].split("</div></center></div>")
+	seitenzahl3 = seitenzahl2[0].split('tsc_3d_button blue"')
+	seitenzahl4 = seitenzahl3[1].split(">")
+	seitenzahl5 = seitenzahl4[1].split("<")
+	seitenzahlselected = seitenzahl5[0]
+	seitenwieviel = seitenzahl2[0].count("href")
+	if int(seitenzahlselected) < seitenwieviel:
+		nextpagelink1 = seitenzahl3[1].split('"')
+		nextpagelink = "http://tv1.alarab.net" + nextpagelink1[7]
+		addDir("("+seitenzahlselected+"/"+str(seitenwieviel)+") Next Page",nextpagelink,1,"http://wadeni.com/images/icons/0alarab-net.jpg")
 
-		
-def listContent(url):
-	  
-    req = urllib2.Request(url)
-    req.add_header('Host', 'www.sonara.net')
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:21.0) Gecko/20100101 Firefox/21.0')
-    req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
-    req.add_header('Accept-Language', 'en-US,en;q=0.5')
-    req.add_header('Cookie', 'InterstitialAd=1; __utma=261095506.1294916015.1370631116.1370631116.1370631116.1; __utmb=261095506.1.10.1370631116; __utmc=261095506; __utmz=261095506.1370631116.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)')
-   
-    
-    req.add_header('Connection', 'keep-alive')
-    response = urllib2.urlopen(req)
-    link=response.read()
-    name = ""
-    img = ""
-    path = ""
-    base = "http://sonara.net"
-    target= re.findall(r"<div class='mediasection'>(.*?)\s(.*?)<div class='footer'>", link, re.DOTALL)
-    for itr in target:
-        myPath=str( itr[1]).split("'>")
-        for items in myPath:
-        
-            if "<a href=" in str( items):
-                path=str( items).split("<a href='")[1]
-                path=base+str( path).strip()
-                
-            if "<img src='" in str( items):
-                img=str( items).split("<img src='")[1]
-                img=str(img).strip()
-                
-            if "<h4>" in str( items):
-                name=str( items).split("</h4></a>")[0]
-                name=str(name).replace("<h4>","").strip()
-                addDir(name,path,2,img)
+def getSerie(url):
+	openerx = urllib2.build_opener()
+	sockx = openerx.open(url)
+	contentx = sockx.read()
+	sockx.close()
+	wieviele = contentx.count('<div class="video-box">')
+	teilen = contentx.split('<div class="video-box">')
+	for i in range(1,wieviele+1):
+		linkjetzt = teilen[i].split('"')
+		imgjetzt = linkjetzt[3]
+		urljetzt = "http://tv1.alarab.net/"+linkjetzt[1]
+		namejetzt = linkjetzt[5]
+		addDir(namejetzt,urljetzt,3,imgjetzt)
+	seitenzahl1 = contentx.split('<div class="pages"><center>')
+	seitenzahl2 = seitenzahl1[1].split("</div></center></div>")
+	seitenzahl3 = seitenzahl2[0].split('tsc_3d_button blue"')
+	seitenzahl4 = seitenzahl3[1].split(">")
+	seitenzahl5 = seitenzahl4[1].split("<")
+	seitenzahlselected = seitenzahl5[0]
+	seitenwieviel = seitenzahl2[0].count("href")
+	if int(seitenzahlselected) < seitenwieviel:
+		nextpagelink1 = seitenzahl3[1].split('"')
+		nextpagelink = "http://tv1.alarab.net" + nextpagelink1[7]
+		addDir("("+seitenzahlselected+"/"+str(seitenwieviel)+") Next Page",nextpagelink,2,"http://wadeni.com/images/icons/0alarab-net.jpg")
 
-def listFilmContent(url):
-    req = urllib2.Request(url)
-    req.add_header('Host', 'www.sonara.net')
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:21.0) Gecko/20100101 Firefox/21.0')
-    req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
-    req.add_header('Accept-Language', 'en-US,en;q=0.5')
-    req.add_header('Cookie', 'InterstitialAd=1; __utma=261095506.1294916015.1370631116.1370631116.1370631116.1; __utmb=261095506.1.10.1370631116; __utmc=261095506; __utmz=261095506.1370631116.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)')
-   
-    
-    req.add_header('Connection', 'keep-alive')
-    response = urllib2.urlopen(req)
-    link=response.read()
-    name = ""
-    img = ""
-    path = ""
-    base = "http://sonara.net"
-    target= re.findall(r"<div class='video_listrel'>(.*?)\s(.*?)<div class='footer'>", link, re.DOTALL)
-    for itr in target:
-        myPath=str( itr[1]).split("'>")
-        for items in myPath:
-        
-            if "<a href=" in str( items):
-				path=str( items).split("<a href='")[1]
-				path=str( path).strip()
-				path=str( path).split("/")
-				path =str( path[2]).strip()
-                
-            if "<img src='" in str( items):
-                img=str( items).split("<img src='")[1]
-                img=str(img).strip()
-                
-            if "<h4>" in str( items):
-                name=str( items).split("</h4></a>")[0]
-                name=str(name).replace("<h4>","").strip()
-                addLink(name,path,3,img)
-                                 
+def getSerieFolge(url):
+	openerx = urllib2.build_opener()
+	sockx = openerx.open(url)
+	contentx = sockx.read()
+	sockx.close()
+	wieviele = contentx.count('<div class="video-box">')
+	teilen = contentx.split('<div class="video-box">')
+	for i in range(1,wieviele+1):
+		linkjetzt = teilen[i].split('"')
+		imgjetzt = linkjetzt[3]
+		urljetzt = "http://tv1.alarab.net/"+linkjetzt[1]
+		namejetzt = linkjetzt[5]
+		addLink(namejetzt,urljetzt,4,imgjetzt)
+	seitenzahl1 = contentx.split('<div class="pages"><center>')
+	seitenzahl2 = seitenzahl1[1].split("</div></center></div>")
+	seitenzahl3 = seitenzahl2[0].split('tsc_3d_button blue"')
+	seitenzahl4 = seitenzahl3[1].split(">")
+	seitenzahl5 = seitenzahl4[1].split("<")
+	seitenzahlselected = seitenzahl5[0]
+	seitenwieviel = seitenzahl2[0].count("href")
+	if int(seitenzahlselected) < seitenwieviel:
+		nextpagelink1 = seitenzahl3[1].split('"')
+		nextpagelink = "http://tv1.alarab.net" + nextpagelink1[7]
+		addDir("("+seitenzahlselected+"/"+str(seitenwieviel)+") Next Page",nextpagelink,3,"http://wadeni.com/images/icons/0alarab-net.jpg")
 
-def listEpos(url):
-	req = urllib2.Request(url)
-	req.add_header('Host', 'www.sonara.net')
-	req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:21.0) Gecko/20100101 Firefox/21.0')
-	req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
-	req.add_header('Accept-Language', 'en-US,en;q=0.5')
-	req.add_header('Cookie', 'InterstitialAd=1; __utma=261095506.1294916015.1370631116.1370631116.1370631116.1; __utmb=261095506.1.10.1370631116; __utmc=261095506; __utmz=261095506.1370631116.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)')
-	req.add_header('Connection', 'keep-alive')
-	response = urllib2.urlopen(req)
-	link=response.read()
-	name = ""
-	img = ""
-	path = ""
-	base = "http://sonara.net"
-	target= re.findall(r"<div class='long_after_video'></div>(.*?)\s(.*?)<div class='footer'>", link, re.DOTALL)
-	for itr in target:
-		myPath=str( itr[1]).split("'>")
-		for items in myPath:
-			
-			if "<a href=" in str( items):
-				path=str( items).split("<a href='")[1]
-				path=str( path).split("/")
-				path =str( path[2]).strip()
-            
-			if "<img src='" in str( items):
-				img=str( items).split("<img src='")[1]
-				img=str(img).strip()
-            
-			if "<h4>" in str( items):
-				name=str( items).split("</h4></a>")[0]
-				name=str(name).replace("<h4>","").strip()
-				addLink(name,path,3,img)
-    
-
-def getVideoFile(url):
-	try:
-		url='http://www.sonara.net/video_player_new.php?ID='+str(url)
-		req = urllib2.Request(url)
-		response = urllib2.urlopen(req,timeout=1)
-		link=response.read()
-		for rows in link.split(";"):
-			if "dlk.addVariable" and 'file'in rows:
-				myvideo = rows.split(",")[1].split("&image")[0].replace("'","").strip()
-				   
-			if "dlk.addVariable" and 'streamer'in rows:
-				streamer = rows.split(",")[1].replace("'","").replace(")","").strip()
-				print streamer
-
-		swfFile="http://www.sonara.net/mediaplayera/player.swf"
-		playingpath=streamer+" swfUrl="+swfFile+" playpath="+myvideo+" timeout=15"
-		listItem = xbmcgui.ListItem(path=str(playingpath))
+def PlayMovie(url):
+		opener = urllib2.build_opener()
+		sock = opener.open(url)
+		content = sock.read()
+		sock.close()
+		source1 = content.split('http://alarabplayers.alarab.net')
+		fileright = getFlvAddress(source1[0])
+		print 'Used Url is:', fileright		
+		listItem = xbmcgui.ListItem(path=str(fileright))
 		xbmcplugin.setResolvedUrl(_thisPlugin, True, listItem)
-	except:
-		pass
-				
-    
+
+def getFlvAddress(par_sHtmlContent):
+		# search for the .flv address and change the flv. prefix to flv2.	
+		sFlvAddress = re.search(r'file=.*?\.flv', par_sHtmlContent, re.DOTALL)
+		
+		sFlvAddress = sFlvAddress.group()
+
+		iHttpStartIndex = sFlvAddress.find('=') 
+
+		sFinalAndCorrectedFlvAddress = sFlvAddress[iHttpStartIndex+1:].replace('flv.', 'flv2.')
+		sFinalAndCorrectedFlvAddress = sFinalAndCorrectedFlvAddress.replace('/flv/','/new/flv/')
+		
+		return sFinalAndCorrectedFlvAddress
+
 def get_params():
         param=[]
         paramstring=sys.argv[2]
@@ -180,10 +138,8 @@ def get_params():
                         splitparams=pairsofparams[i].split('=')
                         if (len(splitparams))==2:
                                 param[splitparams[0]]=splitparams[1]
-                                
+
         return param
-
-
 
 
 
@@ -195,7 +151,7 @@ def addLink(name,url,mode,iconimage):
     liz.setProperty("IsPlayable","true");
     ok=xbmcplugin.addDirectoryItem(handle=_thisPlugin,url=u,listitem=liz,isFolder=False)
     return ok
-	
+
 
 
 def addDir(name,url,mode,iconimage):
@@ -206,14 +162,14 @@ def addDir(name,url,mode,iconimage):
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
 
-              
+
 params=get_params()
 url=None
 name=None
 mode=None
 
 
-	
+
 try:
         url=urllib.unquote_plus(params["url"])
 except:
@@ -234,21 +190,18 @@ print "Name: "+str(name)
 if mode==None or url==None or len(url)<1:
         print ""
         CATEGORIES()
-       
 elif mode==1:
-        print ""+url
-        listContent(url)
-	
+	print ""+url
+	getMovie(url)
 elif mode==2:
-        print ""+url
-        listEpos(url)
+	print ""+url
+	getSerie(url)
 elif mode==3:
 	print ""+url
-	getVideoFile(url)
-	
+	getSerieFolge(url)
 elif mode==4:
-        print ""+url
-        listFilmContent(url)
+	print ""+url
+	PlayMovie(url)
 
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
