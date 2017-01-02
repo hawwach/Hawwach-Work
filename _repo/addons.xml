@@ -22,25 +22,21 @@
   </extension>
 </addon>
 
-<addon
-  id="plugin.video.Arabic-VOD"
-  version="2.2.0"
-  name="Arabic-VOD"
-  provider-name="Bisha">
-  <requires>
-    <import addon="xbmc.python"
-            version="2.1.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource"
-             library="default.py">
-    <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Sonara vod Arabic plugin</summary>
-    <description>Sonara Arabic plugin.</description>
+<addon id="plugin.video.Arabic-VOD" name="Arabic-VOD" version="3.0.1" provider-name="justaguy">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="script.module.urlresolver"  version="2.10.10"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+			<summary lang="en"></summary>
+			<description lang="en">Watch from a huge selection of Arabic Movies Tv Shows and Collections...</description>
+			<disclaimer lang="en">The author does not host or distribute any of the content displayed by this add-on</disclaimer>
 
-    <platform>all</platform>
-  </extension>
+			<platform>all</platform>
+	</extension>
 </addon>
 
 <addon

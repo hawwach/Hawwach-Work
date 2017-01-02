@@ -1,171 +1,114 @@
-# -*- coding: utf8 -*-
-import urllib,urllib2,re,xbmcplugin,xbmcgui
-import xbmc, xbmcgui, xbmcplugin, xbmcaddon
-from httplib import HTTP
-from urlparse import urlparse
-import StringIO
-import httplib
-import time
-
-
-__settings__ = xbmcaddon.Addon(id='plugin.video.Arabic-VOD')
-__icon__ = __settings__.getAddonInfo('icon')
-__fanart__ = __settings__.getAddonInfo('fanart')
-__language__ = __settings__.getLocalizedString
-_thisPlugin = int(sys.argv[1])
-_pluginName = (sys.argv[0])
-
-
-
-def patch_http_response_read(func):
-    def inner(*args):
-        try:
-            return func(*args)
-        except httplib.IncompleteRead, e:
-            return e.partial
-
-    return inner
-httplib.HTTPResponse.read = patch_http_response_read(httplib.HTTPResponse.read)
-
-
+import urllib,urllib2,re,xbmcplugin,xbmcgui,urlresolver,sys,xbmc,xbmcaddon,os,urlparse,random
+import threading
+addon_id = 'plugin.video.Arabic-VOD'
+fanart = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id , 'fanart.jpg'))
+icon = xbmc.translatePath(os.path.join('special://home/addons/' + addon_id, 'icon.png'))
+HOME         =  xbmc.translatePath('special://home/')
+aralab = "http://tv1.alarab.com"
+extensioncheck = ['.avi','.mp4','.mpg','.mpeg','.mov','.mkv','.xvid','.divx']
+dialog = xbmcgui.Dialog()
 def CATEGORIES():
-
-	addDir('مسلسلات عربية','http://www.sonara.net/vncat/49/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA_%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9',1,'http://oi59.tinypic.com/2j2xruf.jpg')
-	addDir('مسلسلات تركية','http://www.sonara.net/vncat/50/%D9%85%D8%B3%D9%84%D8%B3%D9%84%D8%A7%D8%AA_%D8%AA%D8%B1%D9%83%D9%8A%D8%A9',1,'http://oi59.tinypic.com/wc08k8.jpg')
-	addDir('افلام عربية','http://www.sonara.net/vcat/603/%D8%A7%D9%81%D9%84%D8%A7%D9%85_%D8%B9%D8%B1%D8%A8%D9%8A%D8%A9',4,'http://oi62.tinypic.com/1g27ts.jpg')
-	addDir('برامج','http://www.sonara.net/vncat/52/%D8%A8%D8%B1%D8%A7%D9%85%D8%AC',1,'http://oi57.tinypic.com/343qjbc.jpg')
-	
-	
-		
-def listContent(url):
-	  
-    req = urllib2.Request(url)
-    req.add_header('Host', 'www.sonara.net')
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:21.0) Gecko/20100101 Firefox/21.0')
-    req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
-    req.add_header('Accept-Language', 'en-US,en;q=0.5')
-    req.add_header('Cookie', 'InterstitialAd=1; __utma=261095506.1294916015.1370631116.1370631116.1370631116.1; __utmb=261095506.1.10.1370631116; __utmc=261095506; __utmz=261095506.1370631116.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)')
-   
-    
-    req.add_header('Connection', 'keep-alive')
-    response = urllib2.urlopen(req)
-    link=response.read()
-    name = ""
-    img = ""
-    path = ""
-    base = "http://sonara.net"
-    target= re.findall(r"<div class='mediasection'>(.*?)\s(.*?)<div class='footer'>", link, re.DOTALL)
-    for itr in target:
-        myPath=str( itr[1]).split("'>")
-        for items in myPath:
-        
-            if "<a href=" in str( items):
-                path=str( items).split("<a href='")[1]
-                path=base+str( path).strip()
-                
-            if "<img src='" in str( items):
-                img=str( items).split("<img src='")[1]
-                img=str(img).strip()
-                
-            if "<h4>" in str( items):
-                name=str( items).split("</h4></a>")[0]
-                name=str(name).replace("<h4>","").strip()
-                addDir(name,path,2,img)
-
-def listFilmContent(url):
-    req = urllib2.Request(url)
-    req.add_header('Host', 'www.sonara.net')
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:21.0) Gecko/20100101 Firefox/21.0')
-    req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
-    req.add_header('Accept-Language', 'en-US,en;q=0.5')
-    req.add_header('Cookie', 'InterstitialAd=1; __utma=261095506.1294916015.1370631116.1370631116.1370631116.1; __utmb=261095506.1.10.1370631116; __utmc=261095506; __utmz=261095506.1370631116.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)')
-   
-    
-    req.add_header('Connection', 'keep-alive')
-    response = urllib2.urlopen(req)
-    link=response.read()
-    name = ""
-    img = ""
-    path = ""
-    base = "http://sonara.net"
-    target= re.findall(r"<div class='video_listrel'>(.*?)\s(.*?)<div class='footer'>", link, re.DOTALL)
-    for itr in target:
-        myPath=str( itr[1]).split("'>")
-        for items in myPath:
-        
-            if "<a href=" in str( items):
-				path=str( items).split("<a href='")[1]
-				path=str( path).strip()
-				path=str( path).split("/")
-				path =str( path[2]).strip()
-                
-            if "<img src='" in str( items):
-                img=str( items).split("<img src='")[1]
-                img=str(img).strip()
-                
-            if "<h4>" in str( items):
-                name=str( items).split("</h4></a>")[0]
-                name=str(name).replace("<h4>","").strip()
-                addLink(name,path,3,img)
-                                 
-
-def listEpos(url):
-	req = urllib2.Request(url)
-	req.add_header('Host', 'www.sonara.net')
-	req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:21.0) Gecko/20100101 Firefox/21.0')
-	req.add_header('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
-	req.add_header('Accept-Language', 'en-US,en;q=0.5')
-	req.add_header('Cookie', 'InterstitialAd=1; __utma=261095506.1294916015.1370631116.1370631116.1370631116.1; __utmb=261095506.1.10.1370631116; __utmc=261095506; __utmz=261095506.1370631116.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)')
-	req.add_header('Connection', 'keep-alive')
-	response = urllib2.urlopen(req)
-	link=response.read()
-	name = ""
-	img = ""
-	path = ""
-	base = "http://sonara.net"
-	target= re.findall(r"<div class='long_after_video'></div>(.*?)\s(.*?)<div class='footer'>", link, re.DOTALL)
-	for itr in target:
-		myPath=str( itr[1]).split("'>")
-		for items in myPath:
-			
-			if "<a href=" in str( items):
-				path=str( items).split("<a href='")[1]
-				path=str( path).split("/")
-				path =str( path[2]).strip()
-            
-			if "<img src='" in str( items):
-				img=str( items).split("<img src='")[1]
-				img=str(img).strip()
-            
-			if "<h4>" in str( items):
-				name=str( items).split("</h4></a>")[0]
-				name=str(name).replace("<h4>","").strip()
-				addLink(name,path,3,img)
-    
-
-def getVideoFile(url):
+	addDir2('ARALAB',aralab,2,icon,fanart)
+def TV1ARALAB(url):
+	addDir2('SEARCH','url',23,icon,fanart)
+	link = open_url(url)
 	try:
-		url='http://www.sonara.net/video_player_new.php?ID='+str(url)
-		req = urllib2.Request(url)
-		response = urllib2.urlopen(req,timeout=1)
-		link=response.read()
-		print link
-		for rows in link.split(";"):
-			if "dlk.addVariable" and 'file'in rows:
-				myvideo = rows.split(",")[1].split("&image")[0].replace("'","").strip()
-				   
-			if "dlk.addVariable" and 'streamer'in rows:
-				streamer = rows.split(",")[1].replace("'","").replace(")","").strip()
-				print streamer
+		latest = re.compile('<li itemscope itemtype="(.+?)/li>',re.DOTALL).findall(link)
+		for block in latest:
+			match = re.compile('href="([^"]+)').findall(block)
+			for url in match:
+				matchimg = re.compile('src="(.+?)" alt="(.+?)" />').findall(block)
+				for img,name in matchimg:
+					url = aralab + url
+					addDir2("LATEST: " + name,url,21,img,fanart)	
+	except: pass
+	try:
+		latest = re.compile('<a class="channels(.+?)/a>',re.DOTALL).findall(link)
+		for block in latest:
+			match = re.compile('href="([^"]+)').findall(block)
+			for url in match:
+				matchimg = re.compile('src="(.+?)" alt="(.+?)"').findall(block)
+				for img,name in matchimg:
+					url = aralab + url
+					addDir2("CHANNEL: " + name,url,21,img,fanart)	
+	except: pass
+	
+	menu=re.compile('<ul class="menu(.+?)/ul>',re.DOTALL).findall(link)
+	for url in menu:
+		matchsections = re.compile('<a title="" href="(.+?)" ><span>(.+?)</span>').findall(url)
+		for url,name in matchsections:
+			url = aralab + url
+			url = re.sub(' ','%20',url)
+			addDir2(name,url,21,icon,fanart)
 
-		swfFile="http://www.sonara.net/mediaplayera/player.swf"
-		playingpath=streamer+" swfUrl="+swfFile+" playpath="+myvideo+ ' pageUrl='+url+" timeout=25"
-		listItem = xbmcgui.ListItem(path=str(playingpath))
-		xbmcplugin.setResolvedUrl(_thisPlugin, True, listItem)
-	except:
-		pass
-				
-    
+def TV1ARALAB_ITEMS(url):
+	link = open_url(url)
+	items = re.compile('<div class="video-box"(.+?)/div>',re.DOTALL).findall(link)
+	try:
+		for url in items:
+			movielink = re.compile('<a href="(.+?)">').findall(url)
+			for links in movielink:
+				matchimg = re.compile('src="(.+?)" alt="(.+?)" />').findall(url)
+				for img,name in matchimg:
+					links = aralab + links
+					if "series" in links:
+						addDir2(name,links,21,img,fanart)
+					else:
+						addDir2(name,links,22,img,fanart)
+	except:addDir2('Videos not Found...',links,1,icon,fanart)
+	try:
+		items = re.compile('<div class="pages"(.+?)/div>',re.DOTALL).findall(link)
+		for pages in items:
+			matchpages = re.compile('<a class="(.+?)" href="(.+?)" title="(.+?)"').findall(pages)
+			for check,url,page in matchpages:
+				if not "blue" in check:
+					if not aralab in url:
+						url = aralab + url
+						addDir2(page,url,21,icon,fanart)
+	except: pass
+def TV1ARALAB_PLAY(name,url,iconimage):
+	moviename = name
+	movieposter = iconimage
+	link = open_url(url)
+	items = re.compile('<iframe style="background(.+?)llowFullScreen></iframe>',re.DOTALL).findall(link)
+	try:
+		for url in items:
+			match = re.compile('src="([^"]+)').findall(url)
+			for movielink in match:
+				movielink = re.sub(' ','%20',movielink)
+				link = open_url(movielink)
+				matchfinal = re.compile('file: "(.+?)",').findall(link)
+				for url in matchfinal: 
+					if any(value in url for value in extensioncheck):
+						addLink("PLAY: " + moviename,url,100,movieposter,fanart)
+	except: addDir2('Videos not Found...',links,1,icon,fanart)
+
+def SEARCH_TV1ARALAB():
+	search_entered =''
+	keyboard = xbmc.Keyboard(search_entered, 'Search')
+	keyboard.doModal()
+	if keyboard.isConfirmed(): search_entered = keyboard.getText()
+	if len(search_entered)>1:
+		search = re.sub(' ','-',search_entered)
+		query = "/q/%s" %(search)
+		searchlink = aralab + query
+		TV1ARALAB_ITEMS(searchlink)
+		
+def PLAYMOVIE(name,url,iconimage):
+	movieimage = iconimage
+	# url = "http://flv2.alarab.com:8080/new/iphone/104983.mp4"
+	item = xbmcgui.ListItem(name, iconImage=movieimage, thumbnailImage=movieimage)
+	item.setArt({'icon': movieimage, 'thumb': movieimage, 'poster': movieimage, 'tvshow.poster': movieimage, 'season.poster': movieimage})
+	item.setInfo(type='Video', infoLabels={ "Title": name})
+	xbmc.Player().play(url, item)
+	
+def cleanHex(text):
+    def fixup(m):
+        text = m.group(0)
+        if text[:3] == "&#x": return unichr(int(text[3:-1], 16)).encode('utf-8')
+        else: return unichr(int(text[2:-1])).encode('utf-8')
+    return re.sub("(?i)&#\w+;", fixup, text.decode('ISO-8859-1').encode('utf-8'))
+
 def get_params():
         param=[]
         paramstring=sys.argv[2]
@@ -181,75 +124,239 @@ def get_params():
                         splitparams=pairsofparams[i].split('=')
                         if (len(splitparams))==2:
                                 param[splitparams[0]]=splitparams[1]
-                                
         return param
+			
+def SEARCH(url,name):
 
 
+	search_entered =''
+	keyboard = xbmc.Keyboard(search_entered, 'Search')
+	keyboard.doModal()
+	if keyboard.isConfirmed(): search_entered = keyboard.getText()
+	if len(search_entered)>1:
+		global global_search ; global_search = search_entered
+		global global_fetch ; global_fetch = []
+		threads_hosts = [threading.Thread(target=fetch_hosts, args=(host,)) for host in hosts]
+		for thread in threads_hosts:
+			thread.start()
+		for thread in threads_hosts:
+			thread.join()
 
 
+def PLAYURLRESOLVER(url,name,mode,iconimage):
 
-def addLink(name,url,mode,iconimage):
-    u=_pluginName+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)
-    ok=True
-    liz=xbmcgui.ListItem(name, iconImage="DefaultVideo.png", thumbnailImage=iconimage)
-    liz.setInfo( type="Video", infoLabels={ "Title": name } )
-    liz.setProperty("IsPlayable","true");
-    ok=xbmcplugin.addDirectoryItem(handle=_thisPlugin,url=u,listitem=liz,isFolder=False)
-    return ok
+			stream_url = urlresolver.HostedMediaFile(link).resolve()
+			liz=xbmcgui.ListItem(name, iconImage=fanart_image, thumbnailImage=iconimage); liz.setInfo( type="Video", infoLabels={ "Title": originalname } )
+			xbmc.Player ().play(stream_url,liz,False)
+
+
 	
-
-
-def addDir(name,url,mode,iconimage):
-        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)
+def addDir2(name,url,mode,iconimage,fanart,description=''):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)+"&description="+urllib.quote_plus(description)
         ok=True
         liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
-        liz.setInfo( type="Video", infoLabels={ "Title": name } )
+        liz.setInfo( type="Video", infoLabels={ "Title": name, 'plot': description } )
+        liz.setProperty('fanart_image', fanart)
         ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=True)
         return ok
+def addLink(name,url,mode,iconimage,description=''):
+        u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&description="+str(description)
+        ok=True
+        liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+        liz.setProperty('fanart_image', fanart)
+        ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=False)
+        return ok
+def addDir(name,url,mode,iconimage,itemcount,isFolder=False):
+        try:
+          if not 'COLOR' in name:
+            splitName=name.partition('(')
+            simplename=""
+            simpleyear=""
+            if len(splitName)>0:
+                simplename=splitName[0]
+                simpleyear=splitName[2].partition(')')
+            if len(simpleyear)>0:
+                simpleyear=simpleyear[0]
+            mg = metahandlers.MetaData()
+            meta = mg.get_meta('movie', name=simplename ,year=simpleyear)
+            u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)
+            ok=True
+            liz=xbmcgui.ListItem(name, iconImage=meta['cover_url'], thumbnailImage=meta['cover_url'])
+            liz.setInfo( type="Video", infoLabels= meta )
+            liz.setProperty("IsPlayable","true")
+            contextMenuItems = []
+            contextMenuItems.append(('Movie Information', 'XBMC.Action(Info)'))
+            liz.addContextMenuItems(contextMenuItems, replaceItems=False)
+            if not meta['backdrop_url'] == '': liz.setProperty('fanart_image', meta['backdrop_url'])
+            else: liz.setProperty('fanart_image', fanart)
+            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=isFolder,totalItems=itemcount)
+            return ok
+        except:
+            u=sys.argv[0]+"?url="+urllib.quote_plus(url)+"&mode="+str(mode)+"&name="+urllib.quote_plus(name)+"&iconimage="+urllib.quote_plus(iconimage)
+            ok=True
+            liz=xbmcgui.ListItem(name, iconImage="DefaultFolder.png", thumbnailImage=iconimage)
+            liz.setInfo( type="Video", infoLabels={ "Title": name } )
+            liz.setProperty('fanart_image', fanart)
+            liz.setProperty("IsPlayable","true")
+            ok=xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]),url=u,listitem=liz,isFolder=isFolder)
+            return ok
 
-              
-params=get_params()
-url=None
-name=None
-mode=None
+			
+####### SCRAPING TOOLS #####			
+def regex_get_all(text, start_with, end_with):
+    r = re.findall("(?i)(" + start_with + "[\S\s]+?" + end_with + ")", text)
+    return r				
+def regex_from_to(text, from_string, to_string, excluding=True):
+    if excluding:
+	   try: r = re.search("(?i)" + from_string + "([\S\s]+?)" + to_string, text).group(1)
+	   except: r = ''
+    else:
+       try: r = re.search("(?i)(" + from_string + "[\S\s]+?" + to_string + ")", text).group(1)
+       except: r = ''
+    return r        
+####### PARSEDOM THX TO TKNORRIS #####
 
+def _getDOMContent(html, name, match, ret):
+    end_str = "</%s" % (name)
+    start_str = '<%s' % (name)
 
-	
-try:
-        url=urllib.unquote_plus(params["url"])
-except:
-        pass
-try:
-        name=urllib.unquote_plus(params["name"])
-except:
-        pass
-try:
-        mode=int(params["mode"])
-except:
-        pass
+    start = html.find(match)
+    end = html.find(end_str, start)
+    pos = html.find(start_str, start + 1)
 
-print "Mode: "+str(mode)
-print "URL: "+str(url)
-print "Name: "+str(name)
+    while pos < end and pos != -1:  # Ignore too early </endstr> return
+        tend = html.find(end_str, end + len(end_str))
+        if tend != -1:
+            end = tend
+        pos = html.find(start_str, pos + 1)
 
-if mode==None or url==None or len(url)<1:
-        print ""
-        CATEGORIES()
-       
-elif mode==1:
-        print ""+url
-        listContent(url)
-	
-elif mode==2:
-        print ""+url
-        listEpos(url)
-elif mode==3:
-	print ""+url
-	getVideoFile(url)
-	
-elif mode==4:
-        print ""+url
-        listFilmContent(url)
+    if start == -1 and end == -1:
+        result = ''
+    elif start > -1 and end > -1:
+        result = html[start + len(match):end]
+    elif end > -1:
+        result = html[:end]
+    elif start > -1:
+        result = html[start + len(match):]
+    else:
+        result = ''
 
+    if ret:
+        endstr = html[end:html.find(">", html.find(end_str)) + 1]
+        result = match + result + endstr
 
+    return result
+
+def _getDOMAttributes(match, name, ret):
+    pattern = '''<%s[^>]* %s\s*=\s*(?:(['"])(.*?)\\1|([^'"].*?)(?:>|\s))''' % (name, ret)
+    results = re.findall(pattern, match, re.I | re.M | re.S)
+    return [result[1] if result[1] else result[2] for result in results]
+
+def _getDOMElements(item, name, attrs):
+    if not attrs:
+        pattern = '(<%s(?: [^>]*>|/?>))' % (name)
+        this_list = re.findall(pattern, item, re.M | re.S | re.I)
+    else:
+        last_list = None
+        for key in attrs:
+            pattern = '''(<%s [^>]*%s=['"]%s['"][^>]*>)''' % (name, key, attrs[key])
+            this_list = re.findall(pattern, item, re.M | re. S | re.I)
+            if not this_list and ' ' not in attrs[key]:
+                pattern = '''(<%s [^>]*%s=%s[^>]*>)''' % (name, key, attrs[key])
+                this_list = re.findall(pattern, item, re.M | re. S | re.I)
+    
+            if last_list is None:
+                last_list = this_list
+            else:
+                last_list = [item for item in this_list if item in last_list]
+        this_list = last_list
+    
+    return this_list
+
+def parse_dom(html, name='', attrs=None, ret=False):
+    if attrs is None: attrs = {}
+    if isinstance(html, str):
+        try:
+            html = [html.decode("utf-8")]  # Replace with chardet thingy
+        except:
+            print "none"
+            try:
+                html = [html.decode("utf-8", "replace")]
+            except:
+                
+                html = [html]
+    elif isinstance(html, unicode):
+        html = [html]
+    elif not isinstance(html, list):
+        
+        return ''
+
+    if not name.strip():
+        
+        return ''
+    
+    if not isinstance(attrs, dict):
+        
+        return ''
+
+    ret_lst = []
+    for item in html:
+        for match in re.findall('(<[^>]*\n[^>]*>)', item):
+            item = item.replace(match, match.replace('\n', ' ').replace('\r', ' '))
+
+        lst = _getDOMElements(item, name, attrs)
+
+        if isinstance(ret, str):
+            lst2 = []
+            for match in lst:
+                lst2 += _getDOMAttributes(match, name, ret)
+            lst = lst2
+        else:
+            lst2 = []
+            for match in lst:
+                temp = _getDOMContent(item, name, match, ret).strip()
+                item = item[item.find(temp, item.find(match)):]
+                lst2.append(temp)
+            lst = lst2
+        ret_lst += lst
+
+    # log_utils.log("Done: " + repr(ret_lst), xbmc.LOGDEBUG)
+    return ret_lst
+
+##### OPEN URL ######	
+def open_url(url):
+        # url=url.replace(' ','%20')
+        req = urllib2.Request(url)
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3')
+        response = urllib2.urlopen(req)
+        link=response.read()
+        response.close()
+        return link
+def setView(content, viewType):
+    if content:
+        xbmcplugin.setContent(int(sys.argv[1]), content)
+    if selfAddon.getSetting('auto-view')=='true':
+        xbmc.executebuiltin("Container.SetViewMode(%s)" % selfAddon.getSetting(viewType) )
+		
+params=get_params(); url=None; name=None; mode=None; site=None; iconimage=None
+try: site=urllib.unquote_plus(params["site"])
+except: pass
+try: url=urllib.unquote_plus(params["url"])
+except: pass
+try: name=urllib.unquote_plus(params["name"])
+except: pass
+try: mode=int(params["mode"])
+except: pass
+try: iconimage=urllib.unquote_plus(params["iconimage"])
+except: pass
+print "Site: "+str(site); print "Mode: "+str(mode); print "URL: "+str(url); print "Name: "+str(name)
+print params
+
+if mode==None or url==None or len(url)<1: CATEGORIES()
+elif mode==2: TV1ARALAB(url)
+elif mode==21: TV1ARALAB_ITEMS(url)
+elif mode==22: TV1ARALAB_PLAY(name,url,iconimage)
+elif mode==23: SEARCH_TV1ARALAB()
+elif mode==100: PLAYMOVIE(name,url,iconimage)
 xbmcplugin.endOfDirectory(int(sys.argv[1]))
+
