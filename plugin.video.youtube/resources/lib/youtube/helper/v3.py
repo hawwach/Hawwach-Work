@@ -5,6 +5,7 @@ from resources.lib import kodion
 from resources.lib.kodion import items
 from . import utils
 
+
 def _process_list_response(provider, context, json_data):
     video_id_dict = {}
     channel_id_dict = {}
@@ -57,6 +58,7 @@ def _process_list_response(provider, context, json_data):
             guide_id = yt_item['id']
             snippet = yt_item['snippet']
             title = snippet['title']
+
             guide_item = items.DirectoryItem(title,
                                              context.create_uri(['special', 'browse_channels'], {'guide_id': guide_id}))
             guide_item.set_fanart(provider.get_fanart(context))
@@ -102,30 +104,6 @@ def _process_list_response(provider, context, json_data):
 
             # store the id of the playlistItem - for deleting this item we need this item
             playlist_item_id_dict[video_id] = yt_item['id']
-
-            title = snippet['title']
-            image = snippet.get('thumbnails', {}).get('medium', {}).get('url', '')
-            video_item = items.VideoItem(title,
-                                         context.create_uri(['play'], {'video_id': video_id}),
-                                         image=image)
-            video_item.set_fanart(provider.get_fanart(context))
-            #Get Track-ID from Playlist
-            video_item.set_track_number(snippet['position'] + 1)
-            result.append(video_item)
-            video_id_dict[video_id] = video_item
-            pass
-        elif yt_kind == 'youtube#activity':
-            snippet = yt_item['snippet']
-            details = yt_item['contentDetails']
-            actType = snippet['type']
-
-            # recommendations
-            if actType == 'recommendation':
-                video_id = details['recommendation']['resourceId']['videoId']
-            elif actType == 'upload':
-                video_id = details['upload']['videoId']
-            else:
-                continue
 
             title = snippet['title']
             image = snippet.get('thumbnails', {}).get('medium', {}).get('url', '')
@@ -209,7 +187,7 @@ def response_to_items(provider, context, json_data, sort=None, reverse_sort=Fals
     if kind == u'youtube#searchListResponse' or kind == u'youtube#playlistItemListResponse' or \
                     kind == u'youtube#playlistListResponse' or kind == u'youtube#subscriptionListResponse' or \
                     kind == u'youtube#guideCategoryListResponse' or kind == u'youtube#channelListResponse' or \
-                    kind == u'youtube#videoListResponse' or kind == u'youtube#activityListResponse':
+                    kind == u'youtube#videoListResponse':
         result.extend(_process_list_response(provider, context, json_data))
         pass
     else:
@@ -256,13 +234,9 @@ def response_to_items(provider, context, json_data, sort=None, reverse_sort=Fals
 def handle_error(provider, context, json_data):
     if json_data and 'error' in json_data:
         message = json_data['error'].get('message', '')
-        reason = json_data['error']['errors'][0].get('reason', '')
-        title = '%s: %s' % (context.get_name(), reason)
-        message_timeout = 5000
-        if reason == 'quotaExceeded' or reason == 'dailyLimitExceeded':
-            message_timeout = 7000
-        context.get_ui().show_notification(message, title, time_milliseconds=message_timeout)
-        context.log_error('Error reason: |%s| with message: |%s|' % (reason, message))
+        if message:
+            context.get_ui().show_notification(message)
+            pass
         return False
 
     return True

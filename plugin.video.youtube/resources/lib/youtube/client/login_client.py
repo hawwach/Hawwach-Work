@@ -2,31 +2,72 @@ __author__ = 'bromix'
 
 import time
 import urlparse
+
 from resources.lib.kodion import simple_requests as requests
 from resources.lib.youtube.youtube_exceptions import LoginException
-from __config__ import api, youtube_tv, keys_changed
 
 
 class LoginClient(object):
-    api_keys_changed = keys_changed
-
     CONFIGS = {
         'youtube-tv': {
-            'system': 'YouTube TV',
-            'key': youtube_tv['key'],
-            'id': youtube_tv['id'],
-            'secret': youtube_tv['secret']
-        },
-        'main': {
             'system': 'All',
-            'key': api['key'],
-            'id': api['id'],
-            'secret': api['secret']
+            'key': 'AIzaSyAd-YEOqZz9nXVzGtn3KWzYLbLaajhqIDA',
+            'id': '861556708454-d6dlm3lh05idd8npek18k6be8ba3oc68.apps.googleusercontent.com',
+            'secret': 'SboVhoG9s0rNafixCSGGKXAT'
+        },
+        # API KEY for search and channel infos. These should work most of the time without login to safe some quota
+        'youtube-for-kodi-quota': {
+            'token-allowed': False,
+            'system': 'All',
+            'key': 'AIzaSyA7v1QOHz8Q4my5J8uGSpr0zRrntRjnMmk',
+            'id': '597640352045-7um2gr1v5rgobm5bf07ebesm3er48286.apps.googleusercontent.com',
+            'secret': 'VmyQ12KkJ_N3yegu4Y-VGCXd'
+        },
+        'youtube-for-kodi-fallback': {
+            'token-allowed': False,
+            'system': 'Fallback!',
+            'key': 'AIzaSyBEvxICg_E5g8mfndYjWHH4WEDF2fN_zXM',
+            'id': '705000440035-f7v8mhn75udt6l20r75ko7f15c39ns1c.apps.googleusercontent.com',
+            'secret': 'XeLKD8o_mdzEBDy9Nw5KMKbr'
+        },
+        'youtube-for-kodi-12': {
+            'system': 'Frodo',
+            'key': 'AIzaSyB6-pMlWO_XmgdM15VKGeLH4QsipdToBas',
+            'id': '131835494776-s0ef9jorci9vl0kaa5sqslupqvlku6ej.apps.googleusercontent.com',
+            'secret': 'Fz9nnfVGoH6jiLc0iefvzZYM'
+        },
+        'youtube-for-kodi-13': {
+            'system': 'Gotham',
+            'key': 'AIzaSyB6-pMlWO_XmgdM15VKGeLH4QsipdToBas',
+            'id': '131835494776-s0ef9jorci9vl0kaa5sqslupqvlku6ej.apps.googleusercontent.com',
+            'secret': 'Fz9nnfVGoH6jiLc0iefvzZYM'
+        },
+        'youtube-for-kodi-14': {
+            'system': 'Helix',
+            'key': 'AIzaSyDOnCJxyoHEngdc_RZYkF_exmxP8kacRy0',
+            'id': '300079739215-rinmhjr9dqe0l03jggest5p0dcsdfisu.apps.googleusercontent.com',
+            'secret': 'hrLp2EtvI4InB7auFreSYjHT'
+        },
+        'youtube-for-kodi-15': {
+            'system': 'Isengard',
+            'key': 'AIzaSyDOnCJxyoHEngdc_RZYkF_exmxP8kacRy0',
+            'id': '300079739215-rinmhjr9dqe0l03jggest5p0dcsdfisu.apps.googleusercontent.com',
+            'secret': 'hrLp2EtvI4InB7auFreSYjHT'
+        },
+        'youtube-for-kodi-16': {
+            'system': 'Jarvis',
+            'key': 'AIzaSyBbgC4PZ2_hUdqqX7MIgdg2fK1nohv1jrw',
+            'id': '17932591024-8jruv1v7s78gipo7s17c91bnk26rqgpf.apps.googleusercontent.com',
+            'secret': 'bK9T234WWhqzYdcQLif1L35K'
         }
     }
 
-    def __init__(self, config=None, language='en-US', region='', access_token='', access_token_tv=''):
-        self._config = self.CONFIGS['main'] if config is None else config
+    def __init__(self, config={}, language='en-US', access_token='', access_token_tv=''):
+        if not config:
+            config = self.CONFIGS['youtube-for-kodi-fallback']
+            pass
+
+        self._config = config
         self._config_tv = self.CONFIGS['youtube-tv']
 
         # the default language is always en_US (like YouTube on the WEB)
@@ -35,9 +76,13 @@ class LoginClient(object):
             pass
 
         language = language.replace('-', '_')
+        language_components = language.split('_')
+        if len(language_components) != 2:
+            language = 'en_US'
+            pass
 
         self._language = language
-        self._region = region
+        self._country = language.split('_')[1]
         self._access_token = access_token
         self._access_token_tv = access_token_tv
         self._log_error_callback = None
@@ -214,8 +259,8 @@ class LoginClient(object):
                    'Connection': 'Keep-Alive',
                    'Accept-Encoding': 'gzip'}
 
-        post_data = {'device_country': self._region.lower(),
-                     'operatorCountry': self._region.lower(),
+        post_data = {'device_country': self._country.lower(),
+                     'operatorCountry': self._country.lower(),
                      'lang': self._language.replace('-', '_'),
                      'sdk_version': '19',
                      # 'google_play_services_version': '6188034',

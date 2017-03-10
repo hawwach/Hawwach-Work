@@ -86,10 +86,6 @@ def _process_list_value(info_labels, name, param):
     pass
 
 
-def _process_mediatype(info_labels, name, param):
-    info_labels[name] = param
-
-
 def create_from_item(context, base_item):
     info_labels = {}
 
@@ -119,9 +115,6 @@ def create_from_item(context, base_item):
 
     # Video
     if isinstance(base_item, VideoItem):
-        # mediatype
-        _process_mediatype(info_labels, 'mediatype', base_item.get_mediatype())
-
         # play count
         _process_int_value(info_labels, 'playcount', base_item.get_play_count())
 
