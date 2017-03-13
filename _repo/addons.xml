@@ -22,10 +22,14 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.Arabic-VOD" name="Arabic-VOD" version="3.0.4" provider-name="Husham">
+<addon id="plugin.video.Arabic-VOD" name="Arabic-VOD" version="3.0.5" provider-name="Husham">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0"/>
-		<import addon="script.module.urlresolver"  version="2.10.10"/>
+		<import addon="script.module.urlresolver" />
+		<import addon="script.module.requests" />
+		<import addon="script.module.beautifulsoup" />
+
+
 	</requires>
 	<extension point="xbmc.python.pluginsource" library="default.py">
 		<provides>video</provides>

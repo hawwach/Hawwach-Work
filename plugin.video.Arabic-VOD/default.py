@@ -9,7 +9,7 @@ aralab = "http://tv1.alarab.com"
 extensioncheck = ['.avi','.mp4','.mpg','.mpeg','.mov','.mkv','.xvid','.divx','.flv']
 dialog = xbmcgui.Dialog()
 def CATEGORIES():
-	addDir2('ARALAB',aralab,2,icon,fanart)
+	addDir2('Arabic Vod',aralab,2,icon,fanart)
 def TV1ARALAB(url):
 	addDir2('SEARCH','url',23,icon,fanart)
 	link = open_url(url)
