@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addons>
+<addon id="plugin.Livetv.tn"
+       name="Livetv.tn"
+       version="1.0"
+       provider-name="LiveTv">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.beautifulsoup" version="3.2.1"/>
+    <import addon="script.module.simple.downloader" version="0.9.4"/>
+    <import addon="script.module.simplejson" />
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Livetv.tn</summary>
+    <description>
+     official livetv.tn xbmc plugin
+    </description>
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.Arabic-VOD" name="Arabic-VOD" version="3.0.4" provider-name="Husham">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="script.module.urlresolver"  version="2.10.10"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+			<summary lang="en"></summary>
+			<description lang="en">Watch from a huge selection of Arabic Movies Tv Shows and Collections...</description>
+			<disclaimer lang="en">The author does not host or distribute any of the content displayed by this add-on</disclaimer>
+
+			<platform>all</platform>
+	</extension>
+</addon>
+
+<addon
+  id="plugin.video.bokra"
+  version="5.0.0"
+  name="BOKRA"
+  provider-name="Bisha">
+  <requires>
+    <import addon="xbmc.python"
+            version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+             library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Bokra vod Arabic plugin</summary>
+    <description>Bokra Arabic plugin. Arabic series and films VOD</description>
+
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon
+  id="plugin.video.sonara"
+  version="2.0.0"
+  name="Sonara"
+  provider-name="Bisha">
+  <requires>
+    <import addon="xbmc.python"
+            version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource"
+             library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Sonara vod Arabic plugin</summary>
+    <description>Sonara Arabic plugin. This plugin is completely FREE</description>
+
+    <platform>all</platform>
+  </extension>
+</addon>
+
+<addon id="plugin.video.youtube" name="YouTube" version="5.3.11" provider-name="hawwach">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+        <summary lang="en">Plugin for YouTube</summary>
+        <description lang="en">YouTube is a one of the biggest video-sharing websites of the world.</description>
+		<summary lang="de">Plugin für YouTube</summary>
+        <description lang="de">YouTube ist ein eines der größten Video-Sharing-Websites der Welt.</description>
+        <summary lang="pl">Wtyczka YouTube</summary>
+        <description lang="pl">YouTube jest jednym z największych na świecie serwisów udostępniania wideo.</description>
+		<summary lang="hu">Kiegészítő  a YouTube-hoz</summary>
+        <description lang="hu">A YouTube a világ egyik legnagyobb videómegosztó weboldala.</description>
+        <summary lang="es">Plugin para YouTube</summary>
+        <description lang="es">YouTube es un uno de los mayores sitios web de intercambio de vídeos del mundo.</description>
+        <summary lang="ru">Видеодополнение YouTube</summary>
+        <description lang="ru">Данное дополнение позволяет находить и смотреть видео на всеми любимом сайте.</description>
+        <summary lang="fr">Plugin pour YouTube</summary>
+        <description lang="fr">YouTube est l'un des plus grands sites de partage vidéos du monde.</description>
+        <summary lang="zh">YouTube附加元件</summary>
+        <description lang="zh">「Youtube」是全世界最大的影片分享網站</description>
+        <summary lang="bg">Добавка за YouTube</summary>
+        <description lang="bg">YouTube е един от най-големите уеб сайтове за споделяне на видео в целия свят.</description>
+		<disclaimer lang="en"></disclaimer>
+		<language></language>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+		<forum>http://forum.kodi.tv/showthread.php?tid=200735</forum>
+		<website>http://www.youtube.com</website>
+		<email>mh_hawwach@hotmail.com</email>
+		<source>https://github.com/bromix/plugin.video.youtube</source>
+	</extension>
+</addon>
+
+    <addon id="repository.hawwach" name="hawwach" version="0.1.1" provider-name="hawwach">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="hawwach">
+            <info compressed="false">http://raw.github.com/hawwach/Hawwach-Work/master/_repo/addons.xml</info>
+            <checksum>http://raw.github.com/hawwach/Hawwach-Work/master/_repo/addons.xml.md5</checksum>
+            <datadir zip="true">http://raw.github.com/hawwach/Hawwach-Work/master/_repo/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>MY ADDONS</summary>
+            <description>MY ADDONS</description>
+            <platform>all</platform>
+    </extension>
+</addon>
+
+<addon id="script.module.requests"
+       name="requests"
+       version="2.7.0"
+       provider-name="kennethreitz, beenje">
+  <requires>
+    <import addon="xbmc.python" version="2.14.0"/>
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary>Python HTTP for Humans</summary>
+    <description>Packed for KODI from https://github.com/kennethreitz/requests</description>
+    <platform>all</platform>
+    <language></language>
+    <license>Apache2</license>
+    <forum></forum>
+    <website>http://python-requests.org</website>
+    <source>https://github.com/beenje/script.module.requests</source>
+    <email>beenje AT gmail.com</email>
+  </extension>
+</addon>
+</addons>
